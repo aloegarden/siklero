@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:siklero/home_screen.dart';
 import 'package:siklero/login_screen.dart';
 
 class ReminderScreen extends StatelessWidget {
@@ -12,7 +13,7 @@ class ReminderScreen extends StatelessWidget {
         behavior: HitTestBehavior.opaque,
         onTap: () {
           Navigator.of(context).push(
-            MaterialPageRoute(builder:(context) => const LoginScreen(),)
+            MaterialPageRoute(builder:(context) => const HomeScreen(),)
           );
         },
         child: Stack(

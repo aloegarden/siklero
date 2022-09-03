@@ -1,4 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:siklero/editprofile_screen.dart';
+import 'package:siklero/main.dart';
+import 'package:siklero/reminder_screen.dart';
+import 'package:siklero/signup_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -8,8 +13,17 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController usernameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
           FocusScopeNode currentFocus = FocusScope.of(context);
           if (!currentFocus.hasPrimaryFocus) {
           currentFocus.unfocus();
-        }
+          }
         },
         child: CustomScrollView(
           slivers: [
@@ -54,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 30),
                             child: _buildTextField(
-                              'Username', 6, usernameController, false
+                              'Email', 6, emailController, false
                             )
                           ),
                           const SizedBox(height: 20,),
@@ -69,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             width: double.infinity,
                             height: 50,
                             padding: const EdgeInsets.symmetric(horizontal: 30),
-                            child: _buildElevatedButton(),
+                            child: _buildLoginButton(emailController, passwordController, context)
                           ),
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -80,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   'No account yet?',
                                   style: TextStyle(fontFamily: 'OpenSans', fontSize: 24, color: Color(0xffe45f1e)),
                                 ),
-                                _buildTextButton()
+                                _buildTextButton(context)
                               ],
                             ),
                           )
@@ -98,9 +112,12 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-Widget _buildTextButton(){
+Widget _buildTextButton(BuildContext context){
   return TextButton(
-    onPressed:() => print('tapped signup'), 
+    onPressed:() => Navigator.push(
+      context,
+      MaterialPageRoute(builder:(context) => EditProfileScreen(),)
+    ),
     child: const Text(
       'Sign Up',
       style: TextStyle(fontFamily: 'OpenSans', fontSize: 24, color: Color(0xff581d00)),
@@ -108,9 +125,37 @@ Widget _buildTextButton(){
   );
 }
 
-Widget _buildElevatedButton(){
+Widget _buildLoginButton(TextEditingController emailController, TextEditingController passwordController, BuildContext context){
+
+  Future signIn() async {
+
+    showDialog(
+      context: context, 
+      barrierDismissible: false,
+      builder:(context) => Center(child: CircularProgressIndicator(),),
+    );
+
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text.trim(), 
+        password: passwordController.text.trim(),
+      );
+
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder:(context) => ReminderScreen(),
+        ), 
+        (route) => false
+      );
+    } on FirebaseAuthException catch (e) {
+      print(e);
+    }
+    
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
+  }
+
   return ElevatedButton(
-    onPressed:() => print('tapped login'), 
+    onPressed: signIn, 
     style: ElevatedButton.styleFrom(
       shape: StadiumBorder(),
       foregroundColor: Colors.white,

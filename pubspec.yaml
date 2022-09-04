@@ -16,6 +16,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   cloud_firestore: ^3.4.6
   firebase_auth: ^3.7.0
+  google_maps_flutter: ^2.2.0
+  sliding_up_panel: ^2.0.0+1
+  connectivity_plus: ^2.3.6+1
+  internet_connection_checker: ^0.0.1+4
+  email_validator: ^2.1.17
+  intl: ^0.17.0
 
 flutter_native_splash:
   color: "#ed8f5b"

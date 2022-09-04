@@ -1,45 +1,42 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:siklero/editprofile_screen.dart';
+import 'package:siklero/main.dart';
+import 'package:siklero/reminder_screen.dart';
+import 'package:siklero/signup_screen.dart';
+import 'package:siklero/utils.dart';
 
-class SignupScreen extends StatefulWidget {
-  const SignupScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
   @override
-  State<SignupScreen> createState() => _SignupScreenState();
+  State<SignUpScreen> createState() => _SignUpScreenState();
 }
 
-class _SignupScreenState extends State<SignupScreen> {
+class _SignUpScreenState extends State<SignUpScreen> {
+  final formKey = GlobalKey<FormState>();
   TextEditingController usernameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
   TextEditingController fnameController = TextEditingController();
   TextEditingController lnameController = TextEditingController();
   TextEditingController contactController = TextEditingController();
   TextEditingController addressController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
 
     super.dispose();
   }
-
-  String _selectedDate = 'Tap to select date';
-
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      extendBodyBehindAppBar: true,
       backgroundColor: const Color(0xffed8f5b),
-      appBar: AppBar(
-        backgroundColor: const Color(0xffed8f5b),
-        title: Text('Sign Up', style: TextStyle(fontFamily: 'OpenSans', fontSize: 24),),
-        centerTitle: true,
-        elevation: 0,
-        
-      ),
       body: GestureDetector(
         onTap: () {
           FocusScopeNode currentFocus = FocusScope.of(context);
@@ -53,157 +50,163 @@ class _SignupScreenState extends State<SignupScreen> {
               hasScrollBody: false,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  SizedBox(height: 100,),
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+                    child: Image(
+                      image: AssetImage('asset/img/siklero-logo.png'),
+                    ),
+                  ),
                   Expanded(
                     child: Container(
                       decoration: const BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(60), topRight: Radius.circular(60))
+                        borderRadius: BorderRadius.only(topLeft: Radius.circular(60), topRight: Radius.circular(60)),
                       ),
-                      child: Column(
-                        children: <Widget>[
-                          const SizedBox(height: 25,),
-                          Container(
-                            width: 120,
-                            height: 115,
-                            alignment: Alignment.center,
-                            child: const Image(
-                              image: AssetImage('asset/img/user-icon.png'),
+                      child: Form(
+                        key: formKey,
+                        child: Column(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(30),
+                              alignment: Alignment.topLeft,
+                              child: const Text(
+                                'Sign Up',
+                                style: TextStyle(fontFamily: 'OpenSans', fontSize: 48, fontWeight: FontWeight.w700, color: Color(0xff581d00)),
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 20,),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
-                            child: _buildTextField('First Name:', 6, fnameController, false),
-                          ),
-                          const SizedBox(height: 20,),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
-                            child: _buildTextField('Last Name:', 6, lnameController, false),
-                          ),
-                          const SizedBox(height: 20,),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
-                            child: Column(
-                              children: [
-                                Container(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    'Birthday:',
-                                    style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w400, color: Color(0xffe45f1e)),
-                                    )
-                                  ),
-                                InkWell(
-                                  onTap: () {
-                                    print('inkwelltapped');
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: Colors.grey
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 30),
+                              child: Column(
+                                children: <Widget>[
+                                    Container(
+                                      alignment: Alignment.topLeft,
+                                      child: const Text(
+                                        'Email',
+                                        style: TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w400, color: Color(0xffe45f1e)),
                                       ),
-                                      borderRadius: BorderRadius.circular(4)
                                     ),
-                                    width: double.infinity,
-                                    height: 50,
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        SizedBox(width: 5,),
-                                        Text(
-                                          _selectedDate,
-                                          style: TextStyle(
-                                            fontFamily: 'OpenSans',
-                                            fontSize: 24
-                                          ),
-                                        ),
-                                        Spacer(),
-                                        Icon(
-                                          Icons.calendar_month,
-                                          color: Colors.orange[700],
-                                        ),
-                                        SizedBox(width: 5,)
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            )
-                          ),
-                          const SizedBox(height: 20,),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
-                            child: _buildTextField('Contact #:', 6, contactController, false),
-                          ),
-                          const SizedBox(height: 20,),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
-                            child: _buildTextField('Address:', 6, addressController, false),
-                          ),
-                          const SizedBox(height: 20,),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
-                            child: _buildTextField('Email:', 6, emailController, false),
-                          ),
-                          const SizedBox(height: 20,),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
-                            child: _buildTextField('Username:', 6, usernameController, false),
-                          ),
-                          const SizedBox(height: 20,),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
-                            child: _buildTextField('Password:', 2, passwordController, true),
-                          ),
-                          const SizedBox(height: 20,),
-                          Container(
-                            width: double.infinity,
-                            height: 50,
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
-                            child: _buildSignupButton(emailController, passwordController, context)
-                          ),                         
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 30),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                const Text(
-                                  'Already have an account?',
-                                  style: TextStyle(fontFamily: 'OpenSans', fontSize: 16, color: Color(0xffe45f1e)),
-                                ),
-                                _buildTextButton(context),
-                              ],
+                                    TextFormField(
+                                      controller: emailController,
+                                      textInputAction: TextInputAction.next,
+                                      decoration: const InputDecoration(
+                                        contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                                        border: OutlineInputBorder(),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(color: Color(0xffe45f1e))
+                                        )
+                                      ),
+                                      style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24),
+                                      validator: (email) =>
+                                          email != null && !EmailValidator.validate(email)
+                                            ? 'Enter a valid email'
+                                            : null,
+                                    ),   
+                                ],
+                              ),
                             ),
-                          ),
-                          SizedBox(height: 10,)
-                        ],
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 30),
+                              child: Column(
+                                children: <Widget>[
+                                    Container(
+                                      alignment: Alignment.topLeft,
+                                      child: const Text(
+                                        'Password',
+                                        style: TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w400, color: Color(0xffe45f1e)),
+                                      ),
+                                    ),
+                                    TextFormField(
+                                      controller: passwordController,
+                                      obscureText: true,
+                                      textInputAction: TextInputAction.done,
+                                      decoration: const InputDecoration(
+                                        contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                                        border: OutlineInputBorder(),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(color: Color(0xffe45f1e))
+                                        )
+                                      ),
+                                      style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24),
+                                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                                        validator: (value) => value != null && value.length < 6
+                                          ? 'Enter min. 6 character'
+                                          : null
+                                    ),   
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 50,),
+                            Container(
+                              width: double.infinity,
+                              height: 50,
+                              padding: const EdgeInsets.symmetric(horizontal: 30),
+                              child: _buildSignUpButton(emailController, passwordController, context, formKey)
+                            ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 30),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  const Text(
+                                    'Already have an account?',
+                                    style: TextStyle(fontFamily: 'OpenSans', fontSize: 17, color: Color(0xffe45f1e)),
+                                  ),
+                                  _buildTextButton(context)
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
             )
           ],
         ),
-      ),
+      )
     );
+  }
+
+  Future signUp() async {
+    showDialog(
+      context: context, 
+      barrierDismissible: false,
+      builder:(context) => Center(child: CircularProgressIndicator(),),
+    );
+
+    try{
+      final newUser = 
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text.trim(), 
+        password: passwordController.text.trim()
+      );
+
+      print(newUser.user?.uid);
+
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder:(context) => ReminderScreen(),
+        ), 
+        (route) => false
+      );
+    } on FirebaseAuthException catch (e){
+      print(e);
+
+      final snackBar = SnackBar(
+        content: Text(e.toString(), style: TextStyle(color: Colors.white),),
+        backgroundColor: Colors.red,
+      );
+    }
+
+    Navigator.pop(context);
+
   }
 }
 
-Widget _buildTextButton(BuildContext context){
-  return TextButton(
-    onPressed:() {
-      Navigator.pop(context);
-    },
-    child: const Text(
-      'Sign In',
-      style: TextStyle(fontFamily: 'OpenSans', fontSize: 16, color: Color(0xff581d00)),
-    )
-  );
-}
-
-Widget _buildTextField(String title, int action, TextEditingController controller, bool hideText){
+Widget _buildTextField(String title, int action, TextEditingController controller){
   return Column(
     children: <Widget>[
         Container(
@@ -213,9 +216,8 @@ Widget _buildTextField(String title, int action, TextEditingController controlle
             style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w400, color: Color(0xffe45f1e)),
           ),
         ),
-        TextField(
+        TextFormField(
           controller: controller,
-          obscureText: hideText,
           textInputAction: TextInputAction.values.elementAt(action),
           decoration: const InputDecoration(
             contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -230,21 +232,51 @@ Widget _buildTextField(String title, int action, TextEditingController controlle
   );
 }
 
-Widget _buildSignupButton(TextEditingController emailController, TextEditingController passwordController, BuildContext context){
+Widget _buildTextButton(BuildContext context) {
+  return TextButton(
+    onPressed:() => Navigator.pop(context),
+    child: const Text(
+      'Sign In',
+      style: TextStyle(fontFamily: 'OpenSans', fontSize: 17, color: Color(0xff581d00)),
+    )
+  );
+}
 
-  Future signIn() async {
+Widget _buildSignUpButton(TextEditingController emailController, TextEditingController passwordController, BuildContext context, GlobalKey<FormState> formkey){
+
+  Future signUp() async {
+    final isValid = formkey.currentState!.validate();
+    if (!isValid) return;
+    showDialog(
+      context: context, 
+      barrierDismissible: false,
+      builder:(context) => Center(child: CircularProgressIndicator(),),
+    );
+
+    Navigator.pop(context);
+
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text.trim(), 
         password: passwordController.text.trim(),
       );
+
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder:(context) => ReminderScreen(),
+        ), 
+        (route) => false
+      );
     } on FirebaseAuthException catch (e) {
       print(e);
+      Utils.showSnackBar(e.message);
     }
+    
+    // navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 
   return ElevatedButton(
-    onPressed: signIn, 
+    onPressed: signUp, 
     style: ElevatedButton.styleFrom(
       shape: StadiumBorder(),
       foregroundColor: Colors.white,

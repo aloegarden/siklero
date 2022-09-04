@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -89,14 +90,30 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                               children: [
                                 Container(
                                   alignment: Alignment.topLeft,
-                                  child: Text(
+                                  child: const Text(
                                     'Birthday:',
-                                    style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w400, color: Color(0xffe45f1e)),
+                                    style: TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w400, color: Color(0xffe45f1e)),
                                     )
                                   ),
                                 InkWell(
-                                  onTap: () {
+                                  onTap: () async {
                                     print('inkwelltapped');
+                                    DateTime? newDate = await showDatePicker(
+                                      context: context, 
+                                      initialDate: DateTime.now(), 
+                                      firstDate: DateTime(1900), 
+                                      lastDate: DateTime.now()
+                                    );
+
+                                    if(newDate == null) return;
+
+                                    final DateFormat dateformat = DateFormat('yyyy/MM/dd');
+                                    final String formattedDate = dateformat.format(newDate);
+
+                                    setState(() {
+
+                                      _selectedDate = formattedDate;
+                                    });
                                   },
                                   child: Container(
                                     decoration: BoxDecoration(

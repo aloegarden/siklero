@@ -22,6 +22,8 @@ dependencies:
   internet_connection_checker: ^0.0.1+4
   email_validator: ^2.1.17
   intl: ^0.17.0
+  geocoding: ^2.0.5
+  geolocator: ^9.0.2
 
 flutter_native_splash:
   color: "#ed8f5b"

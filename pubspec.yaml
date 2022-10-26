@@ -1,0 +1,49 @@
+name: siklero
+description: A new Flutter project.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.0 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_native_splash: ^2.2.8
+  cupertino_icons: ^1.0.2
+  cloud_firestore: ^3.4.6
+  firebase_auth: ^3.7.0
+  google_maps_flutter: ^2.2.0
+  sliding_up_panel: ^2.0.0+1
+  connectivity_plus: ^2.3.6+1
+  internet_connection_checker: ^0.0.1+4
+  email_validator: ^2.1.17
+  intl: ^0.17.0
+
+flutter_native_splash:
+  color: "#ed8f5b"
+  image: asset/img/siklero-logo.png
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - asset/img/
+
+  fonts:
+    - family: OpenSans
+      fonts:
+        - asset: asset/font/OpenSans-Regular.ttf
+          weight: 400
+        - asset: asset\font\OpenSans-Bold.ttf
+          weight: 700

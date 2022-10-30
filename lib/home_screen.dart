@@ -56,22 +56,27 @@ class _HomeScreenState extends State<HomeScreen> {
                             padding: const EdgeInsets.only(top: 20),
                             decoration: const BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.only(topLeft: Radius.circular(60), topRight: Radius.circular(60)),
+                              borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
                             ),
-                            child: GridView.count(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 4,
-                              mainAxisSpacing: 8,
-
-                              children: List.generate(homeitems.length, (index) {
-
-                                return Center(
-                                  child: HomeCard(homeitems: homeitems[index]),
-                                );
-                              })
+                            child: Padding(
+                              padding: const EdgeInsets.all(12.0),
+                              child: SizedBox(
+                                height: 100,
+                                child: GridView.count(
+                                  crossAxisCount: 2,
+                                  crossAxisSpacing: 4,
+                                  mainAxisSpacing: 12,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                                    
+                                  children: List.generate(homeitems.length, (index) {
+                                    return Center(
+                                      child: HomeCard(homeitems: homeitems[index]),);
+                                  })
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                        )
                       ],
                     ),
                   )
@@ -368,24 +373,32 @@ class LogoutButton extends StatelessWidget {
 }
 
 class HomeCard extends StatelessWidget {
-  const HomeCard({super.key, required Home homeitems});
+  const HomeCard({super.key, required this.homeitems});
+
+  final Home homeitems;
   
 
   @override
   Widget build(BuildContext context) {
     Color primaryColor = Color(0xffE45F1E);
-    final TextStyle textStyle = const TextStyle(
+    const TextStyle textStyle = TextStyle(
       fontFamily: 'OpenSans',
       fontWeight: FontWeight.w700,
-      fontSize: 12
+      fontSize: 50,
+      color: Colors.white
     );
 
     return Card(
       color: primaryColor,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       child: Center(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            //Expanded(child: homeitems)
+            Container(child: homeitems.icon),
+            const SizedBox(height: 20,),
+            Text(homeitems.text, overflow: TextOverflow.fade, style: textStyle, textAlign: TextAlign.center,)
           ],
         ),
       ),

@@ -41,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
               body: CustomScrollView(
                 slivers: [
                   SliverFillRemaining(
-                    hasScrollBody: false,
+                    hasScrollBody: true,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -61,12 +61,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Padding(
                               padding: const EdgeInsets.all(12.0),
                               child: SizedBox(
-                                height: 100,
+                                height: 10000,
                                 child: GridView.count(
                                   crossAxisCount: 2,
-                                  crossAxisSpacing: 4,
+                                  crossAxisSpacing: 12,
                                   mainAxisSpacing: 12,
-                                  physics: const NeverScrollableScrollPhysics(),
+                                  physics: const ScrollPhysics(),
                                                     
                                   children: List.generate(homeitems.length, (index) {
                                     return Center(
@@ -384,22 +384,25 @@ class HomeCard extends StatelessWidget {
     const TextStyle textStyle = TextStyle(
       fontFamily: 'OpenSans',
       fontWeight: FontWeight.w700,
-      fontSize: 50,
+      fontSize: 20,
       color: Colors.white
     );
 
     return Card(
       color: primaryColor,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
       child: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(child: homeitems.icon),
-            const SizedBox(height: 20,),
-            Text(homeitems.text, overflow: TextOverflow.fade, style: textStyle, textAlign: TextAlign.center,)
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(child: homeitems.icon),
+              const SizedBox(height: 20,),
+              Flexible(child: Text(homeitems.text, overflow: TextOverflow.fade, style: textStyle, textAlign: TextAlign.center,))
+            ],
+          ),
         ),
       ),
     );

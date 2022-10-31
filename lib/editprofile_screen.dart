@@ -17,6 +17,7 @@ class EditProfileScreen extends StatefulWidget {
 class _EditProfileScreenState extends State<EditProfileScreen> {
 
   final user = FirebaseAuth.instance.currentUser!;
+  final formKey = GlobalKey<FormState>();
   UserData? userData = UserData();
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -78,62 +79,59 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             color: Colors.white,
                             borderRadius: BorderRadius.only(topLeft: Radius.circular(60), topRight: Radius.circular(60))
                           ),
-                          child: Column(
-                            children: <Widget>[
-                              const SizedBox(height: 25,),
-                              Container(
-                                width: 120,
-                                height: 115,
-                                alignment: Alignment.center,
-                                child: const Image(
-                                  image: AssetImage('asset/img/user-icon.png'),
+                          child: Form(
+                            key: formKey,
+                            child: Column(
+                              children: <Widget>[
+                                const SizedBox(height: 25,),
+                                Container(
+                                  width: 120,
+                                  height: 115,
+                                  alignment: Alignment.center,
+                                  child: const Image(
+                                    image: AssetImage('asset/img/user-icon.png'),
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 20,),
-                              Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 30),
-                                child: _buildTextField('First Name:', userData!.fName!, 6, fnameController, false),
-                              ),
-                              const SizedBox(height: 20,),
-                              Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 30),
-                                child: _buildTextField('Last Name:', userData!.lName!, 6, lnameController, false),
-                              ),
-                              const SizedBox(height: 20,),
-                              Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 30),
-                                child: _buildTextField('Contact #:', userData!.contact!, 6, contactController, false),
-                              ),
-                              const SizedBox(height: 20,),
-                              Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 30),
-                                child: _buildTextField('Address:', userData!.address!, 6, addressController, false),
-                              ),
-                              const SizedBox(height: 20,),
-                              Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 30),
-                                child: _buildTextField('Username:', userData!.userName!, 6, usernameController, false),
-                              ),
-                              const SizedBox(height: 30,),
-                              Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 30),
-                                child: _buildTextField('Confirm Password:', " ", 2, passwordController, true),
-                              ),
-                              const SizedBox(height: 20,),
-                              Container(
-                                width: double.infinity,
-                                height: 50,
-                                padding: const EdgeInsets.symmetric(horizontal: 30),
-                                child: _buildUpdateButton(
-                                  passwordController,
-                                  fnameController,
-                                  lnameController,
-                                  contactController,
-                                  addressController,
-                                  usernameController,
-                                  user.uid,)
-                              ),
-                            ],
+                                const SizedBox(height: 20,),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                                  child: _buildTextField('First Name:', userData!.fName!, 6, fnameController, false),
+                                ),
+                                const SizedBox(height: 20,),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                                  child: _buildTextField('Last Name:', userData!.lName!, 6, lnameController, false),
+                                ),
+                                const SizedBox(height: 20,),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                                  child: _buildTextField('Contact #:', userData!.contact!, 6, contactController, false),
+                                ),
+                                const SizedBox(height: 20,),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                                  child: _buildTextField('Address:', userData!.address!, 6, addressController, false),
+                                ),
+                                const SizedBox(height: 20,),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                                  child: _buildTextField('Username:', userData!.userName!, 6, usernameController, false),
+                                ),
+                                const SizedBox(height: 30,),
+                                Container(
+                                  width: double.infinity,
+                                  height: 50,
+                                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                                  child: _buildUpdateButton(
+                                    fnameController,
+                                    lnameController,
+                                    contactController,
+                                    addressController,
+                                    usernameController,
+                                    user.uid,)
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       )
@@ -184,26 +182,30 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   Widget _buildUpdateButton(
-    TextEditingController passwordController,
     TextEditingController fnameController,
     TextEditingController lnameController,
     TextEditingController contactController,
     TextEditingController addressController,
     TextEditingController usernameController,
     String userID){
+
+    Future editProfile() async{
+
+      final isValid = formKey.currentState!.validate();
+      if (!isValid) return;
+      showDialog(
+      context: context, 
+      barrierDismissible: false,
+      builder:(context) => Center(child: CircularProgressIndicator(),),
+      );
+
+      print('it went in');
+
+
+      Navigator.pop(context);
+    }
     return ElevatedButton(
-      onPressed: () async {
-        
-        UserData userData = UserData();
-        userData.address = addressController as String?;
-        userData.contact = contactController as String?;
-        userData.fName = fnameController as String?;
-        userData.lName = lnameController as String?;
-        userData.userName = usernameController as String?;
-
-        print('pumasok pa rin');
-
-      }, 
+      onPressed: editProfile,
       style: ElevatedButton.styleFrom(
         shape: const StadiumBorder(),
         foregroundColor: Colors.white,
@@ -215,28 +217,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w700),
       )
     );
-  }
-
-
-
-  Future<bool> validatePassword(TextEditingController passwordController) async {
-
-    final credential = EmailAuthProvider.credential(
-      email: user.email!,
-      password: passwordController.toString()
-    );
-
-    try {
-      await user.reauthenticateWithCredential(credential);
-
-      return true;
-
-    } on FirebaseAuthException catch (e) {
-      Utils.showSnackBar(e.message);
-
-      return false;
-
-    }
   }
 
   Future<UserData?> readUser() async {

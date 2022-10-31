@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:siklero/model/home.dart';
+import 'package:siklero/sosdetails_screen.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:siklero/editprofile_screen.dart';
 import 'package:siklero/locatebikeshop_screen.dart';
@@ -70,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     
                                   children: List.generate(homeitems.length, (index) {
                                     return Center(
-                                      child: HomeCard(homeitems: homeitems[index]),);
+                                      child: homeCard(homeitems: homeitems[index]),);
                                   })
                                 ),
                               ),
@@ -103,34 +104,6 @@ class _HomeScreenState extends State<HomeScreen> {
           return const Center(child: CircularProgressIndicator(),);
         }
       },
-    );
-  }
-
-  Widget buildHomeButton(String title, Widget childWidget) {
-    return Container(
-      width: double.infinity,
-      height: 150,
-      padding: const EdgeInsets.symmetric(horizontal: 30),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30)
-          ),
-          foregroundColor: Colors.white,
-          backgroundColor: const Color(0xffe45f1e)
-        ),
-        onPressed:() {
-          Navigator.of(context).push(MaterialPageRoute(builder:(context) => childWidget,));
-        }, 
-        child: Text(
-          title,
-          style: const TextStyle(
-            fontFamily: 'OpenSans',
-            fontSize: 36,
-            fontWeight: FontWeight.w700
-          ),
-          ),
-      ),
     );
   }
   
@@ -227,7 +200,44 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  
+
+  Widget homeCard({required Home homeitems}) {
+    Color primaryColor = Color(0xffE45F1E);
+    const TextStyle textStyle = TextStyle(
+      fontFamily: 'OpenSans',
+      fontWeight: FontWeight.w700,
+      fontSize: 20,
+      color: Colors.white
+    );
+
+    return InkWell(
+      onTap: () {
+        if (homeitems.text == "Send SOS") {
+          checkSOSCall();
+        } else {
+          Navigator.of(context).push(MaterialPageRoute(builder:(context) => homeitems.screen,));
+        }
+      },
+      child: Card(
+        color: primaryColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(child: homeitems.icon),
+                const SizedBox(height: 20,),
+                Flexible(child: Text(homeitems.text, overflow: TextOverflow.fade, style: textStyle, textAlign: TextAlign.center,))
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 
   Future<UserData?> readUser () async {
 
@@ -250,7 +260,7 @@ class _HomeScreenState extends State<HomeScreen> {
     .get()
     .then((QuerySnapshot querySnapshot) => {
       if (querySnapshot.docs.isEmpty) {
-        //Navigator.of(context).push(MaterialPageRoute(builder:(context) => SOSDetailsScreen(userInfo: userData),))
+        Navigator.of(context).push(MaterialPageRoute(builder:(context) => SOSDetailsScreen(userInfo: userData),))
       }
       else {
         querySnapshot.docs.forEach((doc) { 
@@ -372,6 +382,7 @@ class LogoutButton extends StatelessWidget {
   }
 }
 
+/*
 class HomeCard extends StatelessWidget {
   const HomeCard({super.key, required this.homeitems});
 
@@ -388,23 +399,29 @@ class HomeCard extends StatelessWidget {
       color: Colors.white
     );
 
-    return Card(
-      color: primaryColor,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(child: homeitems.icon),
-              const SizedBox(height: 20,),
-              Flexible(child: Text(homeitems.text, overflow: TextOverflow.fade, style: textStyle, textAlign: TextAlign.center,))
-            ],
+    return InkWell(
+      onTap: () {
+        checkSOSCall();
+      },
+      child: Card(
+        color: primaryColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(child: homeitems.icon),
+                const SizedBox(height: 20,),
+                Flexible(child: Text(homeitems.text, overflow: TextOverflow.fade, style: textStyle, textAlign: TextAlign.center,))
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 }
+*/

@@ -27,6 +27,23 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   TextEditingController addressController = TextEditingController();
 
   @override
+  void initState() {
+    
+    Future<UserData?> userInit = readUser();
+
+    userInit.then((value) {
+      usernameController.text = value!.userName!;
+      fnameController.text = value.fName!;
+      lnameController.text = value.lName!;
+      contactController.text = value.contact!;
+      addressController.text = value.address!;
+    });
+
+    super.initState();
+  }
+
+
+  @override
   void dispose() {
     usernameController.dispose();
     passwordController.dispose();
@@ -174,7 +191,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24),
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (value) => value != null && value.isEmpty
-              ? "Don't leave field empty"
+              ? "Don't leave this field empty"
               : null
           ),   
       ],

@@ -211,15 +211,37 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       final isValid = formKey.currentState!.validate();
       if (!isValid) return;
       showDialog(
-      context: context, 
-      barrierDismissible: false,
-      builder:(context) => Center(child: CircularProgressIndicator(),),
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+          title: const Text("Confirmation"),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: const <Widget>[
+                Text("Update changes to profile?"),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                //print(fnameController.text);
+                updateUser();
+                Utils.showSnackBar("Profile updated!");
+              }, 
+              child: const Text("Yes")
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              }, 
+              child: const Text("No"))
+          ],
+        );
+        },
       );
-
-      print('it went in');
-
-
-      Navigator.pop(context);
+      //print("pumapasok");    
     }
     return ElevatedButton(
       onPressed: editProfile,
@@ -234,6 +256,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w700),
       )
     );
+  }
+
+  Future<UserData?> updateUser() async {
+
+    final docUser = FirebaseFirestore.instance.collection('user_profile').doc(user.uid);
+
+    docUser.update({
+      'address': addressController.text,
+      'contact': contactController.text,
+      'first_name': fnameController.text,
+      'last_name': lnameController.text,
+      'username': usernameController.text
+    });
   }
 
   Future<UserData?> readUser() async {

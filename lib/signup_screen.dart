@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:siklero/reminder_screen.dart';
 import 'package:siklero/utils.dart';
+
+import 'model/user_info.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -84,7 +87,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     Container(
                                       alignment: Alignment.topLeft,
                                       child: const Text(
-                                        'Email',
+                                        'Email:',
                                         style: TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w400, color: Color(0xffe45f1e)),
                                       ),
                                     ),
@@ -107,6 +110,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 ],
                               ),
                             ),
+                            const SizedBox(height: 20,),
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 30),
                               child: Column(
@@ -114,7 +118,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     Container(
                                       alignment: Alignment.topLeft,
                                       child: const Text(
-                                        'Password',
+                                        'Password:',
                                         style: TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w400, color: Color(0xffe45f1e)),
                                       ),
                                     ),
@@ -138,12 +142,41 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 ],
                               ),
                             ),
+                            const SizedBox(height: 20,),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 30),
+                              child: _buildTextField('First Name:', 6, fnameController, false),
+                            ),
+                            const SizedBox(height: 20,),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 30),
+                              child: _buildTextField('Last Name:', 6, lnameController, false),
+                            ),
+                            const SizedBox(height: 20,),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 30),
+                              child: _buildTextField('Contact #:', 6, contactController, false),
+                            ),
+                            const SizedBox(height: 20,),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 30),
+                              child: _buildTextField('Address:', 6, addressController, false),
+                            ),
+                            const SizedBox(height: 20,),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 30),
+                              child: _buildTextField('Username:', 2, usernameController, false),
+                            ),
                             const SizedBox(height: 50,),
                             Container(
                               width: double.infinity,
                               height: 50,
                               padding: const EdgeInsets.symmetric(horizontal: 30),
-                              child: _buildSignUpButton(emailController, passwordController, context, formKey)
+                              child: _buildSignUpButton(
+                                emailController, 
+                                passwordController, 
+                                context, 
+                                formKey)
                             ),
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -186,6 +219,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
         password: passwordController.text.trim()
       );
 
+      UserData newUserInfo = UserData(
+        fName: fnameController.text,
+        lName: lnameController.text,
+        address: addressController.text,
+        contact: contactController.text
+      );
+
+      writeUser(newUserInfo, newUser.user?.uid);
+
       print(newUser.user?.uid);
 
       Navigator.of(context).pushAndRemoveUntil(
@@ -202,33 +244,46 @@ class _SignUpScreenState extends State<SignUpScreen> {
     Navigator.pop(context);
 
   }
+
+  Future writeUser(UserData newUserInfo, String? uid) async {
+
+    final docUser = FirebaseFirestore.instance.collection("used_profile").doc(uid);
+    final json = newUserInfo.toJson();
+    await docUser.set(json);
+    
+  }
 }
 
-Widget _buildTextField(String title, int action, TextEditingController controller){
-  return Column(
-    children: <Widget>[
-        Container(
-          alignment: Alignment.topLeft,
-          child: Text(
-            title,
-            style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w400, color: Color(0xffe45f1e)),
+Widget _buildTextField(String title, int action, TextEditingController controller, bool hideText){
+    return Column(
+      children: <Widget>[
+          Container(
+            alignment: Alignment.topLeft,
+            child: Text(
+              title,
+              style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w400, color: Color(0xffe45f1e)),
+            ),
           ),
-        ),
-        TextFormField(
-          controller: controller,
-          textInputAction: TextInputAction.values.elementAt(action),
-          decoration: const InputDecoration(
-            contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-            border: OutlineInputBorder(),
-            focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xffe45f1e))
-            )
-          ),
-          style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24),
-        ),   
-    ],
-  );
-}
+          TextFormField(
+            controller: controller,
+            obscureText: hideText,
+            textInputAction: TextInputAction.values.elementAt(action),
+            decoration: const InputDecoration(
+              contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              border: OutlineInputBorder(),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xffe45f1e))
+              )
+            ),
+            style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24),
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (value) => value != null && value.isEmpty
+              ? "Don't leave this field empty"
+              : null
+          ),   
+      ],
+    );
+  }
 
 Widget _buildTextButton(BuildContext context) {
   return TextButton(
@@ -240,7 +295,11 @@ Widget _buildTextButton(BuildContext context) {
   );
 }
 
-Widget _buildSignUpButton(TextEditingController emailController, TextEditingController passwordController, BuildContext context, GlobalKey<FormState> formkey){
+Widget _buildSignUpButton(
+  TextEditingController emailController, 
+  TextEditingController passwordController, 
+  BuildContext context, 
+  GlobalKey<FormState> formkey){
 
   Future signUp() async {
     final isValid = formkey.currentState!.validate();

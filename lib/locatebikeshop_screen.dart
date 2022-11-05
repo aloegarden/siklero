@@ -13,9 +13,9 @@ class LocateBikeShopScreen extends StatefulWidget {
 
 class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
 
-  Completer<GoogleMapController> _controller = Completer();
+  final Completer<GoogleMapController> _controller = Completer();
 
-  static final CameraPosition _kGooglePlex = CameraPosition(
+  static const CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(14.582043528087183, 120.9763075458278),
     zoom: 14
   );
@@ -58,7 +58,7 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xffed8f5b),
-        title: Text('Locate Bike Shop', style: TextStyle(fontFamily: 'OpenSans', fontSize: 24),),
+        title: const Text('Locate Bike Shop', style: TextStyle(fontFamily: 'OpenSans', fontSize: 24),),
         centerTitle: true,
       ),
 
@@ -87,7 +87,7 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
           });
         },
 
-      child: Icon(Icons.refresh_rounded),
+      child: const Icon(Icons.refresh_rounded),
       ),
     );
   }

@@ -269,6 +269,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       'last_name': lnameController.text,
       'username': usernameController.text
     });
+    
+    return null;
   }
 
   Future<UserData?> readUser() async {

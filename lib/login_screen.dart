@@ -1,7 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:siklero/editprofile_screen.dart';
 import 'package:siklero/main.dart';
 import 'package:siklero/reminder_screen.dart';
 import 'package:siklero/signup_screen.dart';
@@ -170,7 +169,7 @@ Widget _buildTextButton(BuildContext context) {
   return TextButton(
     onPressed:() => Navigator.push(
       context,
-      MaterialPageRoute(builder:(context) => SignUpScreen(),)
+      MaterialPageRoute(builder:(context) => const SignUpScreen(),)
     ),
     child: const Text(
       'Sign Up',
@@ -187,7 +186,7 @@ Widget _buildLoginButton(TextEditingController emailController, TextEditingContr
      showDialog(
       context: context, 
       barrierDismissible: false,
-      builder:(context) => Center(child: CircularProgressIndicator(),),
+      builder:(context) => const Center(child: CircularProgressIndicator(),),
     );
 
     try {
@@ -198,12 +197,12 @@ Widget _buildLoginButton(TextEditingController emailController, TextEditingContr
 
       Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
-          builder:(context) => ReminderScreen(),
+          builder:(context) => const ReminderScreen(),
         ), 
         (route) => false
       );
     } on FirebaseAuthException catch (e) {
-      print(e);
+      //print(e);
 
       Utils.showSnackBar(e.message);
     }
@@ -214,9 +213,9 @@ Widget _buildLoginButton(TextEditingController emailController, TextEditingContr
   return ElevatedButton(
     onPressed: signIn, 
     style: ElevatedButton.styleFrom(
-      shape: StadiumBorder(),
+      shape: const StadiumBorder(),
       foregroundColor: Colors.white,
-      backgroundColor: Color(0xffe45f1e)
+      backgroundColor: const Color(0xffe45f1e)
     ),
     child: const Text(
       'Login',

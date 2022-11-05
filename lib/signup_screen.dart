@@ -1,10 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:siklero/editprofile_screen.dart';
-import 'package:siklero/main.dart';
 import 'package:siklero/reminder_screen.dart';
-import 'package:siklero/signup_screen.dart';
 import 'package:siklero/utils.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -179,7 +176,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     showDialog(
       context: context, 
       barrierDismissible: false,
-      builder:(context) => Center(child: CircularProgressIndicator(),),
+      builder:(context) => const Center(child: CircularProgressIndicator(),),
     );
 
     try{
@@ -193,17 +190,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
       Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
-          builder:(context) => ReminderScreen(),
+          builder:(context) => const ReminderScreen(),
         ), 
         (route) => false
       );
     } on FirebaseAuthException catch (e){
-      print(e);
+      //print(e);
 
-      final snackBar = SnackBar(
-        content: Text(e.toString(), style: TextStyle(color: Colors.white),),
-        backgroundColor: Colors.red,
-      );
     }
 
     Navigator.pop(context);

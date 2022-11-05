@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class BikeShop {
   String? bikeShopId;
   String? bikeShopName;

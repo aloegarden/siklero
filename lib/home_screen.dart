@@ -1,17 +1,11 @@
-import 'dart:ffi';
-import 'dart:ui';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:siklero/model/home.dart';
 import 'package:siklero/sosdetails_screen.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:siklero/editprofile_screen.dart';
-import 'package:siklero/locatebikeshop_screen.dart';
 import 'package:siklero/login_screen.dart';
 import 'package:siklero/soscall_screen.dart';
-import 'package:siklero/sosrespond_screen.dart';
 
 import 'model/user_info.dart';
 
@@ -116,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget buildSheet() {
     return makeDismissible(
       child: DraggableScrollableSheet(
-        initialChildSize: 0.7,
+        initialChildSize: 0.5,
         maxChildSize: 0.8,
         minChildSize: 0.3,
         builder: (_,controller) => Container(
@@ -139,34 +133,32 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const SizedBox(width: 15,),
                   Expanded(
-                    child: Container(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        
-                        children: <Widget>[
-                          Text(
-                            user.uid,
-                            style: const TextStyle(
-                              fontFamily: 'OpenSans',
-                              fontSize: 24,
-                              color: Color(0xff581D00)
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      
+                      children: <Widget>[
+                        Text(
+                          user.uid,
+                          style: const TextStyle(
+                            fontFamily: 'OpenSans',
+                            fontSize: 24,
+                            color: Color(0xff581D00)
                           ),
-                          Text(
-                            userData!.userName!,
-                            style: const TextStyle(
-                              fontFamily: 'OpenSans',
-                              fontSize: 24,
-                              color: Color(0xff581D00)
-                            ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        Text(
+                          userData!.userName!,
+                          style: const TextStyle(
+                            fontFamily: 'OpenSans',
+                            fontSize: 24,
+                            color: Color(0xff581D00)
                           ),
-                        ],
-                      ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
                     ),
                   )
                 ],
@@ -202,7 +194,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
   Widget homeCard({required Home homeitems}) {
-    Color primaryColor = Color(0xffE45F1E);
+    Color primaryColor = const Color(0xffE45F1E);
     const TextStyle textStyle = TextStyle(
       fontFamily: 'OpenSans',
       fontWeight: FontWeight.w700,
@@ -360,7 +352,7 @@ class LogoutButton extends StatelessWidget {
       onPressed: () {
         FirebaseAuth.instance.signOut();
         
-        print(user.uid);
+        //print(user.uid);
 
         Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(

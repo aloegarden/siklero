@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:siklero/locatebikeshop_screen.dart';
-import 'package:siklero/model/user_info.dart';
 import 'package:siklero/sosdetails_screen.dart';
 import 'package:siklero/sosrespond_screen.dart';
 

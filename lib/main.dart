@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:siklero/home_screen.dart';
 import 'package:siklero/login_screen.dart';
 import 'package:siklero/reminder_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -14,7 +13,7 @@ Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -33,7 +32,7 @@ class _MyAppState extends State<MyApp> {
       scaffoldMessengerKey: Utils.messengerKey,
       navigatorKey: navigatorKey,
       title: 'Siklero',
-      home: MainPage(),
+      home: const MainPage(),
     );
   }
 }
@@ -97,10 +96,10 @@ class _MainPageState extends State<MainPage> {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder:(context, snapshot) {
         if(snapshot.hasData) {
-          return ReminderScreen();
+          return const ReminderScreen();
         }
         else {
-          return LoginScreen();
+          return const LoginScreen();
         }
       },
     )

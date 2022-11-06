@@ -29,7 +29,7 @@ List<Home> homeitems = [
     id: 2, 
     text: "Send SOS", 
     icon: Icon(Icons.sos, color: Colors.white, size: 75,),
-    screen: SOSDetailsScreen()
+    screen: SOSDetailsScreen(userInfo: null,)
   ),
   Home(
     id: 3, 

@@ -24,6 +24,7 @@ dependencies:
   intl: ^0.17.0
   geocoding: ^2.0.5
   geolocator: ^9.0.2
+  url_launcher: ^6.1.6
 
 flutter_native_splash:
   color: "#ed8f5b"

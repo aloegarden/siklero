@@ -36,7 +36,7 @@ List<Home> homeitems = [
     text: "SOS Respond", 
     icon: Icon(Icons.emergency_share, color: Colors.white, size: 75,),
     screen: SOSRespondScreen()
-  ),
+  ),/*
   Home(
     id: 4, 
     text: "Hotlines", 
@@ -48,5 +48,5 @@ List<Home> homeitems = [
     text: "Repair Guide", 
     icon: Icon(Icons.map_outlined, color: Colors.white, size: 75,),
     screen: SOSRespondScreen()
-  )
+  )*/
 ];

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:siklero/main.dart';
+import 'package:siklero/model/home.dart';
 import 'package:siklero/user/home_screen.dart';
 
 class ReminderScreen extends StatelessWidget {
@@ -11,9 +13,14 @@ class ReminderScreen extends StatelessWidget {
       body: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(builder:(context) => const HomeScreen(),)
+          Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(
+            builder:(context) => const HomeScreen(),
+            ), 
+            (route) => false
           );
+
+          navigatorKey.currentState!.popUntil((route) => route.isFirst);
         },
         child: Stack(
           children: <Widget>[

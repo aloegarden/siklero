@@ -18,8 +18,8 @@ class Utils {
   }
 
   static Future<void> openMap(
-    double longitude, 
-    double latitude) async{
+    double latitude, 
+    double longitude) async{
       Uri googleMapUrl = Uri.parse("https://www.google.com/maps/search/?api=1&query=$latitude,$longitude");
 
       if (await canLaunchUrl(googleMapUrl)) {

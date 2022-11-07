@@ -2,10 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:siklero/reminder_screen.dart';
-import 'package:siklero/utils.dart';
-
-import 'model/user_info.dart';
+import 'package:siklero/model/user_info.dart';
+import 'package:siklero/user/reminder_screen.dart';
+import 'package:siklero/user/utils.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});

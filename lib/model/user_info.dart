@@ -4,13 +4,15 @@ class UserData {
     late String? lName;
     late String? address;
     late String? contact;
+    late bool? isAdmin;
 
     UserData({
       this.userName,
       this.address,
       this.fName,
       this.lName,
-      this.contact
+      this.contact,
+      this.isAdmin
     });
 
     Map<String, dynamic> toJson () => {
@@ -18,7 +20,8 @@ class UserData {
                 'contact': contact,
                 'first_name': fName,
                 'last_name': lName,
-                'username': userName
+                'username': userName,
+                'is_admin': isAdmin
     };
 
     static UserData fromJSON(Map<String, dynamic> json) => UserData(
@@ -26,6 +29,7 @@ class UserData {
         contact: json['contact'],
         fName: json['first_name'],
         lName: json['last_name'],
-        userName: json['username']
+        userName: json['username'],
+        isAdmin: json['is_admin']
     );
 }

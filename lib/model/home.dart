@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:siklero/locatebikeshop_screen.dart';
-import 'package:siklero/sosdetails_screen.dart';
-import 'package:siklero/sosrespond_screen.dart';
+import 'package:siklero/user/locatebikeshop_screen.dart';
+import 'package:siklero/user/sosdetails_screen.dart';
+import 'package:siklero/user/sosrespond_screen.dart';
 
 class Home {
 

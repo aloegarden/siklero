@@ -2,9 +2,9 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:siklero/main.dart';
-import 'package:siklero/reminder_screen.dart';
-import 'package:siklero/signup_screen.dart';
-import 'package:siklero/utils.dart';
+import 'package:siklero/user/reminder_screen.dart';
+import 'package:siklero/user/signup_screen.dart';
+import 'package:siklero/user/utils.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -193,7 +193,10 @@ Widget _buildLoginButton(TextEditingController emailController, TextEditingContr
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: emailController.text.trim(), 
         password: passwordController.text.trim(),
-      );
+      ).then((userCredential) => {
+        print(userCredential.user?.uid)
+      });
+
 
       Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(

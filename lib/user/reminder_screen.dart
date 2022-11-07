@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:siklero/home_screen.dart';
+import 'package:siklero/user/home_screen.dart';
 
 class ReminderScreen extends StatelessWidget {
   const ReminderScreen({super.key});

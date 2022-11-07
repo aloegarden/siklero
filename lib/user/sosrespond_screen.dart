@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 //import 'package:siklero/map_utils.dart';
 import 'package:siklero/model/sos.dart';
 import 'package:siklero/model/user_info.dart';
+import 'package:siklero/user/utils.dart';
 
 class SOSRespondScreen extends StatefulWidget {
   const SOSRespondScreen({super.key});
@@ -89,7 +90,7 @@ class _SOSRespondScreenState extends State<SOSRespondScreen> {
                                     child: ElevatedButton(
                                       onPressed:() {
                                         print('tapped');
-                                        //MapUtils.openMap(SOSCall.coordinates!.latitude, SOSCall.coordinates!.longitude);
+                                        Utils.openMap(SOSCall.coordinates!.latitude, SOSCall.coordinates!.longitude);
                                       }, 
                                       style: ElevatedButton.styleFrom(
                                           shape: const StadiumBorder(),

@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SOSCall {
-  String? userID;
-  String? details;
-  bool? isActive;
-  GeoPoint? coordinates;
-  Timestamp? createdAt;
+  late String? userID;
+  late String? details;
+  late bool? isActive;
+  late GeoPoint? coordinates;
+  late Timestamp? createdAt;
 
 
   //late Map<String, double> coordinates;

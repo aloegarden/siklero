@@ -5,9 +5,9 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:siklero/login_screen.dart';
-import 'package:siklero/reminder_screen.dart';
+import 'package:siklero/user/reminder_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:siklero/utils.dart';
+import 'package:siklero/user/utils.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();

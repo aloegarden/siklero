@@ -26,4 +26,14 @@ class Utils {
         await launchUrl(googleMapUrl, mode: LaunchMode.externalApplication);
       }
   }
+
+  static Future<void> openCall(
+    String number
+  ) async {
+    Uri numberUrl = Uri.parse("tel:$number");
+
+    if (await canLaunchUrl(numberUrl)) {
+      await launchUrl(numberUrl, mode: LaunchMode.externalApplication);
+    }
+  }
 }

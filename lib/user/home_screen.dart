@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:siklero/model/home.dart';
 import 'package:siklero/user/soscall_screen.dart';
 import 'package:siklero/user/sosdetails_screen.dart';
@@ -16,9 +19,31 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
+  late StreamSubscription subscription;
+  bool hasInternet = false;
   final user = FirebaseAuth.instance.currentUser!;
   UserData? userData = UserData();
+
+  @override 
+  void initState() {
+
+    subscription = InternetConnectionChecker().onStatusChange.listen((status) {
+      final hasInternet = status == InternetConnectionStatus.connected;
+
+      setState(() {
+        this.hasInternet = hasInternet;
+      });
+    });
+
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    subscription.cancel();
+
+    super.dispose();
+  }
   
   @override
   Widget build(BuildContext context) {
@@ -39,6 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Text(hasInternet.toString()),
                         const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 85, vertical: 30),
                           child: Image(
@@ -204,7 +230,57 @@ class _HomeScreenState extends State<HomeScreen> {
     return InkWell(
       onTap: () {
         if (homeitems.text == "Send SOS") {
-          checkSOSCall();
+          if(!hasInternet) {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+
+                  title: const Text("No Internet Connection"),
+                  content: SingleChildScrollView(
+                    child: ListBody(
+                      children: const <Widget>[
+                        Text("This function requires an internet connection. Please connect to the internet.")
+                      ],
+                    ),
+                  ),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(), 
+                      child: const Text("Ok"))
+                  ],
+                );
+              },
+            );
+          } else {
+            checkSOSCall();
+          }
+        } else if (homeitems.text == "Locate Bike Shop" || homeitems.text == "Send SOS" || homeitems.text == "SOS Respond") {
+          if(!hasInternet) {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+
+                  title: const Text("No Internet Connection"),
+                  content: SingleChildScrollView(
+                    child: ListBody(
+                      children: const <Widget>[
+                        Text("This function requires an internet connection. Please connect to the internet.")
+                      ],
+                    ),
+                  ),
+                  actions: <Widget>[
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(), 
+                      child: const Text("Ok"))
+                  ],
+                );
+              },
+            );
+          } else {
+            Navigator.of(context).push(MaterialPageRoute(builder:(context) => homeitems.screen,));
+          }
         } else {
           Navigator.of(context).push(MaterialPageRoute(builder:(context) => homeitems.screen,));
         }

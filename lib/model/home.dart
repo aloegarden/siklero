@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:siklero/user/locatebikeshop_screen.dart';
+import 'package:siklero/user/repair-guide_screen.dart';
 import 'package:siklero/user/sosdetails_screen.dart';
 import 'package:siklero/user/sosrespond_screen.dart';
-
+import 'package:siklero/user/hotline_screen.dart';
 class Home {
 
   final int id;
@@ -36,17 +37,17 @@ List<Home> homeitems = [
     text: "SOS Respond", 
     icon: Icon(Icons.emergency_share, color: Colors.white, size: 75,),
     screen: SOSRespondScreen()
-  ),/*
+  ),
   Home(
     id: 4, 
     text: "Hotlines", 
     icon: Icon(Icons.menu_book, color: Colors.white, size: 75,),
-    screen: SOSRespondScreen()
+    screen: HotlineScreen()
   ),
   Home(
     id: 5, 
     text: "Repair Guide", 
     icon: Icon(Icons.map_outlined, color: Colors.white, size: 75,),
-    screen: SOSRespondScreen()
-  )*/
+    screen: RepairGuideScreen()
+  )
 ];

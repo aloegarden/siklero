@@ -22,6 +22,7 @@ class _SOSCallScreenState extends State<SOSCallScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: const Color(0xffed8f5b),
           title: const Text('SOS Call', style: TextStyle(fontFamily: 'OpenSans', fontSize: 24),),
           centerTitle: true,

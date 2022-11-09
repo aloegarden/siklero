@@ -46,6 +46,11 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
     final isValid = formKey.currentState!.validate();
     if (!isValid) return;
 
+    if (sosCall.coordinates == null) {
+      loadData();
+      return;
+    }
+
     DateTime date = DateTime.now();
 
     sosCall.userID = user.uid;
@@ -65,7 +70,7 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
           ), 
           (route) => false
         );
-  } on FirebaseAuthException catch (e) {
+  } on FirebaseException catch (e) {
       Utils.showSnackBar(e.message);
   }
 

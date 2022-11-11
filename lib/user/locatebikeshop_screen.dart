@@ -13,82 +13,83 @@ class LocateBikeShopScreen extends StatefulWidget {
 
 class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
 
-  final Completer<GoogleMapController> _controller = Completer();
+  Completer<GoogleMapController> _controller = Completer();
 
-  static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(14.582043528087183, 120.9763075458278),
-    zoom: 14
+  static final CameraPosition _kGooglePlex = CameraPosition(
+    target: LatLng(14.581586664962659, 120.9761788),
+    zoom: 14,
   );
 
+  List<Marker> markers = <Marker>[];
+
   loadData () {
-    getCurrentPosition().then((value) async {
-            print(value.latitude.toString() + " " + value.longitude.toString());
-
-            CameraPosition cameraPosition = CameraPosition(
-              target: LatLng(value.latitude, value.longitude));
-
-            final GoogleMapController controller = await _controller.future;
-            controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
-
-            setState(() {
-              
-            });
-          });
-  }
-
-  Future<Position> getCurrentPosition () async {
-
-    await Geolocator.requestPermission().then((value) {
-
-    }).onError((error, stackTrace) {
-      print(error.toString());
-    });
-
-    return await Geolocator.getCurrentPosition();
+    goToCurrentLocation();
   }
 
   @override
-  void initState() {
+  void initState () {
     super.initState();
     loadData();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return new Scaffold(
       appBar: AppBar(
+        title: const Text('Locate Bike Shops', style: TextStyle(fontFamily: 'OpenSans', fontSize: 24),),
         backgroundColor: const Color(0xffed8f5b),
-        title: const Text('Locate Bike Shop', style: TextStyle(fontFamily: 'OpenSans', fontSize: 24),),
         centerTitle: true,
       ),
-
       body: GoogleMap(
-        myLocationButtonEnabled: true,
-        mapType: MapType.normal,
+        mapType: MapType.hybrid,
         initialCameraPosition: _kGooglePlex,
+        markers: Set<Marker>.of(markers),
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed:() async {
-          getCurrentPosition().then((value) async {
-            print(value.latitude.toString() + " " + value.longitude.toString());
-
-            CameraPosition cameraPosition = CameraPosition(
-              target: LatLng(value.latitude, value.longitude));
-
-            final GoogleMapController controller = await _controller.future;
-            controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
-
-            setState(() {
-              
-            });
-          });
-        },
-
-      child: const Icon(Icons.refresh_rounded),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: goToCurrentLocation,
+        label: Text('Get current location'),
+        icon: Icon(Icons.location_on_rounded),
       ),
     );
   }
+
+  Future<void> goToCurrentLocation() async {
+    getUserCurrentLocation().then((value) async {
+      print(value.longitude.toString() + " " + value.latitude.toString());
+      markers.add(
+        Marker(
+          markerId: MarkerId("currentLocation"),
+          position: LatLng(value.latitude, value.longitude)
+        )
+      );
+      CameraPosition cameraPosition = 
+      CameraPosition(
+        zoom: 14,
+        target: LatLng(value.latitude, value.longitude,
+      ));
+
+      final GoogleMapController controller = await _controller.future;
+      controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+
+      setState(() {
+        
+      });
+    });
+  }
+  
+  Future<Position> getUserCurrentLocation() async {
+    
+    await Geolocator.requestPermission().then((value) {
+
+    }).onError((error, stackTrace) {
+      print("Error: " + error.toString());
+    });
+
+    return await Geolocator.getCurrentPosition();
+  }
+
+  
 }

@@ -25,6 +25,7 @@ dependencies:
   geolocator: ^9.0.2
   url_launcher: ^6.1.6
   internet_connection_checker: ^1.0.0+1
+  permission_handler: ^10.2.0
 
 flutter_native_splash:
   color: "#ed8f5b"

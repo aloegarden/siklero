@@ -1,12 +1,15 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:siklero/model/home.dart';
 import 'package:siklero/user/soscall_screen.dart';
 import 'package:siklero/user/sosdetails_screen.dart';
+import 'package:siklero/user/utils.dart';
 import '../model/user_info.dart';
 import 'editprofile_screen.dart';
 import '../login_screen.dart';
@@ -23,12 +26,14 @@ class _HomeScreenState extends State<HomeScreen> {
   bool hasInternet = false;
   final user = FirebaseAuth.instance.currentUser!;
   UserData? userData = UserData();
+  
+  bool enabled = false;
 
   @override 
   void initState() {
 
-    subscription = InternetConnectionChecker().onStatusChange.listen((status) {
-      final hasInternet = status == InternetConnectionStatus.connected;
+    subscription = InternetConnectionChecker().onStatusChange.listen(( result) async {
+      final hasInternet = result == InternetConnectionStatus.connected;
 
       setState(() {
         this.hasInternet = hasInternet;
@@ -64,7 +69,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(hasInternet.toString()),
                         const Padding(
                           padding: EdgeInsets.symmetric(horizontal: 85, vertical: 30),
                           child: Image(
@@ -227,78 +231,87 @@ class _HomeScreenState extends State<HomeScreen> {
       color: Colors.white
     );
 
-    return InkWell(
-      onTap: () {
-        if (homeitems.text == "Send SOS") {
-          if(!hasInternet) {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-
-                  title: const Text("No Internet Connection"),
-                  content: SingleChildScrollView(
-                    child: ListBody(
-                      children: const <Widget>[
-                        Text("This function requires an internet connection. Please connect to the internet.")
-                      ],
+    return AbsorbPointer(
+      absorbing: enabled,
+      child: InkWell(
+        onTap: () async {
+          if (homeitems.text == "Send SOS") {
+            if(!hasInternet) {
+              Utils.showSnackBar("No Internet connection. Please connect to the internet and try again");
+              
+              
+              /* showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+    
+                    title: const Text("No Internet Connection"),
+                    content: SingleChildScrollView(
+                      child: ListBody(
+                        children: const <Widget>[
+                          Text("This function requires an internet connection. Please connect to the internet.")
+                        ],
+                      ),
                     ),
-                  ),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.of(context).pop(), 
-                      child: const Text("Ok"))
-                  ],
-                );
-              },
-            );
-          } else {
-            checkSOSCall();
-          }
-        } else if (homeitems.text == "Locate Bike Shop" || homeitems.text == "Send SOS" || homeitems.text == "SOS Respond") {
-          if(!hasInternet) {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-
-                  title: const Text("No Internet Connection"),
-                  content: SingleChildScrollView(
-                    child: ListBody(
-                      children: const <Widget>[
-                        Text("This function requires an internet connection. Please connect to the internet.")
-                      ],
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () => Navigator.of(context).pop(), 
+                        child: const Text("Ok"))
+                    ],
+                  );
+                },
+              ); */
+            } else {
+              checkSOSCall();
+            }
+          } else if (homeitems.text == "Locate Bike Shop" || homeitems.text == "SOS Respond") {
+            if(!hasInternet) {
+              Utils.showSnackBar("No Internet connection. Please connect to the internet and try again");
+              /* showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+    
+                    title: const Text("No Internet Connection"),
+                    content: SingleChildScrollView(
+                      child: ListBody(
+                        children: const <Widget>[
+                          Text("This function requires an internet connection. Please connect to the internet.")
+                        ],
+                      ),
                     ),
-                  ),
-                  actions: <Widget>[
-                    TextButton(
-                      onPressed: () => Navigator.of(context).pop(), 
-                      child: const Text("Ok"))
-                  ],
-                );
-              },
-            );
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () => Navigator.of(context).pop(), 
+                        child: const Text("Ok"))
+                    ],
+                  );
+                },
+              ); */
+            } else {
+              Navigator.of(context).push(MaterialPageRoute(builder:(context) => homeitems.screen,));
+            }
           } else {
             Navigator.of(context).push(MaterialPageRoute(builder:(context) => homeitems.screen,));
           }
-        } else {
-          Navigator.of(context).push(MaterialPageRoute(builder:(context) => homeitems.screen,));
-        }
-      },
-      child: Card(
-        color: primaryColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(child: homeitems.icon),
-                const SizedBox(height: 20,),
-                Flexible(child: Text(homeitems.text, overflow: TextOverflow.fade, style: textStyle, textAlign: TextAlign.center,))
-              ],
+
+          
+        },
+        child: Card(
+          color: primaryColor,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(child: homeitems.icon),
+                  const SizedBox(height: 20,),
+                  Flexible(child: Text(homeitems.text, overflow: TextOverflow.fade, style: textStyle, textAlign: TextAlign.center,))
+                ],
+              ),
             ),
           ),
         ),
@@ -341,6 +354,8 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     });
   }
+
+
 
 }
 
@@ -448,47 +463,3 @@ class LogoutButton extends StatelessWidget {
     );
   }
 }
-
-/*
-class HomeCard extends StatelessWidget {
-  const HomeCard({super.key, required this.homeitems});
-
-  final Home homeitems;
-  
-
-  @override
-  Widget build(BuildContext context) {
-    Color primaryColor = Color(0xffE45F1E);
-    const TextStyle textStyle = TextStyle(
-      fontFamily: 'OpenSans',
-      fontWeight: FontWeight.w700,
-      fontSize: 20,
-      color: Colors.white
-    );
-
-    return InkWell(
-      onTap: () {
-        checkSOSCall();
-      },
-      child: Card(
-        color: primaryColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(child: homeitems.icon),
-                const SizedBox(height: 20,),
-                Flexible(child: Text(homeitems.text, overflow: TextOverflow.fade, style: textStyle, textAlign: TextAlign.center,))
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-*/

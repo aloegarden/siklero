@@ -25,7 +25,7 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
 
   loadData () {
     getCurrentPosition().then((value) async {
-            //print(value.latitude.toString() + " " + value.longitude.toString());
+            print(value.latitude.toString() + " " + value.longitude.toString());
             sosCall.coordinates = GeoPoint(value.latitude, value.longitude);
             //print("${sosCall.coordinates?.latitude}  ${sosCall.coordinates?.longitude}");
           });

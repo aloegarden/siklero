@@ -56,6 +56,12 @@ class _MainPageState extends State<MainPage> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+    subscription.cancel();
+  }
+
   getConnectivity() => 
       subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) async { 
         isDeviceConnected = await InternetConnectionChecker().hasConnection;

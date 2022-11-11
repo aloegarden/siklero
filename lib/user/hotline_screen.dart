@@ -10,8 +10,8 @@ class HotlineScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xffed8f5b),
-          title: const Text('Hotlines', style: TextStyle(fontFamily: 'OpenSans', fontSize: 24),),
-          centerTitle: true,
+        title: const Text('Hotlines', style: TextStyle(fontFamily: 'OpenSans', fontSize: 24),),
+        centerTitle: true,
       ),
       body: ListView(
         children : hotlineItems.map(buildTile).toList()

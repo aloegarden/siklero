@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "382434987676",
-    "project_id": "siklero-app",
-    "storage_bucket": "siklero-app.appspot.com"
+    "project_number": "521706054427",
+    "project_id": "siklero-368302",
+    "storage_bucket": "siklero-368302.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:382434987676:android:165a13ccee0141cc52e759",
+        "mobilesdk_app_id": "1:521706054427:android:4693878a5f9682448d29be",
         "android_client_info": {
           "package_name": "com.example.siklero"
         }
       },
       "oauth_client": [
         {
-          "client_id": "382434987676-fjn5200omq85ch7avdd3k86au6b1uru6.apps.googleusercontent.com",
+          "client_id": "521706054427-jt9cm4fljjs7lmmbl7cbqla8he501oa8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyApFQv6m2OKy3iO47XCG35HfaKtRu7zluY"
+          "current_key": "AIzaSyCyQNchlfkQqBmHra1C-aehdaHm8hBaQYM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "382434987676-fjn5200omq85ch7avdd3k86au6b1uru6.apps.googleusercontent.com",
+              "client_id": "521706054427-jt9cm4fljjs7lmmbl7cbqla8he501oa8.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

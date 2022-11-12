@@ -20,7 +20,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final formKey = GlobalKey<FormState>();
   UserData? userData = UserData();
   TextEditingController usernameController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
   TextEditingController fnameController = TextEditingController();
   TextEditingController lnameController = TextEditingController();
   TextEditingController contactController = TextEditingController();
@@ -46,7 +45,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   void dispose() {
     usernameController.dispose();
-    passwordController.dispose();
     fnameController.dispose();
     lnameController.dispose();
     contactController.dispose();
@@ -263,11 +261,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final docUser = FirebaseFirestore.instance.collection('user_profile').doc(user.uid);
 
     docUser.update({
-      'address': addressController.text,
-      'contact': contactController.text,
-      'first_name': fnameController.text,
-      'last_name': lnameController.text,
-      'username': usernameController.text
+      'address': addressController.text.trim(),
+      'contact': contactController.text.trim(),
+      'first_name': fnameController.text.trim(),
+      'last_name': lnameController.text.trim(),
+      'username': usernameController.text.trim()
     });
     
     return null;

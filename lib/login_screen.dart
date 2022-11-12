@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:siklero/main.dart';
 import 'package:siklero/user/reminder_screen.dart';
+import 'package:siklero/user/reset-password_screen.dart';
 import 'package:siklero/user/signup_screen.dart';
 import 'package:siklero/user/utils.dart';
 
@@ -130,6 +131,19 @@ class _LoginScreenState extends State<LoginScreen> {
                                 ],
                               ),
                             ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 30),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  const Text(
+                                    'Forgot Password?',
+                                    style: TextStyle(fontFamily: 'OpenSans', fontSize: 17, color: Color(0xffe45f1e)),
+                                  ),
+                                  _buildTextButton(context, 'Reset Password', () => ResetPasswordScreen())
+                                ],
+                              ),
+                            ),
                             const SizedBox(height: 50,),
                             Container(
                               width: double.infinity,
@@ -146,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     'No account yet?',
                                     style: TextStyle(fontFamily: 'OpenSans', fontSize: 17, color: Color(0xffe45f1e)),
                                   ),
-                                  _buildTextButton(context)
+                                  _buildTextButton(context, 'Sign Up', () => SignUpScreen())
                                 ],
                               ),
                             )
@@ -165,14 +179,18 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-Widget _buildTextButton(BuildContext context) {
+Widget _buildTextButton(BuildContext context, String text, Widget Function() createPage) {
   return TextButton(
     onPressed:() => Navigator.push(
       context,
-      MaterialPageRoute(builder:(context) => const SignUpScreen(),)
+      MaterialPageRoute(
+        builder: (context) {
+          return createPage();
+        }
+      )
     ),
-    child: const Text(
-      'Sign Up',
+    child: Text(
+      text,
       style: TextStyle(fontFamily: 'OpenSans', fontSize: 17, color: Color(0xff581d00)),
     )
   );

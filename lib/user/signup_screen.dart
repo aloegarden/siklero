@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:siklero/model/user_info.dart';
 import 'package:siklero/user/reminder_screen.dart';
 import 'package:siklero/user/utils.dart';
@@ -144,27 +145,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             const SizedBox(height: 20,),
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 30),
-                              child: _buildTextField('First Name:', 6, fnameController, false),
+                              child: _buildTextField('First Name:', 6, TextInputType.name, fnameController, false),
                             ),
                             const SizedBox(height: 20,),
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 30),
-                              child: _buildTextField('Last Name:', 6, lnameController, false),
+                              child: _buildTextField('Last Name:', 6, TextInputType.name, lnameController, false),
                             ),
                             const SizedBox(height: 20,),
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 30),
-                              child: _buildTextField('Contact #:', 6, contactController, false),
+                              child: _buildTextField('Contact #:', 6, TextInputType.phone, contactController, false),
                             ),
                             const SizedBox(height: 20,),
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 30),
-                              child: _buildTextField('Address:', 6, addressController, false),
+                              child: _buildTextField('Address:', 6, TextInputType.streetAddress, addressController, false),
                             ),
                             const SizedBox(height: 20,),
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 30),
-                              child: _buildTextField('Username:', 2, usernameController, false),
+                              child: _buildTextField('Username:', 2, TextInputType.text, usernameController, false),
                             ),
                             const SizedBox(height: 50,),
                             Container(
@@ -174,6 +175,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               child: _buildSignUpButton(
                                 emailController, 
                                 passwordController, 
+                                fnameController,
+                                lnameController,
+                                contactController,
+                                addressController,
+                                usernameController,
                                 context, 
                                 formKey)
                             ),
@@ -253,7 +259,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 }
 
-Widget _buildTextField(String title, int action, TextEditingController controller, bool hideText){
+Widget _buildTextField(String title, int action, TextInputType textinputType, TextEditingController controller, bool hideText){
     return Column(
       children: <Widget>[
           Container(
@@ -264,6 +270,7 @@ Widget _buildTextField(String title, int action, TextEditingController controlle
             ),
           ),
           TextFormField(
+            keyboardType: textinputType,
             controller: controller,
             obscureText: hideText,
             textInputAction: TextInputAction.values.elementAt(action),
@@ -297,6 +304,11 @@ Widget _buildTextButton(BuildContext context) {
 Widget _buildSignUpButton(
   TextEditingController emailController, 
   TextEditingController passwordController, 
+  TextEditingController fnameController,
+  TextEditingController lnameController,
+  TextEditingController  contactController,
+  TextEditingController  addressController,
+  TextEditingController  usernameController,
   BuildContext context, 
   GlobalKey<FormState> formkey){
 
@@ -311,11 +323,24 @@ Widget _buildSignUpButton(
 
     Navigator.pop(context);
 
-    try {
+    try { 
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text.trim(), 
         password: passwordController.text.trim(),
-      );
+      ).then((firebaseUser) async {
+        print(firebaseUser.user?.uid);
+        UserData userData = UserData(
+          userName: usernameController.text.trim(),
+          address: addressController.text.trim(),
+          fName: fnameController.text.trim(),
+          lName: lnameController.text.trim(),
+          contact: contactController.text.trim(),
+          isAdmin: false
+        );
+        final docUser = FirebaseFirestore.instance.collection('user_profile').doc(firebaseUser.user?.uid);
+        final json = userData.toJson();
+        await docUser.set(json);
+      });
 
       Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(

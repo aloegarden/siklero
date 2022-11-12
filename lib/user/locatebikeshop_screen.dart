@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class LocateBikeShopScreen extends StatefulWidget {
   const LocateBikeShopScreen({super.key});
@@ -14,6 +15,9 @@ class LocateBikeShopScreen extends StatefulWidget {
 class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
 
   Completer<GoogleMapController> _controller = Completer();
+
+  late BitmapDescriptor currentLocationIcon;
+  late BitmapDescriptor bikeShopIcon;
 
   static final CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(14.581586664962659, 120.9761788),
@@ -29,6 +33,16 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
   @override
   void initState () {
     super.initState();
+
+    BitmapDescriptor.fromAssetImage(
+      ImageConfiguration(size: Size(2, 2)), 
+      'asset/img/user-pin.png')
+      .then((value) => currentLocationIcon = value);
+
+    BitmapDescriptor.fromAssetImage(
+      ImageConfiguration(size: Size(2, 2)), 
+      'asset/img/bike-shop-pin.png')
+      .then((value) => bikeShopIcon = value);
     loadData();
   }
 
@@ -41,7 +55,7 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
         centerTitle: true,
       ),
       body: GoogleMap(
-        mapType: MapType.hybrid,
+        mapType: MapType.normal,
         initialCameraPosition: _kGooglePlex,
         markers: Set<Marker>.of(markers),
         onMapCreated: (GoogleMapController controller) {
@@ -62,6 +76,7 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
       markers.add(
         Marker(
           markerId: MarkerId("currentLocation"),
+          icon: currentLocationIcon,
           position: LatLng(value.latitude, value.longitude)
         )
       );
@@ -81,14 +96,21 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
   }
   
   Future<Position> getUserCurrentLocation() async {
+
+    var permissionStatus = await Permission.location.status;
+    if (permissionStatus.isDenied) {
+      await Geolocator.requestPermission().then((value) {
+
+      }).onError((error, stackTrace) {
+        print("Error: " + error.toString());
+      });
+
+      return await Geolocator.getCurrentPosition();
+    } else {
+
+      return await Geolocator.getCurrentPosition();
+    }
     
-    await Geolocator.requestPermission().then((value) {
-
-    }).onError((error, stackTrace) {
-      print("Error: " + error.toString());
-    });
-
-    return await Geolocator.getCurrentPosition();
   }
 
   

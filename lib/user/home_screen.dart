@@ -11,6 +11,7 @@ import 'package:siklero/user/soscall_screen.dart';
 import 'package:siklero/user/sosdetails_screen.dart';
 import 'package:siklero/user/utils.dart';
 import '../model/user_info.dart';
+import 'change-password_screen.dart';
 import 'editprofile_screen.dart';
 import '../login_screen.dart';
 
@@ -108,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               floatingActionButton: FloatingActionButton(
                 onPressed: () {
-                  showModalBottomSheet(
+                  showModalBottomSheet<dynamic>(
                     context: context, 
                     isScrollControlled: true,
                     backgroundColor: Colors.transparent,
@@ -139,9 +140,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget buildSheet() {
     return makeDismissible(
       child: DraggableScrollableSheet(
-        initialChildSize: 0.5,
+        /* initialChildSize: 0.5,
         maxChildSize: 0.8,
-        minChildSize: 0.3,
+        minChildSize: 0.3, */
         builder: (_,controller) => Container(
           color: Colors.white,
           padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -198,8 +199,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
 
                 children: <Widget>[
-                  InfoText(title: 'Contact#', data: userData!.contact!, maxLine: 1),
-                  InfoText(title: 'Address', data: userData!.address!, maxLine: 3)
+                  InfoText(title: 'Contact #:', data: userData!.contact!, maxLine: 1),
+                  InfoText(title: 'Address:', data: userData!.address!, maxLine: 3)
                 ],
               ),
               const SizedBox(height: 20,),
@@ -209,11 +210,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: EditButton(),
               ),
               const SizedBox(height: 15,),
+              const SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: ResetPassword(),
+              ),
+              const SizedBox(height: 15,),
               SizedBox(
                 width: double.infinity,
                 height: 50,
                 child: LogoutButton(context: context, user: user),
-              )
+              ),
+              
             ],
           ),
         )
@@ -419,6 +427,29 @@ class EditButton extends StatelessWidget {
     ),
     child: const Text(
       'Edit Profile',
+      style: 
+        TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w700),
+    )
+    );
+  }
+}
+
+class ResetPassword extends StatelessWidget {
+  const ResetPassword({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {
+        Navigator.of(context).push(MaterialPageRoute(builder:(context) => const ChangePasswordScreen(),));
+      }, 
+      style: ElevatedButton.styleFrom(
+      shape: const StadiumBorder(),
+      foregroundColor: Colors.white,
+      backgroundColor: const Color(0xffe45f1e)
+    ),
+    child: const Text(
+      'Change Password',
       style: 
         TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w700),
     )

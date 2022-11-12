@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:siklero/main.dart';
 import 'package:siklero/model/sos.dart';
 import 'package:siklero/model/user_info.dart';
@@ -33,13 +34,19 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
 
   Future<Position> getCurrentPosition () async {
 
-    await Geolocator.requestPermission().then((value) {
+    var permissionStatus = await Permission.location.status;
+    if (permissionStatus.isDenied) {
+      await Geolocator.requestPermission().then((value) {
 
-    }).onError((error, stackTrace) {
-      print(error.toString());
-    });
+      }).onError((error, stackTrace) {
+        print("Error: " + error.toString());
+      });
 
-    return await Geolocator.getCurrentPosition();
+      return await Geolocator.getCurrentPosition();
+    } else {
+
+      return await Geolocator.getCurrentPosition();
+    }
   }
 
   Future writeSOS() async {
@@ -82,6 +89,12 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
   void initState() {
     super.initState();
     loadData();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    detailsController.dispose();
   }
 
 

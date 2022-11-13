@@ -35,12 +35,12 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
     super.initState();
 
     BitmapDescriptor.fromAssetImage(
-      ImageConfiguration(size: Size(2, 2)), 
+      ImageConfiguration(), 
       'asset/img/user-pin.png')
       .then((value) => currentLocationIcon = value);
 
     BitmapDescriptor.fromAssetImage(
-      ImageConfiguration(size: Size(2, 2)), 
+      ImageConfiguration(), 
       'asset/img/bike-shop-pin.png')
       .then((value) => bikeShopIcon = value);
     loadData();

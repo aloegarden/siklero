@@ -39,7 +39,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
       appBar: AppBar(
         backgroundColor: const Color(0xffed8f5b),
-        title: Text("Change Password", style: TextStyle(fontFamily: 'OpenSans', fontSize: 24),),
+        title: const Text("Change Password", style: TextStyle(fontFamily: 'OpenSans', fontSize: 24),),
         centerTitle: true,
         elevation: 0,
       ),
@@ -153,8 +153,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             ),
             style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24),
             autovalidateMode: AutovalidateMode.onUserInteraction,
-            validator: (value) => value != null && value.isEmpty
-              ? "Don't leave this field empty"
+            validator: (value) => value != null && value.length < 6
+              ? "Enter min. 6 character"
               : null
           ),   
       ],
@@ -191,13 +191,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       final isValid = formKey.currentState!.validate();
       String userEmail = user.email!;
       if (!isValid) {
-        Navigator.of(context).pop();
         return;
       }
 
       if (newPasswordController.text.trim() != repeatPasswordController.text.trim()) {
-        Navigator.of(context).pop();
         Utils.showSnackBar("New password does not match. Please try again");
+        Navigator.of(context).pop();
+        return;
       }
 
       try {
@@ -226,7 +226,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         if (e.code == 'user-not-found') {
           Utils.showSnackBar('No user found with that email.');
         } else if (e.code == 'wrong-password') {
-          Utils.showSnackBar('Wrong Password. Please use current password');
+          Utils.showSnackBar('Current password does not match. Please try again');
         }
       }
     }

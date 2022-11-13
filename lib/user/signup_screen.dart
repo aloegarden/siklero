@@ -3,6 +3,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:siklero/main.dart';
 import 'package:siklero/model/user_info.dart';
 import 'package:siklero/user/reminder_screen.dart';
 import 'package:siklero/user/utils.dart';
@@ -233,8 +234,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
       writeUser(newUserInfo, newUser.user?.uid);
 
-      print(newUser.user?.uid);
-
       Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
           builder:(context) => const ReminderScreen(),
@@ -243,11 +242,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
       );
     } on FirebaseAuthException catch (e){
       //print(e);
-
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
     }
-
-    Navigator.pop(context);
-
   }
 
   Future writeUser(UserData newUserInfo, String? uid) async {
@@ -318,17 +314,15 @@ Widget _buildSignUpButton(
     showDialog(
       context: context, 
       barrierDismissible: false,
-      builder:(context) => Center(child: CircularProgressIndicator(),),
+      builder:(context) => const Center(child: CircularProgressIndicator(),),
     );
-
-    Navigator.pop(context);
 
     try { 
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text.trim(), 
         password: passwordController.text.trim(),
       ).then((firebaseUser) async {
-        print(firebaseUser.user?.uid);
+        //print(firebaseUser.user?.uid);
         UserData userData = UserData(
           userName: usernameController.text.trim(),
           address: addressController.text.trim(),
@@ -344,16 +338,17 @@ Widget _buildSignUpButton(
 
       Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(
-          builder:(context) => ReminderScreen(),
+          builder:(context) => const ReminderScreen(),
         ), 
         (route) => false
       );
     } on FirebaseAuthException catch (e) {
       print(e);
       Utils.showSnackBar(e.message);
+      Navigator.pop(context);
     }
     
-    // navigatorKey.currentState!.popUntil((route) => route.isFirst);
+    navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }
 
   return ElevatedButton(

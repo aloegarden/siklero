@@ -23,25 +23,25 @@ List<Home> homeitems = [
   Home(
     id: 1,
     text: "Locate Bike Shop",
-    icon: Icon(Icons.directions_bike, color: Colors.white, size: 75,),
+    icon: Icon(Icons.directions_bike_rounded, color: Colors.white, size: 75,),
     screen: LocateBikeShopScreen()
   ),
   Home(
     id: 2, 
     text: "Send SOS", 
-    icon: Icon(Icons.sos, color: Colors.white, size: 75,),
+    icon: Icon(Icons.sos_rounded, color: Colors.white, size: 75,),
     screen: SOSDetailsScreen(userInfo: null,)
   ),
   Home(
     id: 3, 
     text: "SOS Respond", 
-    icon: Icon(Icons.emergency_share, color: Colors.white, size: 75,),
+    icon: Icon(Icons.emergency_share_rounded, color: Colors.white, size: 75,),
     screen: SOSRespondScreen()
   ),
   Home(
     id: 4, 
     text: "Hotlines", 
-    icon: Icon(Icons.menu_book, color: Colors.white, size: 75,),
+    icon: Icon(Icons.menu_book_rounded, color: Colors.white, size: 75,),
     screen: HotlineScreen()
   ),
   Home(

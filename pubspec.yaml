@@ -45,6 +45,11 @@ flutter:
   assets:
     - asset/img/
     - asset/img/tools_image/
+    - asset/img/hotlines_image/
+    - asset/img/preparation_image/
+    - asset/img/repair_image/
+    - asset/img/avoiding-crashes_image/
+    - asset/img/first-aid_image/
 
   fonts:
     - family: OpenSans

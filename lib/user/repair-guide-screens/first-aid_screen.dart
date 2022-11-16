@@ -1,33 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
-import 'package:siklero/model/repair_guide/preparation.dart';
+import 'package:siklero/model/repair_guide/first_aid.dart';
 
-class PreparationScreen extends StatefulWidget {
-  const PreparationScreen({super.key});
+class FirstAidScreen extends StatefulWidget {
+  const FirstAidScreen({super.key});
 
   @override
-  State<PreparationScreen> createState() => _PreparationScreenState();
+  State<FirstAidScreen> createState() => _FirstAidScreenState();
 }
 
-class _PreparationScreenState extends State<PreparationScreen> {
+class _FirstAidScreenState extends State<FirstAidScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor: const Color(0xffed8f5b),
-          title: const Text('Preparation', style: TextStyle(fontFamily: 'OpenSans', fontSize: 24),),
+          title: const Text('First Aid', style: TextStyle(fontFamily: 'OpenSans', fontSize: 24),),
           centerTitle: true,
           elevation: 0,
       ),
       body: ListView(
-        children: preparations.map(buildCard).toList(),
+        children: firstaids.map(buildCard).toList(),
       )
     );
   }
   
-  Widget buildCard(Preparation preparation) => Padding(
+  Widget buildCard(FirstAid firstAid) => Padding(
     padding: const EdgeInsets.all(10),
 
     child: Card(
@@ -38,14 +38,14 @@ class _PreparationScreenState extends State<PreparationScreen> {
             height: 150,
             width: MediaQuery.of(context).size.width,
             child: Image.asset(
-              preparation.imagePath,
+              firstAid.imagePath,
               fit: BoxFit.fitWidth,
             )
           ),
           ExpansionTile(
-            title: Text(preparation.title),
-            subtitle: Text("Courtesy: " + preparation.courtesy),
-            children: [ListTile(title: Text(preparation.description),)],
+            title: Text(firstAid.title),
+            subtitle: Text("Courtesy: " + firstAid.courtesy),
+            children: [ListTile(title: Text(firstAid.description),)],
           )
         ],
       ),

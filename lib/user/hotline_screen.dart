@@ -34,15 +34,17 @@ class HotlineScreen extends StatelessWidget {
         ),
       );
     } else {
-      return ExpansionTile(
-      tilePadding: EdgeInsets.only(left: leftPadding),
-      trailing: const SizedBox.shrink(),
-      leading: const Icon(Icons.keyboard_arrow_right_outlined),
-
-      title: Text(
-        tile.title,
-      ),
-      children: tile.tiles.map((tile) => buildTile(tile, leftPadding: 16 + leftPadding)).toList()
+      return Card(
+        child: ExpansionTile(
+        tilePadding: EdgeInsets.only(left: leftPadding),
+        trailing: const SizedBox.shrink(),
+        leading: const Icon(Icons.keyboard_arrow_right_outlined),
+      
+        title: Text(
+          tile.title,
+        ),
+        children: tile.tiles.map((tile) => buildTile(tile, leftPadding: 16 + leftPadding)).toList()
+        ),
       );
     }
     

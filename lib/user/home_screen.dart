@@ -140,9 +140,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget buildSheet() {
     return makeDismissible(
       child: DraggableScrollableSheet(
-        /* initialChildSize: 0.5,
+        initialChildSize: 0.3,
         maxChildSize: 0.8,
-        minChildSize: 0.3, */
+        minChildSize: 0.3,
         builder: (_,controller) => Container(
           color: Colors.white,
           padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -169,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       
                       children: <Widget>[
                         Text(
-                          user.uid,
+                          userData!.fName! + " " + userData!.lName!,
                           style: const TextStyle(
                             fontFamily: 'OpenSans',
                             fontSize: 24,

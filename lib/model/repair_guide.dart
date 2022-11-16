@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:siklero/user/repair-guide-screens/avoiding-crashes_screen.dart';
+import 'package:siklero/user/repair-guide-screens/first-aid_screen.dart';
 import 'package:siklero/user/repair-guide-screens/preparation_screen.dart';
 import 'package:siklero/user/repair-guide-screens/roadside-repair_screen.dart';
 import 'package:siklero/user/repair-guide-screens/tools_screen.dart';
@@ -43,5 +44,11 @@ List<RepairGuide> repairguideItems = [
     text: 'Avoiding Crashes', 
     icon: Icon(Icons.warning_rounded, color: Colors.white, size: 75,), 
     screen: AvoidingCrashesScreen()
+  ),
+  RepairGuide(
+    id: 5, 
+    text: 'Basic First Aid', 
+    icon: Icon(Icons.medical_information_rounded, color: Colors.white, size: 75,), 
+    screen: FirstAidScreen()
   ),
 ];

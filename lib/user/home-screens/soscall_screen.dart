@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:siklero/main.dart';
-import 'package:siklero/user/home_screen.dart';
+import 'package:siklero/user/home-screens/home_screen.dart';
 
 class SOSCallScreen extends StatefulWidget {
   final String sosID;

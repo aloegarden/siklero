@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:siklero/user/locatebikeshop_screen.dart';
-import 'package:siklero/user/repair-guide_screen.dart';
-import 'package:siklero/user/sosdetails_screen.dart';
-import 'package:siklero/user/sosrespond_screen.dart';
-import 'package:siklero/user/hotline_screen.dart';
+import 'package:siklero/user/home-screens/locatebikeshop_screen.dart';
+import 'package:siklero/user/home-screens/repair-guide_screen.dart';
+import 'package:siklero/user/home-screens/sosdetails_screen.dart';
+import 'package:siklero/user/home-screens/sosrespond_screen.dart';
+import 'package:siklero/user/home-screens/hotline_screen.dart';
 class Home {
 
   final int id;

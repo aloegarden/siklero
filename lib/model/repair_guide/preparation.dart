@@ -30,9 +30,9 @@ List<Preparation> preparations = [
   Preparation(
     title: "Bike Seat Height and Positioning", 
     courtesy: "rei.com", 
-    description: "Check that the saddle (seat) is adjusted at the right height and position for you.\n"
-    + "Having the saddle at the right height for pedaling is important for your knees: When your leg extended in the 6 o’clock position, your knee should be slightly bent.\n"
-    + "The correct fore/aft position is when your knee is directly over the center of your front pedal when your feet are parallel to the ground.\n"
+    description: "Check that the saddle (seat) is adjusted at the right height and position for you.\n\n"
+    + "Having the saddle at the right height for pedaling is important for your knees: When your leg extended in the 6 o’clock position, your knee should be slightly bent.\n\n"
+    + "The correct fore/aft position is when your knee is directly over the center of your front pedal when your feet are parallel to the ground.\n\n"
     + "Personal preference determines whether the saddle should be tipped forward, level or backward.", 
     imagePath: "asset/img/preparation_image/bike-seat-and-height.jpg"
   ),

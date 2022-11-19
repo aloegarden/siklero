@@ -6,7 +6,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:siklero/main.dart';
 import 'package:siklero/model/sos.dart';
 import 'package:siklero/model/user_info.dart';
-import 'package:siklero/user/soscall_screen.dart';
+import 'package:siklero/user/home-screens/soscall_screen.dart';
 import 'package:siklero/user/utils.dart';
 
 class SOSDetailsScreen extends StatefulWidget {

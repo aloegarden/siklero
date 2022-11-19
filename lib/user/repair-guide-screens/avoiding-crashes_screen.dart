@@ -11,6 +11,25 @@ class AvoidingCrashesScreen extends StatefulWidget {
 }
 
 class _AvoidingCrashesScreenState extends State<AvoidingCrashesScreen> {
+
+  final TextStyle titleStyle = const TextStyle(
+    fontFamily: 'OpenSans',
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
+    color: Color(0xff581D00)
+  );
+
+  final TextStyle courtesyStyle = const TextStyle(
+    fontFamily: 'OpenSans',
+    color: Colors.deepOrange
+  );
+
+  final TextStyle contentStyle = const TextStyle(
+    fontFamily: 'OpenSans',
+    color: Color(0xff581D00)
+  );
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,9 +62,10 @@ class _AvoidingCrashesScreenState extends State<AvoidingCrashesScreen> {
             )
           ),
           ExpansionTile(
-            title: Text(crash.title),
-            subtitle: Text("Courtesy: " + crash.courtesy),
-            children: [ListTile(title: Text(crash.description),)],
+            backgroundColor: Color(0xFfFFD4BC),
+            title: Text(crash.title, style: titleStyle,),
+            subtitle: Text("Courtesy: " + crash.courtesy, style: courtesyStyle,),
+            children: [ListTile(title: Text(crash.description, style: contentStyle,),), Divider()],
           )
         ],
       ),

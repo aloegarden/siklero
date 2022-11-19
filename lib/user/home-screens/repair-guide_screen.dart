@@ -20,35 +20,39 @@ class RepairGuideScreen extends StatelessWidget {
         slivers: [
           SliverFillRemaining(
             hasScrollBody: true,
-            child: Expanded(
-              child: Container(
-                padding: const EdgeInsets.only(top: 20),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(12),
-
-                  child: SizedBox(
-                    height: 10000,
-
-                    child: GridView.count(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 12,
-                      mainAxisSpacing: 12,
-                      physics: const ScrollPhysics(),
-
-                      children: List.generate(repairguideItems.length, (index) {
-                        return Center(
-                          child: homeCard(context, repairguideItem: repairguideItems[index],),
-                        );
-                      }
-                      )
+            child: Column(
+              children: [
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.only(top: 20),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30)),
                     ),
-                  ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+
+                      child: SizedBox(
+                        height: 10000,
+
+                        child: GridView.count(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 12,
+                          mainAxisSpacing: 12,
+                          physics: const ScrollPhysics(),
+
+                          children: List.generate(repairguideItems.length, (index) {
+                            return Center(
+                              child: homeCard(context, repairguideItem: repairguideItems[index],),
+                            );
+                          }
+                          )
+                        ),
+                      ),
+                    ),
+                  )
                 ),
-              )
+              ],
             )
           )
         ],

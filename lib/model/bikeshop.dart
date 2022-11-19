@@ -1,10 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class BikeShop {
-  String? bikeShopId;
-  String? bikeShopName;
-  String? bikeShopAddress;
-  List<String>? bikeShopOpeningHours;
-  bool? isOpen;
+  String businessStatus;
+  GeoPoint geometry;
+  String name;
+  String placeId;
+  String vicinity;
 
-
-  late Map<String, double> coordinates;
+  BikeShop({
+    required this.businessStatus,
+    required this.geometry,
+    required this.name,
+    required this.placeId,
+    required this.vicinity
+  });
 }

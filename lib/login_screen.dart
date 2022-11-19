@@ -2,7 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:siklero/main.dart';
-import 'package:siklero/user/reminder_screen.dart';
+import 'package:siklero/user/home-screens/reminder_screen.dart';
 import 'package:siklero/user/reset-password_screen.dart';
 import 'package:siklero/user/signup_screen.dart';
 import 'package:siklero/user/utils.dart';

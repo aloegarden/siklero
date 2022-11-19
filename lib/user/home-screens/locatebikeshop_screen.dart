@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -73,6 +75,7 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
   Future<void> goToCurrentLocation() async {
     getUserCurrentLocation().then((value) async {
       print(value.longitude.toString() + " " + value.latitude.toString());
+      
       markers.add(
         Marker(
           markerId: MarkerId("currentLocation"),

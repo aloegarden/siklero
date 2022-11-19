@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:siklero/main.dart';
 import 'package:siklero/model/user_info.dart';
-import 'package:siklero/user/reminder_screen.dart';
+import 'package:siklero/user/home-screens/reminder_screen.dart';
 import 'package:siklero/user/utils.dart';
 
 class SignUpScreen extends StatefulWidget {

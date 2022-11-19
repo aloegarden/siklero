@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:siklero/login_screen.dart';
-import 'package:siklero/user/home_screen.dart';
+import 'package:siklero/user/home-screens/home_screen.dart';
 import 'package:siklero/user/reset-password_screen.dart';
 import 'package:siklero/user/utils.dart';
 

@@ -11,6 +11,24 @@ class FirstAidScreen extends StatefulWidget {
 }
 
 class _FirstAidScreenState extends State<FirstAidScreen> {
+
+  final TextStyle titleStyle = const TextStyle(
+    fontFamily: 'OpenSans',
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
+    color: Color(0xff581D00)
+  );
+
+  final TextStyle courtesyStyle = const TextStyle(
+    fontFamily: 'OpenSans',
+    color: Colors.deepOrange
+  );
+
+  final TextStyle contentStyle = const TextStyle(
+    fontFamily: 'OpenSans',
+    color: Color(0xff581D00)
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,9 +61,10 @@ class _FirstAidScreenState extends State<FirstAidScreen> {
             )
           ),
           ExpansionTile(
-            title: Text(firstAid.title),
-            subtitle: Text("Courtesy: " + firstAid.courtesy),
-            children: [ListTile(title: Text(firstAid.description),)],
+            backgroundColor: Color(0xFfFFD4BC),
+            title: Text(firstAid.title, style: titleStyle,),
+            subtitle: Text("Courtesy: " + firstAid.courtesy, style: courtesyStyle,),
+            children: [ListTile(title: Text(firstAid.description, style: contentStyle,),), Divider()],
           )
         ],
       ),

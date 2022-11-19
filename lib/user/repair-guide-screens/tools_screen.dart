@@ -14,6 +14,23 @@ class _ToolsScreenState extends State<ToolsScreen> {
 
   late ExpandableController controller;
 
+  final TextStyle titleStyle = const TextStyle(
+    fontFamily: 'OpenSans',
+    fontSize: 20,
+    fontWeight: FontWeight.w700,
+    color: Color(0xff581D00)
+  );
+
+  final TextStyle courtesyStyle = const TextStyle(
+    fontFamily: 'OpenSans',
+    color: Colors.deepOrange
+  );
+
+  final TextStyle contentStyle = const TextStyle(
+    fontFamily: 'OpenSans',
+    color: Color(0xff581D00)
+  );
+
   @override
   void initState() {
     super.initState();
@@ -58,9 +75,19 @@ class _ToolsScreenState extends State<ToolsScreen> {
             )
           ),
           ExpansionTile(
-            title: Text(tool.title),
-            subtitle: Text("Courtesy: " + tool.courtesy),
-            children: [ListTile(title: Text(tool.description),)],
+            backgroundColor: Color(0xFfFFD4BC),
+            title: Text(
+              tool.title,
+              style: titleStyle
+            ),
+            subtitle: Text(
+              "Courtesy: " + tool.courtesy,
+              style: courtesyStyle,
+            ),
+            children: [
+              ListTile(title: Text(tool.description, style: contentStyle,)),
+              Divider()
+            ],
           )
         ],
       ),

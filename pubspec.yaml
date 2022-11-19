@@ -27,6 +27,7 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   permission_handler: ^10.2.0
   expandable: ^5.0.1
+  http: ^0.13.5
 
 flutter_native_splash:
   color: "#ed8f5b"
@@ -50,6 +51,7 @@ flutter:
     - asset/img/repair_image/
     - asset/img/avoiding-crashes_image/
     - asset/img/first-aid_image/
+    - asset/locations.json
 
   fonts:
     - family: OpenSans

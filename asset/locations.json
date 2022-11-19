@@ -1,0 +1,878 @@
+{
+   "html_attributions" : [],
+   "next_page_token" : "AW30NDy4brTmRgdaMHcRi49iKQAUjrsS1lxfpJVCA9LrAHGpWyfoDa2ZJiofCKL3iqaV5y0LgpRXjI9W6zh0oGl4c0XlkENuKhZ4Pxoh901YipBKeEUn9UVHeOnJ-pEczIVecYAOht9ne96ds65w-kyHd_9tkFq7rZVU0QTG5Rq0q-TeLs1xXP3a5VwFy5Ao2y-dxSJ83QbnFqLX-IpXlXcYVh54aEREIY873WSfhMXc7AzMRKYeR45T7Qmhz8N2xtFa7XvD3ThWfBa159syZQ3-VJS4Qew5OZ3TIEYNiX4bHGJlnD9w6IRW-rzcL1bSeakuQ49pofgM6AcRD1UMeqk83g2iwEmcUwnNLJTkqzNxowxA76V-ayjNWkX0C68gMBOvd_zVoWVlnoHHMECnz9Sna8SJO-5bMDpL6BQDINfUrAouc6Bs5fm6TDyfiByTKXG4rw68YKM",
+   "results" : [
+      {
+         "business_status" : "OPERATIONAL",
+         "geometry" : {
+            "location" : {
+               "lat" : 14.590189,
+               "lng" : 121.1243883
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 14.59154467989272,
+                  "lng" : 121.1256702298927
+               },
+               "southwest" : {
+                  "lat" : 14.58884502010728,
+                  "lng" : 121.1229705701073
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+         "icon_background_color" : "#4B96F3",
+         "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shopping_pinlet",
+         "name" : "Gerald's Bike Shop",
+         "opening_hours" : {},
+         "place_id" : "ChIJmw9aLwu5lzMRWza-MmfJ7yA",
+         "rating" : 0,
+         "reference" : "ChIJmw9aLwu5lzMRWza-MmfJ7yA",
+         "scope" : "GOOGLE",
+         "types" : [ "bicycle_store", "store", "point_of_interest", "establishment" ],
+         "user_ratings_total" : 0,
+         "vicinity" : "H4RF+3QC, Brewer, Cainta"
+      },
+      {
+         "business_status" : "OPERATIONAL",
+         "geometry" : {
+            "location" : {
+               "lat" : 14.594249,
+               "lng" : 121.1162319
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 14.59565237989272,
+                  "lng" : 121.1175437798927
+               },
+               "southwest" : {
+                  "lat" : 14.59295272010728,
+                  "lng" : 121.1148441201073
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+         "icon_background_color" : "#4B96F3",
+         "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shopping_pinlet",
+         "name" : "EastRide Bike Shop",
+         "opening_hours" : {},
+         "photos" : [
+            {
+               "height" : 4032,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/112448869387808203204\"\u003eGelline Domingo\u003c/a\u003e"
+               ],
+               "photo_reference" : "AW30NDxs83gsdknT0o011FYdsKZCO8YFJFFAxqM9z_yq97mcBZ1wE4nRCVXKyalav2jdKRWHd1hXx3Z3zjEv89A-regMt7_e-dLhoXGLyGl7_fhOnghGrqdXB_CSWL-Jc3KgnHxfKx8U9QiKqbjoP2NpFAWRQMGpV1oyFhNsXuumBzB6NyxH",
+               "width" : 3024
+            }
+         ],
+         "place_id" : "ChIJaRaJSh25lzMRFzcZp8lV78w",
+         "plus_code" : {
+            "compound_code" : "H4V8+MF Cainta, Rizal",
+            "global_code" : "7Q63H4V8+MF"
+         },
+         "rating" : 5,
+         "reference" : "ChIJaRaJSh25lzMRFzcZp8lV78w",
+         "scope" : "GOOGLE",
+         "types" : [ "bicycle_store", "store", "point_of_interest", "establishment" ],
+         "user_ratings_total" : 2,
+         "vicinity" : "Vista Verde Country Homes Tennis Court, Ridgeway Dr, Santo Domingo, Cainta"
+      },
+      {
+         "business_status" : "OPERATIONAL",
+         "geometry" : {
+            "location" : {
+               "lat" : 14.5951761,
+               "lng" : 121.1115776
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 14.59651832989273,
+                  "lng" : 121.1129101298928
+               },
+               "southwest" : {
+                  "lat" : 14.59381867010728,
+                  "lng" : 121.1102104701073
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+         "icon_background_color" : "#4B96F3",
+         "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shopping_pinlet",
+         "name" : "Pedals Bike Shop",
+         "opening_hours" : {
+            "open_now" : true
+         },
+         "photos" : [
+            {
+               "height" : 1170,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/117010470466343736359\"\u003eA Google User\u003c/a\u003e"
+               ],
+               "photo_reference" : "AW30NDzyTKUKTaBmE7XMCTucS6GMkeZ_V6lS4O2WYvAfz7KCgukuxcyQ5_kAmaiXdbpDJfmG4XKVWVQGV-yLdoJspZMT5zfu9Lr8Myuk-QOs5V59YRBZnNPoLXtwDthJLsMxccFmPAwC1Zv8TgaA2FrAAjAP7djVgv1-l3kJw33u4vgvo67l",
+               "width" : 1560
+            }
+         ],
+         "place_id" : "ChIJ8T84-PW5lzMRIX3nHPxxOvw",
+         "plus_code" : {
+            "compound_code" : "H4W6+3J Cainta, Rizal",
+            "global_code" : "7Q63H4W6+3J"
+         },
+         "rating" : 5,
+         "reference" : "ChIJ8T84-PW5lzMRIX3nHPxxOvw",
+         "scope" : "GOOGLE",
+         "types" : [ "bicycle_store", "store", "point_of_interest", "establishment" ],
+         "user_ratings_total" : 9,
+         "vicinity" : "WL Malls Agora - East, Unit 139, 5 Village East, Felix Ave, Santo Domingo, Cainta"
+      },
+      {
+         "business_status" : "OPERATIONAL",
+         "geometry" : {
+            "location" : {
+               "lat" : 14.5992756,
+               "lng" : 121.1110356
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 14.60057867989272,
+                  "lng" : 121.1123634798927
+               },
+               "southwest" : {
+                  "lat" : 14.59787902010728,
+                  "lng" : 121.1096638201073
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+         "icon_background_color" : "#4B96F3",
+         "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shopping_pinlet",
+         "name" : "Bike Biz Cycle Store",
+         "opening_hours" : {
+            "open_now" : true
+         },
+         "photos" : [
+            {
+               "height" : 2592,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/116205774705820903590\"\u003eA Google User\u003c/a\u003e"
+               ],
+               "photo_reference" : "AW30NDz7DNuoWwXR7ogZZYgVD4ldI7Hu_SWwD1K7t_QL5Q_ibAD9xknFFXVTcLWJetftVtSzJELBoEerB9Ypy76VTCFzeG-BYx4oviqzVTSMYDpCJ4Z6tGntvjfc3tUA2h7YM7C4HhRAUtzzJ4Qdk0kUgsbaHS3PPRrqhDykIzVhEtsieCcO",
+               "width" : 4608
+            }
+         ],
+         "place_id" : "ChIJiVLn_3C4lzMRNXKqjqT2vgM",
+         "plus_code" : {
+            "compound_code" : "H4X6+PC Cainta, Rizal",
+            "global_code" : "7Q63H4X6+PC"
+         },
+         "rating" : 5,
+         "reference" : "ChIJiVLn_3C4lzMRNXKqjqT2vgM",
+         "scope" : "GOOGLE",
+         "types" : [ "bicycle_store", "store", "point_of_interest", "establishment" ],
+         "user_ratings_total" : 7,
+         "vicinity" : "46 kasibulan village, Kasaganaan St, Cainta"
+      },
+      {
+         "business_status" : "OPERATIONAL",
+         "geometry" : {
+            "location" : {
+               "lat" : 14.5832898,
+               "lng" : 121.1260061
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 14.58456902989272,
+                  "lng" : 121.1273346298927
+               },
+               "southwest" : {
+                  "lat" : 14.58186937010728,
+                  "lng" : 121.1246349701073
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+         "icon_background_color" : "#4B96F3",
+         "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shopping_pinlet",
+         "name" : "Skylark's Bike Shop",
+         "opening_hours" : {
+            "open_now" : true
+         },
+         "photos" : [
+            {
+               "height" : 3024,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/106796422637686675023\"\u003eSkylark&#39;s Bike Shop - Cainta Branch\u003c/a\u003e"
+               ],
+               "photo_reference" : "AW30NDyuoLuDimxBDt1rGsPK2TFu8bOW8hlUCXjAFlK6zyxfG8rx3JfIKR7WT2O3VZT6IRlxKBe2xbCFsswViKDydKF7NdM7sU_kBwYhQOgj14IR5qb8B97DxCruXtKyM2n48aSzeOyEW89IIr5-F6LtDgb4KUZcmUFHvI15xoIWPRYmYomB",
+               "width" : 4032
+            }
+         ],
+         "place_id" : "ChIJlX1ygUy4lzMR4I3XW-pLsz0",
+         "plus_code" : {
+            "compound_code" : "H4MG+8C Cainta, Rizal",
+            "global_code" : "7Q63H4MG+8C"
+         },
+         "rating" : 4.7,
+         "reference" : "ChIJlX1ygUy4lzMR4I3XW-pLsz0",
+         "scope" : "GOOGLE",
+         "types" : [ "bicycle_store", "store", "point_of_interest", "establishment" ],
+         "user_ratings_total" : 51,
+         "vicinity" : "WCS Bldg, KM 19 Ortigas Ave Ext, Cainta"
+      },
+      {
+         "business_status" : "OPERATIONAL",
+         "geometry" : {
+            "location" : {
+               "lat" : 14.5869756,
+               "lng" : 121.1146738
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 14.58832732989272,
+                  "lng" : 121.1160946798927
+               },
+               "southwest" : {
+                  "lat" : 14.58562767010728,
+                  "lng" : 121.1133950201073
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+         "icon_background_color" : "#4B96F3",
+         "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shopping_pinlet",
+         "name" : "Trangko's Bike Shop",
+         "opening_hours" : {
+            "open_now" : true
+         },
+         "photos" : [
+            {
+               "height" : 3264,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/115268526706165878777\"\u003eA Google User\u003c/a\u003e"
+               ],
+               "photo_reference" : "AW30NDyQiPaC1W7myu6BjGegP-JV_kK3pDZgP_Ti8mf7wl6HPjzo5wQe-ZJSyk5OwLk6yjHG_MOTprEHelpdAhUJRhdPg1OHSgmBND8Iql56eqKXHJdwqj1yP30fThCCPsHH4HXtHJOvFq5_XNXBfUOFSjNUuaQxmXNy9q-tDXpxZhGXM7sf",
+               "width" : 1836
+            }
+         ],
+         "place_id" : "ChIJBSkyuPLHlzMRbflqMMzwfm0",
+         "plus_code" : {
+            "compound_code" : "H4P7+QV Cainta, Rizal",
+            "global_code" : "7Q63H4P7+QV"
+         },
+         "rating" : 3.8,
+         "reference" : "ChIJBSkyuPLHlzMRbflqMMzwfm0",
+         "scope" : "GOOGLE",
+         "types" : [ "bicycle_store", "store", "point_of_interest", "establishment" ],
+         "user_ratings_total" : 6,
+         "vicinity" : "Felix Ave, Santo Domingo, Cainta"
+      },
+      {
+         "business_status" : "OPERATIONAL",
+         "geometry" : {
+            "location" : {
+               "lat" : 14.5823692,
+               "lng" : 121.1274396
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 14.58379572989272,
+                  "lng" : 121.1288207298927
+               },
+               "southwest" : {
+                  "lat" : 14.58109607010728,
+                  "lng" : 121.1261210701072
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+         "icon_background_color" : "#4B96F3",
+         "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shopping_pinlet",
+         "name" : "Bicycle King Bike Shop & Cafe",
+         "opening_hours" : {
+            "open_now" : true
+         },
+         "photos" : [
+            {
+               "height" : 1078,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/110723442511803989195\"\u003eA Google User\u003c/a\u003e"
+               ],
+               "photo_reference" : "AW30NDzj1UjFcgWkrSa7rBmPbEWA46kfJGUomj1aSQMz753R6vrLxvCPzslNMfQImrWSlCRdrIHXSEGanPIOH4hpnlkBwUWRE6V6LcW6G1YsTCQqgeumOrMaxqJ2CduSRpRzTemvqSGuuw7FBXaZcjuTk7c4SM4qMOhkclTwFdK308dQSk7z",
+               "width" : 1440
+            }
+         ],
+         "place_id" : "ChIJH-V0Wiu5lzMRWxF202Cx-Mo",
+         "plus_code" : {
+            "compound_code" : "H4JG+WX Cainta, Rizal",
+            "global_code" : "7Q63H4JG+WX"
+         },
+         "rating" : 3.7,
+         "reference" : "ChIJH-V0Wiu5lzMRWxF202Cx-Mo",
+         "scope" : "GOOGLE",
+         "types" : [ "bicycle_store", "store", "point_of_interest", "establishment" ],
+         "user_ratings_total" : 6,
+         "vicinity" : "KM 22, Brgy, OAX Zentrum, Ortigas Ave Ext, Cainta"
+      },
+      {
+         "business_status" : "OPERATIONAL",
+         "geometry" : {
+            "location" : {
+               "lat" : 14.5793237,
+               "lng" : 121.1175891
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 14.58066932989272,
+                  "lng" : 121.1189088298927
+               },
+               "southwest" : {
+                  "lat" : 14.57796967010728,
+                  "lng" : 121.1162091701073
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+         "icon_background_color" : "#4B96F3",
+         "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shopping_pinlet",
+         "name" : "Dexter's Bike",
+         "opening_hours" : {
+            "open_now" : true
+         },
+         "place_id" : "ChIJn3FqPJvHlzMRS1f2zW43Bes",
+         "plus_code" : {
+            "compound_code" : "H4H9+P2 Cainta, Rizal",
+            "global_code" : "7Q63H4H9+P2"
+         },
+         "rating" : 0,
+         "reference" : "ChIJn3FqPJvHlzMRS1f2zW43Bes",
+         "scope" : "GOOGLE",
+         "types" : [ "bicycle_store", "store", "point_of_interest", "establishment" ],
+         "user_ratings_total" : 0,
+         "vicinity" : "295 A Mabini St, STO. Nino, Cainta"
+      },
+      {
+         "business_status" : "OPERATIONAL",
+         "geometry" : {
+            "location" : {
+               "lat" : 14.5769411,
+               "lng" : 121.1191301
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 14.57835027989272,
+                  "lng" : 121.1204594298927
+               },
+               "southwest" : {
+                  "lat" : 14.57565062010728,
+                  "lng" : 121.1177597701073
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+         "icon_background_color" : "#4B96F3",
+         "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shopping_pinlet",
+         "name" : "Big J Bikeshop Cainta",
+         "opening_hours" : {
+            "open_now" : true
+         },
+         "photos" : [
+            {
+               "height" : 1024,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/107036733234153255232\"\u003eA Google User\u003c/a\u003e"
+               ],
+               "photo_reference" : "AW30NDz-0VR0GaNDM2w3UpXEEJHQLbpEIikUbCCh2EYIErZb4Mo9OzBmi4jWIVC1rg357PNBMzg-94XomrZYgfIdxABJwbbYPgpeegpTfmK4AT76Xtj7Gddu3n5kT3sCndJ7h_Mg-CD6zg9-IsguiGG4A0PZ8eo7T49EdHl6kzsrHGYq6VzL",
+               "width" : 768
+            }
+         ],
+         "place_id" : "ChIJY7XFXdXHlzMRMP5lowGLYaE",
+         "plus_code" : {
+            "compound_code" : "H4G9+QM Cainta, Rizal",
+            "global_code" : "7Q63H4G9+QM"
+         },
+         "rating" : 4.3,
+         "reference" : "ChIJY7XFXdXHlzMRMP5lowGLYaE",
+         "scope" : "GOOGLE",
+         "types" : [ "bicycle_store", "store", "point_of_interest", "establishment" ],
+         "user_ratings_total" : 36,
+         "vicinity" : "005 Bonifacio Ave, Cainta"
+      },
+      {
+         "business_status" : "OPERATIONAL",
+         "geometry" : {
+            "location" : {
+               "lat" : 14.6206876,
+               "lng" : 121.1200735
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 14.62206282989272,
+                  "lng" : 121.1214229298927
+               },
+               "southwest" : {
+                  "lat" : 14.61936317010728,
+                  "lng" : 121.1187232701073
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+         "icon_background_color" : "#4B96F3",
+         "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shopping_pinlet",
+         "name" : "RRRJ Bike & Go Bike Shop",
+         "opening_hours" : {
+            "open_now" : true
+         },
+         "place_id" : "ChIJG33QNZi5lzMRVcM_jsVhWj8",
+         "plus_code" : {
+            "compound_code" : "J4CC+72 Antipolo, Rizal",
+            "global_code" : "7Q63J4CC+72"
+         },
+         "rating" : 0,
+         "reference" : "ChIJG33QNZi5lzMRVcM_jsVhWj8",
+         "scope" : "GOOGLE",
+         "types" : [ "bicycle_store", "store", "point_of_interest", "establishment" ],
+         "user_ratings_total" : 0,
+         "vicinity" : "62 A Cyrus Street Kingsville Subd. Brgy, Antipolo"
+      },
+      {
+         "business_status" : "OPERATIONAL",
+         "geometry" : {
+            "location" : {
+               "lat" : 14.622002,
+               "lng" : 121.1264374
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 14.62331232989272,
+                  "lng" : 121.1277437798928
+               },
+               "southwest" : {
+                  "lat" : 14.62061267010728,
+                  "lng" : 121.1250441201073
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+         "icon_background_color" : "#7B9EB0",
+         "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+         "name" : "Acelexbikeshop",
+         "photos" : [
+            {
+               "height" : 4000,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/102094919847517534063\"\u003eA Google User\u003c/a\u003e"
+               ],
+               "photo_reference" : "AW30NDxLmumk54F4BCdEn-IsWsJO1GemLXbVbFJnWivxdVVo7IK2Px33RQPDT2FUZJQYXtgdSe1UFKlXdf8xTrNPyIQsPv8uF9b3PG362BnoyuGQCTddBAAM3zbnvOiWli-FkhVMXnawqZbLxpfo7DYbcLoF5YE7AShQ4gV5hdWiDLbO4kAk",
+               "width" : 3000
+            }
+         ],
+         "place_id" : "ChIJ-eK8EIa5lzMRdUYLAY0nOko",
+         "rating" : 4.7,
+         "reference" : "ChIJ-eK8EIa5lzMRdUYLAY0nOko",
+         "scope" : "GOOGLE",
+         "types" : [ "point_of_interest", "establishment" ],
+         "user_ratings_total" : 3,
+         "vicinity" : "J4CG+RH3, masinag, Sumulong Hwy, Antipolo"
+      },
+      {
+         "business_status" : "OPERATIONAL",
+         "geometry" : {
+            "location" : {
+               "lat" : 14.578156,
+               "lng" : 121.1412906
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 14.57953982989272,
+                  "lng" : 121.1426515798927
+               },
+               "southwest" : {
+                  "lat" : 14.57684017010728,
+                  "lng" : 121.1399519201073
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+         "icon_background_color" : "#4B96F3",
+         "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shopping_pinlet",
+         "name" : "J. Lejano's Bike Shop",
+         "opening_hours" : {
+            "open_now" : true
+         },
+         "photos" : [
+            {
+               "height" : 810,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/109605692913618514273\"\u003eA Google User\u003c/a\u003e"
+               ],
+               "photo_reference" : "AW30NDxwf4OVOdlwryWtSeQOwmCHePIYksZZe3sEX26exEO6Czebsa7VJu0Oyv7nIAuNtDJcNrkO0xbmxvu7UA7iovwM-lHlSRioMpT-oWkhhErDYu88ZBmH2KhO6g5VyVBTcBgAfmgGsFaAGITGWgd_Twma-rOHL-Q__0Tpss0JRYwY0Z-d",
+               "width" : 1080
+            }
+         ],
+         "place_id" : "ChIJFzPiqUrHlzMRi8xTwkxWQI4",
+         "plus_code" : {
+            "compound_code" : "H4HR+7G Taytay, Rizal",
+            "global_code" : "7Q63H4HR+7G"
+         },
+         "rating" : 5,
+         "reference" : "ChIJFzPiqUrHlzMRi8xTwkxWQI4",
+         "scope" : "GOOGLE",
+         "types" : [ "bicycle_store", "store", "point_of_interest", "establishment" ],
+         "user_ratings_total" : 13,
+         "vicinity" : "23 Ortigas Ave Ext, Taytay"
+      },
+      {
+         "business_status" : "OPERATIONAL",
+         "geometry" : {
+            "location" : {
+               "lat" : 14.5959054,
+               "lng" : 121.0997392
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 14.59727937989272,
+                  "lng" : 121.1010901298927
+               },
+               "southwest" : {
+                  "lat" : 14.59457972010728,
+                  "lng" : 121.0983904701073
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+         "icon_background_color" : "#7B9EB0",
+         "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+         "name" : "Dennis Vulcanizing and Bicycle Parts",
+         "opening_hours" : {
+            "open_now" : true
+         },
+         "place_id" : "ChIJO3TZDZi5lzMRp-aVuNY2d4o",
+         "rating" : 0,
+         "reference" : "ChIJO3TZDZi5lzMRp-aVuNY2d4o",
+         "scope" : "GOOGLE",
+         "types" : [ "point_of_interest", "establishment" ],
+         "user_ratings_total" : 0,
+         "vicinity" : "H3WX+9V9, Guyabano St, Pasig"
+      },
+      {
+         "business_status" : "OPERATIONAL",
+         "geometry" : {
+            "location" : {
+               "lat" : 14.6234849,
+               "lng" : 121.1172053
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 14.62498727989272,
+                  "lng" : 121.1185283798927
+               },
+               "southwest" : {
+                  "lat" : 14.62228762010728,
+                  "lng" : 121.1158287201073
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+         "icon_background_color" : "#4B96F3",
+         "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shopping_pinlet",
+         "name" : "Avanté Motorsports - Motorcycle Center",
+         "opening_hours" : {
+            "open_now" : true
+         },
+         "photos" : [
+            {
+               "height" : 720,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/107951860699793436539\"\u003eAzrel Balaque\u003c/a\u003e"
+               ],
+               "photo_reference" : "AW30NDxxDFESPyY1gxiqR4XibvBmQJgeFwotR0h2vs9tkL4vntvEJbM6-d7KxVMhYe-kG7Mjb_i9Qx1u6hctFjPgfvPWIio1rjmtK6nyHygcLFMydCOy2SVubthi2uPqQM_pbyaojZrv5uGitUecz0A6Bi2yM9a-GRIaxtO0r-mevwW2IDrw",
+               "width" : 960
+            }
+         ],
+         "place_id" : "ChIJJZ3K3Z65lzMRPpqbMptGAqY",
+         "plus_code" : {
+            "compound_code" : "J4F8+9V Antipolo, Rizal",
+            "global_code" : "7Q63J4F8+9V"
+         },
+         "rating" : 5,
+         "reference" : "ChIJJZ3K3Z65lzMRPpqbMptGAqY",
+         "scope" : "GOOGLE",
+         "types" : [ "store", "point_of_interest", "establishment" ],
+         "user_ratings_total" : 2,
+         "vicinity" : "Marikina-Infanta Hwy, Antipolo"
+      },
+      {
+         "business_status" : "OPERATIONAL",
+         "geometry" : {
+            "location" : {
+               "lat" : 14.6235349,
+               "lng" : 121.1171923
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 14.62501197989272,
+                  "lng" : 121.1185197798928
+               },
+               "southwest" : {
+                  "lat" : 14.62231232010728,
+                  "lng" : 121.1158201201073
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/shopping-71.png",
+         "icon_background_color" : "#4B96F3",
+         "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/shopping_pinlet",
+         "name" : "Avanté Motorsports - Big Bike Repair-Maintenance - Services",
+         "photos" : [
+            {
+               "height" : 3968,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/104549141964287694281\"\u003eA Google User\u003c/a\u003e"
+               ],
+               "photo_reference" : "AW30NDxRPBBuV_G8veRUHY0ooJskIHRynfUEDVCOm2k9YuNWeDdwEY1afBecDG5mJhqvMJWmdwIqXML-eNN1c94q4SmQXqijntpwREhXzUNxHkTxW_oPBMxrHCM365PC8F1RkDvhC9adJgvPqhbGOEin5irohpdi1NVRWiH-VFZbQYeY579q",
+               "width" : 2976
+            }
+         ],
+         "place_id" : "ChIJgZQ41ve5lzMR9MZca4L1ehU",
+         "plus_code" : {
+            "compound_code" : "J4F8+CV Antipolo, Rizal",
+            "global_code" : "7Q63J4F8+CV"
+         },
+         "rating" : 0,
+         "reference" : "ChIJgZQ41ve5lzMR9MZca4L1ehU",
+         "scope" : "GOOGLE",
+         "types" : [ "store", "point_of_interest", "establishment" ],
+         "user_ratings_total" : 0,
+         "vicinity" : "Marikina-Infanta Hwy, Antipolo"
+      },
+      {
+         "business_status" : "OPERATIONAL",
+         "geometry" : {
+            "location" : {
+               "lat" : 14.5701883,
+               "lng" : 121.1252024
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 14.57153977989272,
+                  "lng" : 121.1265478298927
+               },
+               "southwest" : {
+                  "lat" : 14.56884012010728,
+                  "lng" : 121.1238481701073
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+         "icon_background_color" : "#7B9EB0",
+         "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+         "name" : "Oliver's Bike Shop",
+         "opening_hours" : {
+            "open_now" : true
+         },
+         "photos" : [
+            {
+               "height" : 4192,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/109239972463911637631\"\u003eA Google User\u003c/a\u003e"
+               ],
+               "photo_reference" : "AW30NDwI1gG1aePKTcigwyxojjVLcT3rVJj2qf47TmQZ5uRAumc22JARv7PKRLP7Bk7tygiCqxsWdFufemtcY1e_QLueujn37A85LorYITfl35XQRYpj4jw1kOAElyzfTns7EytmYT-DGhosl1G8Rj8rmEGOjXNiDIpWd0ma6A-gxj9gQquG",
+               "width" : 3144
+            }
+         ],
+         "place_id" : "ChIJUW3dfXLHlzMRafNSjCwmNzE",
+         "plus_code" : {
+            "compound_code" : "H4CG+33 Taytay, Rizal",
+            "global_code" : "7Q63H4CG+33"
+         },
+         "rating" : 0,
+         "reference" : "ChIJUW3dfXLHlzMRafNSjCwmNzE",
+         "scope" : "GOOGLE",
+         "types" : [ "point_of_interest", "establishment" ],
+         "user_ratings_total" : 0,
+         "vicinity" : "15 P Ocampo St. Highway 2000 Phase 2 Brgy, Taytay"
+      },
+      {
+         "business_status" : "OPERATIONAL",
+         "geometry" : {
+            "location" : {
+               "lat" : 14.5816492,
+               "lng" : 121.1023243
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 14.58297592989272,
+                  "lng" : 121.1036749798928
+               },
+               "southwest" : {
+                  "lat" : 14.58027627010728,
+                  "lng" : 121.1009753201073
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+         "icon_background_color" : "#7B9EB0",
+         "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+         "name" : "CycleHouse Pasig Branch (Sta Lucia)",
+         "opening_hours" : {
+            "open_now" : true
+         },
+         "photos" : [
+            {
+               "height" : 890,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/115864410260224392542\"\u003eA Google User\u003c/a\u003e"
+               ],
+               "photo_reference" : "AW30NDw7o8xRr6lAgB7vEbcHPSboLVZ_fNWkewH6fsA4m7frOiAku2x1yM-bKRjDjBlkp6-XB9LDJQELB_i7Jq8iV-uX_0XLoRpfneuok1Q-22dCwoE-3eE1TimBCaEdIkl75fEU8nhZRAKANcOuPv1xP9RieQsTP9Yb-_2wjl55a7Gx2e-B",
+               "width" : 1187
+            }
+         ],
+         "place_id" : "ChIJZyiggznMeqIRfW2XXhPAY8Y",
+         "plus_code" : {
+            "compound_code" : "H4J2+MW Pasig, Metro Manila",
+            "global_code" : "7Q63H4J2+MW"
+         },
+         "rating" : 0,
+         "reference" : "ChIJZyiggznMeqIRfW2XXhPAY8Y",
+         "scope" : "GOOGLE",
+         "types" : [
+            "bicycle_store",
+            "car_repair",
+            "store",
+            "point_of_interest",
+            "establishment"
+         ],
+         "user_ratings_total" : 0,
+         "vicinity" : "Marietta Romeo Village, 8 Romeo Taddeus, Pasig"
+      },
+      {
+         "business_status" : "OPERATIONAL",
+         "geometry" : {
+            "location" : {
+               "lat" : 14.6103964,
+               "lng" : 121.0985408
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 14.61175177989272,
+                  "lng" : 121.0998427798927
+               },
+               "southwest" : {
+                  "lat" : 14.60905212010728,
+                  "lng" : 121.0971431201073
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+         "icon_background_color" : "#7B9EB0",
+         "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+         "name" : "Bike to work Suspension Care",
+         "place_id" : "ChIJYSjFXBC5lzMRmJUcdN0Ijjc",
+         "plus_code" : {
+            "compound_code" : "J36X+5C Pasig, Metro Manila",
+            "global_code" : "7Q63J36X+5C"
+         },
+         "rating" : 0,
+         "reference" : "ChIJYSjFXBC5lzMRmJUcdN0Ijjc",
+         "scope" : "GOOGLE",
+         "types" : [ "point_of_interest", "establishment" ],
+         "user_ratings_total" : 0,
+         "vicinity" : "191 Washington, Pasig"
+      },
+      {
+         "business_status" : "OPERATIONAL",
+         "geometry" : {
+            "location" : {
+               "lat" : 14.5744101,
+               "lng" : 121.1030586
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 14.57571897989272,
+                  "lng" : 121.1043434798927
+               },
+               "southwest" : {
+                  "lat" : 14.57301932010728,
+                  "lng" : 121.1016438201073
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+         "icon_background_color" : "#7B9EB0",
+         "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+         "name" : "Ann's Bike Station",
+         "opening_hours" : {
+            "open_now" : true
+         },
+         "photos" : [
+            {
+               "height" : 3264,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/103668435432430818521\"\u003eA Google User\u003c/a\u003e"
+               ],
+               "photo_reference" : "AW30NDwCYjq6zwiFbYwXouWf9cJTeHi8d0pvB1uttEElz6S7O9XjEfyzCju4KO153CQIfdaQeHwMmhTAKRXj6eCXz3nwJyPlem2-zsBdp7ZdY_aZhGvObjt5Ci4gpgddF0m7hMPnVVzl-XFtHvdIHQh6V1gTT82EqwAOfUl-tRA9EbXT99sK",
+               "width" : 2448
+            }
+         ],
+         "place_id" : "ChIJ6Q0CJpXHlzMRQETePF882eA",
+         "plus_code" : {
+            "compound_code" : "H4F3+Q6 Cainta, Rizal",
+            "global_code" : "7Q63H4F3+Q6"
+         },
+         "rating" : 5,
+         "reference" : "ChIJ6Q0CJpXHlzMRQETePF882eA",
+         "scope" : "GOOGLE",
+         "types" : [ "point_of_interest", "establishment" ],
+         "user_ratings_total" : 1,
+         "vicinity" : "248 East Bank Rd. P. F. C. I, Cainta"
+      },
+      {
+         "business_status" : "OPERATIONAL",
+         "geometry" : {
+            "location" : {
+               "lat" : 14.5661649,
+               "lng" : 121.1320728
+            },
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 14.56752777989272,
+                  "lng" : 121.1334077798927
+               },
+               "southwest" : {
+                  "lat" : 14.56482812010728,
+                  "lng" : 121.1307081201073
+               }
+            }
+         },
+         "icon" : "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/generic_business-71.png",
+         "icon_background_color" : "#7B9EB0",
+         "icon_mask_base_uri" : "https://maps.gstatic.com/mapfiles/place_api/icons/v2/generic_pinlet",
+         "name" : "Cycling Hobby Bike Shop & Men's Apparel",
+         "opening_hours" : {
+            "open_now" : true
+         },
+         "photos" : [
+            {
+               "height" : 1920,
+               "html_attributions" : [
+                  "\u003ca href=\"https://maps.google.com/maps/contrib/105761419140242384670\"\u003eA Google User\u003c/a\u003e"
+               ],
+               "photo_reference" : "AW30NDx9WVRQ0XZ_RxCxJ-BgFXo19FYAEm-3iExo1zvBuuRoGt_OSlUwKxq-BRCAwrF4YLbUe2Vvjda184WjA666ZfzgGRlV-Ovat-ah--aGwuuRt7cze26sfwwPLJRnc47QwZjisx6Z0a6vuHqTkDiQ9olcq3dLUu2xUM-9yeyQzhlBzJLW",
+               "width" : 4160
+            }
+         ],
+         "place_id" : "ChIJlVxifhbHlzMR4cHYv35I0j8",
+         "plus_code" : {
+            "compound_code" : "H48J+FR Taytay, Rizal",
+            "global_code" : "7Q63H48J+FR"
+         },
+         "rating" : 0,
+         "reference" : "ChIJlVxifhbHlzMR4cHYv35I0j8",
+         "scope" : "GOOGLE",
+         "types" : [ "point_of_interest", "establishment" ],
+         "user_ratings_total" : 0,
+         "vicinity" : "Cuatro Cantos, 258 Rizal Ave, Brgy, Taytay"
+      }
+   ],
+   "status" : "OK"
+}

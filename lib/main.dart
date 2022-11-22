@@ -7,7 +7,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:siklero/login_screen.dart';
 import 'package:siklero/user/home-screens/reminder_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:siklero/user/utils.dart';
+import 'package:siklero/user/utils/utils.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();

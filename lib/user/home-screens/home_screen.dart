@@ -9,7 +9,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:siklero/model/home.dart';
 import 'package:siklero/user/home-screens/soscall_screen.dart';
 import 'package:siklero/user/home-screens/sosdetails_screen.dart';
-import 'package:siklero/user/utils.dart';
+import 'package:siklero/user/utils/utils.dart';
 import '../../model/user_info.dart';
 import '../change-password_screen.dart';
 import '../editprofile_screen.dart';

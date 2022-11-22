@@ -7,7 +7,7 @@ import 'package:siklero/main.dart';
 import 'package:siklero/model/sos.dart';
 import 'package:siklero/model/user_info.dart';
 import 'package:siklero/user/home-screens/soscall_screen.dart';
-import 'package:siklero/user/utils.dart';
+import 'package:siklero/user/utils/utils.dart';
 
 class SOSDetailsScreen extends StatefulWidget {
   final UserData? userInfo;

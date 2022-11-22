@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:siklero/model/hotline.dart';
-import 'package:siklero/user/utils.dart';
+import 'package:siklero/user/utils/utils.dart';
 
 class HotlineScreen extends StatelessWidget {
   const HotlineScreen({super.key});

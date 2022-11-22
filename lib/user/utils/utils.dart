@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:siklero/model/bikeshop.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:http/http.dart' as http;
 
 class Utils { 
 
@@ -36,4 +40,6 @@ class Utils {
       await launchUrl(numberUrl, mode: LaunchMode.externalApplication);
     }
   }
+
+  
 }

@@ -25,6 +25,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
+  RegExp regExp = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');  
+
   @override
   void dispose() {
     emailController.dispose();
@@ -136,8 +138,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       ),
                                       style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24),
                                       autovalidateMode: AutovalidateMode.onUserInteraction,
-                                        validator: (value) => value != null && value.length < 6
-                                          ? 'Enter min. 6 character'
+                                        validator: (value) => value != null && (!regExp.hasMatch(value))
+                                          ? 'Enter min. 8 character (Should contain a digit, symbol, upper case, and lower case letter)'
                                           : null
                                     ),   
                                 ],

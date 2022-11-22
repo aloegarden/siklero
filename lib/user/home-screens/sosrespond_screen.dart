@@ -91,7 +91,7 @@ class _SOSRespondScreenState extends State<SOSRespondScreen> {
                                       width: double.infinity,
                                       child: ElevatedButton(
                                         onPressed:() {
-                                          print('tapped');
+                                          //print('tapped');
                                           Utils.openMap(SOSCall.coordinates!.latitude, SOSCall.coordinates!.longitude);
                                         }, 
                                         style: ElevatedButton.styleFrom(

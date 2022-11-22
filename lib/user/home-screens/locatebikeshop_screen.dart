@@ -204,14 +204,6 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
   
   Widget buildSheet(BikeShops bikeShop) {
     BikeShop? bikeShopDetails = new BikeShop();
-    return FutureBuilder<BikeShop>(
-      future: getBikeShop(bikeShop.placeId!),
-      builder:(context, snapshot) {
-        if (snapshot.hasError) {
-          return Text('Something went wrong! ${snapshot.error}');
-        } else if (snapshot.hasData) {
-          bikeShopDetails = snapshot.data;
-
           return makeDismissible(
             child: DraggableScrollableSheet(
               initialChildSize: 0.4,
@@ -245,7 +237,9 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
                     children: <Widget>[
                       IconButton(
                         iconSize: 35,
-                        onPressed:() => 
+                        onPressed:() async { 
+                        bikeShopDetails = await getBikeShop(bikeShop.placeId);
+
                         bikeShopDetails?.formattedPhoneNumber != null ? 
                         Utils.openCall(bikeShopDetails!.formattedPhoneNumber!) : 
                         showDialog(
@@ -258,8 +252,8 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
                               content: Text('No contact information found'),
                             );
                           }
-                        ), 
-        
+                        );
+                        },
                         icon: Icon(Icons.local_phone_outlined, color: Colors.green,),
                       ),
                       SizedBox(width: 10,),
@@ -277,11 +271,6 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
               )
             )
           );
-        } else {
-          return const Center(child: CircularProgressIndicator(),);
-        }
-      },
-      );
   }
 
   

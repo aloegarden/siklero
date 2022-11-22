@@ -3,6 +3,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:siklero/main.dart';
 import 'package:siklero/model/user_info.dart';
 import 'package:siklero/user/home-screens/reminder_screen.dart';
@@ -116,6 +117,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             const SizedBox(height: 20,),
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 30),
+                              child: _buildPasswordField('Password:', passwordController),
+                            ),
+                            /*
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 30),
                               child: Column(
                                 children: <Widget>[
                                     Container(
@@ -139,12 +145,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24),
                                       autovalidateMode: AutovalidateMode.onUserInteraction,
                                         validator: (value) => value != null && (!regExp.hasMatch(value))
-                                          ? 'Enter min. 8 character (Should contain a digit, symbol, upper case, and lower case letter)'
+                                          ? 'Enter min. 8 character (Contain a digit, symbol, upper case, and lower case letter)'
                                           : null
                                     ),   
                                 ],
                               ),
                             ),
+                            */
                             const SizedBox(height: 20,),
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -255,6 +262,43 @@ class _SignUpScreenState extends State<SignUpScreen> {
     await docUser.set(json);
     
   }
+}
+
+Widget _buildPasswordField(String title, TextEditingController controller) {
+  return Column(
+    children: <Widget>[
+      Container(
+        alignment: Alignment.topLeft,
+        child: Text(
+          title,
+              style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w400, color: Color(0xffe45f1e)),
+        ),
+      ),
+      TextField(
+        controller: controller,
+        obscureText: true,
+        textInputAction: TextInputAction.next,
+        decoration: const InputDecoration(
+          contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          border: OutlineInputBorder(),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xffe45f1e))
+          )
+        ),
+        style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24),
+      ),
+      FlutterPwValidator(
+        width: 400, 
+        height: 150, 
+        minLength: 8, 
+        uppercaseCharCount: 1,
+        numericCharCount: 1,
+        specialCharCount: 1,
+
+        onSuccess: () => null, 
+        controller: controller)
+    ],
+  );
 }
 
 Widget _buildTextField(String title, int action, TextInputType textinputType, TextEditingController controller, bool hideText){

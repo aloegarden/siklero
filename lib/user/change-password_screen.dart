@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:siklero/login_screen.dart';
 import 'package:siklero/user/home-screens/home_screen.dart';
 import 'package:siklero/user/reset-password_screen.dart';
@@ -21,6 +22,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   TextEditingController currentPasswordController = TextEditingController();
   TextEditingController newPasswordController = TextEditingController();
   TextEditingController repeatPasswordController = TextEditingController();
+
+  RegExp regExp = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');  
 
   @override
   void dispose() {
@@ -82,13 +85,19 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                               const SizedBox(height: 20,),
                               Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 30),
+                                child: _buildPasswordValidation("New Password:", newPasswordController)
+                              ),
+                              /*
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 30),
                                 child: _buildPasswordField("New Password", 6, newPasswordController),
                               ),
+                              */
                               const SizedBox(height: 20,),
                               Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 30),
                                 child: _buildPasswordField("Repeat Password", 6, repeatPasswordController),
-                              ),
+                              ),                             
                               const SizedBox(height: 30,),
                               Container(
                                 width: double.infinity,
@@ -130,6 +139,43 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     );
   }
 
+  Widget _buildPasswordValidation(String title, TextEditingController controller) {
+    return Column(
+    children: <Widget>[
+      Container(
+        alignment: Alignment.topLeft,
+        child: Text(
+          title,
+              style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w400, color: Color(0xffe45f1e)),
+        ),
+      ),
+      TextField(
+        controller: controller,
+        obscureText: true,
+        textInputAction: TextInputAction.next,
+        decoration: const InputDecoration(
+          contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+          border: OutlineInputBorder(),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xffe45f1e))
+          )
+        ),
+        style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24),
+      ),
+      FlutterPwValidator(
+        width: 400, 
+        height: 150, 
+        minLength: 8, 
+        uppercaseCharCount: 1,
+        numericCharCount: 1,
+        specialCharCount: 1,
+
+        onSuccess: () => null, 
+        controller: controller)
+    ],
+  );
+  }
+
   Widget _buildPasswordField(String title, int action, TextEditingController controller){
     return Column(
       children: <Widget>[
@@ -153,8 +199,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             ),
             style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24),
             autovalidateMode: AutovalidateMode.onUserInteraction,
-            validator: (value) => value != null && value.length < 6
-              ? "Enter min. 6 character"
+            validator: (value) => value != null && value.isEmpty
+              ? "Don't leave this field empty"
               : null
           ),   
       ],
@@ -195,7 +241,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       }
 
       if (newPasswordController.text.trim() != repeatPasswordController.text.trim()) {
-        Utils.showSnackBar("New password does not match. Please try again");
+        Utils.showSnackBar("New passwords does not match. Please try again");
         Navigator.of(context).pop();
         return;
       }

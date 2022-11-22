@@ -28,6 +28,7 @@ dependencies:
   permission_handler: ^10.2.0
   expandable: ^5.0.1
   http: ^0.13.5
+  flutter_pw_validator: ^1.4.2
 
 flutter_native_splash:
   color: "#ed8f5b"

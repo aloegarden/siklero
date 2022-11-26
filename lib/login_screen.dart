@@ -223,7 +223,7 @@ Widget _buildLoginButton(TextEditingController emailController, TextEditingContr
         (route) => false
       );
     } on FirebaseAuthException catch (e) {
-      //print(e);
+      print(e.code);
 
       Utils.showSnackBar(e.message);
     }

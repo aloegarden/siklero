@@ -18,6 +18,8 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final formKey = GlobalKey<FormState>();
+  String? value;
+  final List<String> cities = ["Caloocan City", "Las Piñas City", "Makati City", "Malabon City", "Mandaluyong City", "Manila", "Marikina", "Muntinlupa", "Navotas", "Parañaque", "Pasay City", "Pasig City", "Pateros", "Quezon City", "San Juan", "Taguig", "Valenzuela"];
   TextEditingController usernameController = TextEditingController();
   TextEditingController fnameController = TextEditingController();
   TextEditingController lnameController = TextEditingController();
@@ -25,8 +27,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController addressController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
-  RegExp regExp = RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$');  
 
   @override
   void dispose() {
@@ -173,6 +173,36 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               child: _buildTextField('Address:', 6, TextInputType.streetAddress, addressController, false),
                             ),
                             const SizedBox(height: 20,),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 30),
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    alignment: Alignment.topLeft,
+                                    child: Text(
+                                      "City:",
+                                      style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w400, color: Color(0xffe45f1e)),
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(6),
+                                      border: Border.all(color: Colors.grey, width: 1)
+                                    ),
+                                    child: DropdownButtonHideUnderline(
+                                      child: DropdownButton<String>(
+                                        value: value,
+                                        isExpanded: true,
+                                        items: cities.map(buildMenuItem).toList(), 
+                                        onChanged: (value) => setState(() => this.value = value!,),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 20,),
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 30),
                               child: _buildTextField('Username:', 2, TextInputType.text, usernameController, false),
@@ -190,6 +220,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 contactController,
                                 addressController,
                                 usernameController,
+                                value,
                                 context, 
                                 formKey)
                             ),
@@ -262,6 +293,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
     await docUser.set(json);
     
   }
+
+  DropdownMenuItem<String> buildMenuItem(String city) =>
+    DropdownMenuItem(
+      value: city,
+      child: Text(city, style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24),)
+    );
 }
 
 Widget _buildPasswordField(String title, TextEditingController controller) {
@@ -351,12 +388,19 @@ Widget _buildSignUpButton(
   TextEditingController  contactController,
   TextEditingController  addressController,
   TextEditingController  usernameController,
+  String? value,
   BuildContext context, 
   GlobalKey<FormState> formkey){
 
   Future signUp() async {
     final isValid = formkey.currentState!.validate();
     if (!isValid) return;
+
+    if(value == null){
+      Utils.showSnackBar("Please select a city.");
+      return;
+    }
+
     showDialog(
       context: context, 
       barrierDismissible: false,
@@ -375,7 +419,7 @@ Widget _buildSignUpButton(
           fName: fnameController.text.trim(),
           lName: lnameController.text.trim(),
           contact: contactController.text.trim(),
-          isAdmin: false
+          role: "Regular"
         );
         final docUser = FirebaseFirestore.instance.collection('user_profile').doc(firebaseUser.user?.uid);
         final json = userData.toJson();

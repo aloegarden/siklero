@@ -19,6 +19,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final user = FirebaseAuth.instance.currentUser!;
   final formKey = GlobalKey<FormState>();
   UserData? userData = UserData();
+  String? cityValue;
+  final List<String> cities = ["Caloocan City", "Las Piñas City", "Makati City", "Malabon City", "Mandaluyong City", "Manila", "Marikina", "Muntinlupa", "Navotas", "Parañaque", "Pasay City", "Pasig City", "Pateros", "Quezon City", "San Juan", "Taguig", "Valenzuela"];
   TextEditingController usernameController = TextEditingController();
   TextEditingController fnameController = TextEditingController();
   TextEditingController lnameController = TextEditingController();
@@ -36,6 +38,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       lnameController.text = value.lName!;
       contactController.text = value.contact!;
       addressController.text = value.address!;
+      cityValue = value.city!;
     });
 
     super.initState();
@@ -128,6 +131,36 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   child: _buildTextField('Address:', userData!.address!, 6, addressController, false),
                                 ),
                                 const SizedBox(height: 20,),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Container(
+                                        alignment: Alignment.topLeft,
+                                        child: Text(
+                                          "City:",
+                                          style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w400, color: Color(0xffe45f1e)),
+                                        ),
+                                      ),
+                                      Container(
+                                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(6),
+                                          border: Border.all(color: Colors.grey, width: 1)
+                                        ),
+                                        child: DropdownButtonHideUnderline(
+                                          child: DropdownButton<String>(
+                                            value: cityValue,
+                                            isExpanded: true,
+                                            items: cities.map(buildMenuItem).toList(), 
+                                            onChanged: (cityValue) => setState(() => this.cityValue = cityValue!,),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(height: 20,),
                                 Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 30),
                                   child: _buildTextField('Username:', userData!.userName!, 6, usernameController, false),
@@ -143,6 +176,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     contactController,
                                     addressController,
                                     usernameController,
+                                    cityValue,
                                     user.uid,)
                                 ),
                               ],
@@ -202,6 +236,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     TextEditingController contactController,
     TextEditingController addressController,
     TextEditingController usernameController,
+    String? cityValue,
     String userID){
 
     Future editProfile() async{
@@ -265,7 +300,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       'contact': contactController.text.trim(),
       'first_name': fnameController.text.trim(),
       'last_name': lnameController.text.trim(),
-      'username': usernameController.text.trim()
+      'username': usernameController.text.trim(),
+      'city': cityValue
     });
     
     return null;
@@ -282,6 +318,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     return null;
   }
+
+  DropdownMenuItem<String> buildMenuItem(String city) =>
+    DropdownMenuItem(
+      value: city,
+      child: Text(city, style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24),)
+    );
 }
 
 

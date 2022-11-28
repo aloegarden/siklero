@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:siklero/main.dart';
 import 'package:siklero/model/sos.dart';
@@ -22,17 +23,42 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
   final user = FirebaseAuth.instance.currentUser!;
   SOSCall sosCall = SOSCall();
   final formKey = GlobalKey<FormState>();
+  String? value;
+  String address = "";
+  bool isDisabled = true;
+  final List<String> cities = ["Caloocan", "Las Piñas", "Makati", "Malabon", "Mandaluyong", "Manila", "Marikina", "Muntinlupa", "Navotas", "Parañaque", "Pasay", "Pasig", "Pateros", "Quezon City", "San Juan", "Taguig", "Valenzuela"];
   TextEditingController detailsController = TextEditingController();
 
   loadData () {
     getCurrentPosition().then((value) async {
             print(value.latitude.toString() + " " + value.longitude.toString());
             sosCall.coordinates = GeoPoint(value.latitude, value.longitude);
+
+            getAddressFromPosition(sosCall.coordinates!.latitude, sosCall.coordinates!.longitude);
             //print("${sosCall.coordinates?.latitude}  ${sosCall.coordinates?.longitude}");
           });
   }
 
-  Future<Position> getCurrentPosition () async {
+  Future<void> getAddressFromPosition(double latitude, double longitude) async {
+    await placemarkFromCoordinates(latitude, longitude).then((List<Placemark> placemarks) {
+      Placemark place = placemarks.first;
+
+
+      setState(() {
+        sosCall.locationAddress = '${place.street}, ${place.subLocality}, ${place.locality}, ${place.administrativeArea}';
+        sosCall.city = place.locality;
+        print(sosCall.locationAddress);
+        print(sosCall.city);
+        if(cities.contains(sosCall.city)) {
+          isDisabled = false;
+        } else {
+          Utils.showSnackBar("Your current location is not supported. Sorry for the inconvenience");
+        }
+      });
+    });
+  }
+
+  Future<Position> getCurrentPosition() async {
 
     var permissionStatus = await Permission.location.status;
     if (permissionStatus.isDenied) {
@@ -53,6 +79,9 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
     final isValid = formKey.currentState!.validate();
     if (!isValid) return;
 
+    //if()
+
+
     if (sosCall.coordinates == null) {
       loadData();
       return;
@@ -60,9 +89,11 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
 
     DateTime date = DateTime.now();
 
-    sosCall.userID = user.uid;
+    sosCall.callerID = user.uid;
     sosCall.details = detailsController.text;
     sosCall.isActive = true;
+    sosCall.isApproved = false;
+    //sosCall.city = "";
     sosCall.createdAt = Timestamp.fromDate(date);
 
     try {
@@ -163,7 +194,7 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
                     ),
                     const SizedBox(height: 50,),
                     ElevatedButton(
-                      onPressed:() => writeSOS(), 
+                      onPressed: isDisabled ? null : () => writeSOS(), 
                       style: ElevatedButton.styleFrom(
                       shape: StadiumBorder(),
                       foregroundColor: Colors.white,
@@ -184,4 +215,10 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
       ),
     );
   }
+
+  DropdownMenuItem<String> buildMenuItem(String city) =>
+    DropdownMenuItem(
+      value: city,
+      child: Text(city, style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24),)
+    );
 }

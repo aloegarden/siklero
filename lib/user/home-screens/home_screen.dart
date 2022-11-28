@@ -298,7 +298,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future checkSOSCall () async {
     
     await FirebaseFirestore.instance.collection('sos_call')
-    .where('user_id', isEqualTo: user.uid)
+    .where('caller_id', isEqualTo: user.uid)
     .where('is_active', isEqualTo: true)
     .limit(1)
     .get()

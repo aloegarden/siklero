@@ -19,7 +19,7 @@ class SignUpScreen extends StatefulWidget {
 class _SignUpScreenState extends State<SignUpScreen> {
   final formKey = GlobalKey<FormState>();
   String? value;
-  final List<String> cities = ["Caloocan City", "Las Piñas City", "Makati City", "Malabon City", "Mandaluyong City", "Manila", "Marikina", "Muntinlupa", "Navotas", "Parañaque", "Pasay City", "Pasig City", "Pateros", "Quezon City", "San Juan", "Taguig", "Valenzuela"];
+  final List<String> cities = ["Caloocan", "Las Piñas", "Makati", "Malabon", "Mandaluyong", "Manila", "Marikina", "Muntinlupa", "Navotas", "Parañaque", "Pasay", "Pasig", "Pateros", "Quezon City", "San Juan", "Taguig", "Valenzuela"];
   TextEditingController usernameController = TextEditingController();
   TextEditingController fnameController = TextEditingController();
   TextEditingController lnameController = TextEditingController();
@@ -388,7 +388,7 @@ Widget _buildSignUpButton(
   TextEditingController  contactController,
   TextEditingController  addressController,
   TextEditingController  usernameController,
-  String? value,
+  String? cityValue,
   BuildContext context, 
   GlobalKey<FormState> formkey){
 
@@ -396,7 +396,7 @@ Widget _buildSignUpButton(
     final isValid = formkey.currentState!.validate();
     if (!isValid) return;
 
-    if(value == null){
+    if(cityValue == null){
       Utils.showSnackBar("Please select a city.");
       return;
     }
@@ -416,6 +416,7 @@ Widget _buildSignUpButton(
         UserData userData = UserData(
           userName: usernameController.text.trim(),
           address: addressController.text.trim(),
+          city: cityValue,
           fName: fnameController.text.trim(),
           lName: lnameController.text.trim(),
           contact: contactController.text.trim(),

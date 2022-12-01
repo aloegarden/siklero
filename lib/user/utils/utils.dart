@@ -22,9 +22,20 @@ class Utils {
   }
 
   static Future<void> openMap(
-    double latitude, 
-    double longitude) async{
-      Uri googleMapUrl = Uri.parse("https://www.google.com/maps/search/?api=1&query=$latitude,$longitude");
+    double currLatitude,
+    double currLongitude,
+    double destLatitude, 
+    double destLongitude) async{
+      Uri googleMapUrl = Uri.parse("https://www.google.com/maps/dir/?api=1&origin=" + 
+                                currLatitude.toString() +
+                                ',' +
+                                currLongitude.toString() +
+                                '&destination=' +
+                                destLatitude.toString() +
+                                ',' +
+                                destLongitude.toString() +
+                                '&dir_action=navigate'
+                                  );
 
       if (await canLaunchUrl(googleMapUrl)) {
         await launchUrl(googleMapUrl, mode: LaunchMode.externalApplication);

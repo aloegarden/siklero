@@ -23,6 +23,7 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
 
   late BitmapDescriptor currentLocationIcon;
   late BitmapDescriptor bikeShopIcon;
+  late LatLng currentLocation;
 
   static final CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(14.581586664962659, 120.9761788),
@@ -83,6 +84,7 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
     getUserCurrentLocation().then((value) async {
       //print(value.longitude.toString() + " " + value.latitude.toString());
       
+      currentLocation = LatLng(value.latitude, value.longitude);
       markers.add(
         Marker(
           markerId: MarkerId("currentLocation"),
@@ -259,7 +261,7 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
                       SizedBox(width: 10,),
                       IconButton(
                         iconSize: 35,
-                        onPressed:() => Utils.openMap(bikeShop.latitude!, bikeShop.longitude!), 
+                        onPressed:() => Utils.openMap(currentLocation.latitude, currentLocation.longitude, bikeShop.latitude!, bikeShop.longitude!), 
                         icon: Icon(Icons.assistant_direction_rounded, color: Colors.deepOrangeAccent,),
                       ),
                     ],

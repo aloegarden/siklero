@@ -10,6 +10,7 @@ class SOSCall {
   late String? city;
   late bool? isActive;
   late bool? isApproved;
+  late bool? isReviewed;
   late GeoPoint? coordinates;
   late Timestamp? createdAt;
 
@@ -24,6 +25,7 @@ class SOSCall {
       this.city,
       this.isActive,
       this.isApproved,
+      this.isReviewed,
       this.coordinates,
       this.createdAt
     });
@@ -36,6 +38,7 @@ class SOSCall {
           'city': city,
           'is_active': isActive,
           'is_approved': isApproved,
+          'is_reviewed' : isReviewed,
           'coordinates': coordinates,
           'created_at' : createdAt
   };
@@ -48,6 +51,7 @@ class SOSCall {
       city: json['city'],
       isActive: json['is_active'],
       isApproved: json['is_approved'],
+      isReviewed: json['is_reviewed'],
       coordinates: json['coordinates'],
       createdAt: json['created_at']
     );

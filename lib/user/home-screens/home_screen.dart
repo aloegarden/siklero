@@ -93,9 +93,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                   mainAxisSpacing: 12,
                                   physics: const ScrollPhysics(),
                                                     
-                                  children: List.generate(homeitems.length, (index) {
+                                  children: List.generate(userData!.role == "Regular" ? homeitemsUser.length : homeitemsHelper.length , (index) {
                                     return Center(
-                                      child: homeCard(homeitems: homeitems[index]),);
+                                      child: homeCard(homeitems: userData!.role == "Regular" ? homeitemsUser[index] : homeitemsHelper[index]),);
                                   })
                                 ),
                               ),

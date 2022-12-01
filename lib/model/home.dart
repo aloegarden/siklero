@@ -19,7 +19,34 @@ class Home {
   });
 }
 
-List<Home> homeitems = [
+List<Home> homeitemsUser = [
+  Home(
+    id: 1,
+    text: "Locate Bike Shop",
+    icon: Icon(Icons.directions_bike_rounded, color: Colors.white, size: 75,),
+    screen: LocateBikeShopScreen()
+  ),
+  Home(
+    id: 2, 
+    text: "Send SOS", 
+    icon: Icon(Icons.sos_rounded, color: Colors.white, size: 75,),
+    screen: SOSDetailsScreen(userInfo: null,)
+  ),
+  Home(
+    id: 3, 
+    text: "Hotlines", 
+    icon: Icon(Icons.menu_book_rounded, color: Colors.white, size: 75,),
+    screen: HotlineScreen()
+  ),
+  Home(
+    id: 4, 
+    text: "Repair Guide", 
+    icon: Icon(Icons.map_outlined, color: Colors.white, size: 75,),
+    screen: RepairGuideScreen()
+  )
+];
+
+List<Home> homeitemsHelper = [
   Home(
     id: 1,
     text: "Locate Bike Shop",

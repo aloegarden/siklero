@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SOSCall {
+  late String? documentID;
   late String? callerID;
   late String? respondantID;
   late String? details;
@@ -18,6 +19,7 @@ class SOSCall {
   //late Map<String, double> coordinates;
 
   SOSCall({
+      this.documentID,
       this.callerID,
       this.respondantID,
       this.details,
@@ -31,19 +33,21 @@ class SOSCall {
     });
 
   Map<String, dynamic> toJSON () => {
-          'caller_id': callerID,
-          'respondant_id': respondantID,
-          'sos_details': details,
-          'location_address': locationAddress,
-          'city': city,
-          'is_active': isActive,
-          'is_approved': isApproved,
-          'is_reviewed' : isReviewed,
-          'coordinates': coordinates,
-          'created_at' : createdAt
+      'document_id' : documentID,
+      'caller_id': callerID,
+      'respondant_id': respondantID,
+      'sos_details': details,
+      'location_address': locationAddress,
+      'city': city,
+      'is_active': isActive,
+      'is_approved': isApproved,
+      'is_reviewed' : isReviewed,
+      'coordinates': coordinates,
+      'created_at' : createdAt
   };
 
   static SOSCall fromJSON(Map<String, dynamic> json) => SOSCall(
+      documentID: json['document_id'],
       callerID: json['caller_id'],
       respondantID: json['respondant_id'],
       details: json['sos_details'],

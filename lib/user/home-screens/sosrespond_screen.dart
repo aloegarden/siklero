@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 //import 'package:siklero/map_utils.dart';
 import 'package:siklero/model/sos.dart';
 import 'package:siklero/model/user_info.dart';
+import 'package:siklero/user/home-screens/sosrespond-details_screen.dart';
 import 'package:siklero/user/utils/utils.dart';
 
 class SOSRespondScreen extends StatefulWidget {
@@ -34,6 +35,7 @@ class _SOSRespondScreenState extends State<SOSRespondScreen> {
             return Center(child: Text('Something went wrong! ${snapshot.error}'));
           } else if (snapshot.hasData) {
             final sosCalls = snapshot.data!;
+            print("streambuilder");
 
             return ListView(
               padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
@@ -49,7 +51,7 @@ class _SOSRespondScreenState extends State<SOSRespondScreen> {
 
   Widget buildSOSCall(SOSCall SOSCall) {
     //String test = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-    UserData? userData = new UserData();
+    UserData? userData = UserData();
     return FutureBuilder<UserData?>(
       future: readUser(SOSCall.callerID),
       builder:(context, snapshot) {
@@ -57,6 +59,7 @@ class _SOSRespondScreenState extends State<SOSRespondScreen> {
             return Text('Something went wrong! ${snapshot.error}');
         } else if (snapshot.hasData) {
             userData = snapshot.data;
+            //print("futurebuilder");
             return Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
               child: Container(
@@ -92,7 +95,7 @@ class _SOSRespondScreenState extends State<SOSRespondScreen> {
                                       child: ElevatedButton(
                                         onPressed:() {
                                           //print('tapped');
-                                          Utils.openMap(SOSCall.coordinates!.latitude, SOSCall.coordinates!.longitude);
+                                          Navigator.of(context).push(MaterialPageRoute(builder:(context) => SOSRespondDetailsScreen(details: SOSCall, userDetails: userData)));
                                         }, 
                                         style: ElevatedButton.styleFrom(
                                             shape: const StadiumBorder(),
@@ -100,7 +103,7 @@ class _SOSRespondScreenState extends State<SOSRespondScreen> {
                                             backgroundColor: const Color(0xffe45f1e)
                                         ),
                                         child: const Text(
-                                          'Respond',
+                                          'Details',
                                           style: TextStyle(
                                             fontFamily: 'OpenSans',
                                             fontSize: 24,
@@ -192,6 +195,8 @@ class _SOSRespondScreenState extends State<SOSRespondScreen> {
     FirebaseFirestore.instance
       .collection('sos_call')
       .where('is_active', isEqualTo : true)
+      .where('respondant_id', isNull: true)
+      //.where('is_approved', isEqualTo: true)
       .snapshots()
       .map((snapshot) => 
         snapshot.docs.map((doc) => SOSCall.fromJSON(doc.data())).toList());

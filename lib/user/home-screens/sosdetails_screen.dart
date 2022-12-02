@@ -49,11 +49,11 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
         sosCall.city = place.locality;
         print(sosCall.locationAddress);
         print(sosCall.city);
-        if(cities.contains(sosCall.city)) {
+        /*if(cities.contains(sosCall.city)) {
           isDisabled = false;
         } else {
           Utils.showSnackBar("Your current location is not supported. Sorry for the inconvenience");
-        }
+        }*/
       });
     });
   }
@@ -92,7 +92,8 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
     sosCall.callerID = user.uid;
     sosCall.details = detailsController.text;
     sosCall.isActive = true;
-    sosCall.isApproved = false;
+    //sosCall.isApproved = false;
+    sosCall.isReviewed = false;
     //sosCall.city = "";
     sosCall.createdAt = Timestamp.fromDate(date);
 
@@ -101,6 +102,7 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
       final docSOS = FirebaseFirestore.instance.collection('sos_call').doc();
       final json = sosCall.toJSON();
       await docSOS.set(json);
+      await docSOS.update({'document_id' : docSOS.id});
       
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
@@ -194,7 +196,7 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
                     ),
                     const SizedBox(height: 50,),
                     ElevatedButton(
-                      onPressed: isDisabled ? null : () => writeSOS(), 
+                      onPressed: /*isDisabled ? null : */() => writeSOS(), 
                       style: ElevatedButton.styleFrom(
                       shape: StadiumBorder(),
                       foregroundColor: Colors.white,

@@ -295,7 +295,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     final docUser = FirebaseFirestore.instance.collection('user_profile').doc(user.uid);
 
-    docUser.update({
+    await docUser.update({
       'address': addressController.text.trim(),
       'contact': contactController.text.trim(),
       'first_name': fnameController.text.trim(),

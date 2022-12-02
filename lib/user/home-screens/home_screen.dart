@@ -30,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   
   bool enabled = false;
 
+
   @override 
   void initState() {
 
@@ -61,6 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
         } else if (snapshot.hasData) {
           userData = snapshot.data;
           //print(userData?.address);
+          
           return Scaffold(
               backgroundColor: const Color(0xffed8f5b),
               body: CustomScrollView(
@@ -238,11 +240,13 @@ class _HomeScreenState extends State<HomeScreen> {
       fontSize: 20,
       color: Colors.white
     );
-
+    
     return AbsorbPointer(
       absorbing: enabled,
       child: InkWell(
         onTap: () async {
+
+          print(hasInternet);
           if (homeitems.text == "Send SOS") {
             if(!hasInternet) {
               Utils.showSnackBar("No Internet connection. Please connect to the internet and try again");

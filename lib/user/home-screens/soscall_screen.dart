@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:siklero/main.dart';
 import 'package:siklero/user/home-screens/home_screen.dart';
+import 'package:siklero/user/home-screens/reminder_screen.dart';
 
 class SOSCallScreen extends StatefulWidget {
   final String sosID;
@@ -34,7 +35,7 @@ class _SOSCallScreenState extends State<SOSCallScreen> {
               updateSOSCall();
               Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
-              builder:(context) => const HomeScreen(),
+              builder:(context) => const ReminderScreen(),
 
               ), 
               (route) => false

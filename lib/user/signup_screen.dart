@@ -165,7 +165,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             const SizedBox(height: 20,),
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 30),
-                              child: _buildTextField('Contact #:', 6, TextInputType.phone, contactController, false),
+                              child: _buildContactField('Contact #:', 6, TextInputType.phone, contactController, false),
                             ),
                             const SizedBox(height: 20,),
                             Container(
@@ -337,6 +337,39 @@ Widget _buildPasswordField(String title, TextEditingController controller) {
     ],
   );
 }
+
+Widget _buildContactField(String title, int action, TextInputType textinputType, TextEditingController controller, bool hideText){
+    return Column(
+      children: <Widget>[
+          Container(
+            alignment: Alignment.topLeft,
+            child: Text(
+              title,
+              style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w400, color: Color(0xffe45f1e)),
+            ),
+          ),
+          TextFormField(
+            keyboardType: textinputType,
+            controller: controller,
+            obscureText: hideText,
+            maxLength: 11,
+            textInputAction: TextInputAction.values.elementAt(action),
+            decoration: const InputDecoration(
+              contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              border: OutlineInputBorder(),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xffe45f1e))
+              )
+            ),
+            style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24),
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (value) => value != null && value.isEmpty
+              ? "Don't leave this field empty"
+              : null
+          ),   
+      ],
+    );
+  }
 
 Widget _buildTextField(String title, int action, TextInputType textinputType, TextEditingController controller, bool hideText){
     return Column(

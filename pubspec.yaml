@@ -61,3 +61,6 @@ flutter:
           weight: 400
         - asset: asset\font\OpenSans-Bold.ttf
           weight: 700
+    - family: OpenSansCondensed
+      fonts:
+        - asset: asset/fonts/OpenSans_Condensed-Regular.ttf

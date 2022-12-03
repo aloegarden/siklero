@@ -234,7 +234,7 @@ class UsersCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Image(
-                  image: AssetImage('images/user-icon.png'),
+                  image: AssetImage('asset/img/user-icon.png'),
                   height: 60,
                 ),
                 Column(

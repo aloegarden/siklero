@@ -121,7 +121,7 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
                               height: 115,
                               alignment: Alignment.center,
                               child: const Image(
-                                image: AssetImage('images/user-icon.png'),
+                                image: AssetImage('asset/img/user-icon.png'),
                               ),
                             ),
                             const SizedBox(
@@ -372,19 +372,22 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
       //print("pumapasok");
     }
 
-    return ElevatedButton(
-        onPressed: changeRole,
-        style: ElevatedButton.styleFrom(
-            shape: const StadiumBorder(),
-            foregroundColor: Colors.white,
-            backgroundColor: const Color(0xffe45f1e)),
-        child: const Text(
-          'Change User Type to Helper',
-          style: TextStyle(
-              fontFamily: 'OpenSans',
-              fontSize: 24,
-              fontWeight: FontWeight.w700),
-        ));
+    return SizedBox(
+      height: 30,
+      child: ElevatedButton(
+          onPressed: changeRole,
+          style: ElevatedButton.styleFrom(
+              shape: const StadiumBorder(),
+              foregroundColor: Colors.white,
+              backgroundColor: const Color(0xffe45f1e)),
+          child: const Text(
+            'Change User to Helper',
+            style: TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 24,
+                fontWeight: FontWeight.w700),
+          )),
+    );
   }
 
   Widget _buildSwitchTypeButtonToRegular(
@@ -437,19 +440,22 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
       //print("pumapasok");
     }
 
-    return ElevatedButton(
-        onPressed: changeRole,
-        style: ElevatedButton.styleFrom(
-            shape: const StadiumBorder(),
-            foregroundColor: Colors.white,
-            backgroundColor: const Color(0xffe45f1e)),
-        child: const Text(
-          'Change User Type to Helper',
-          style: TextStyle(
-              fontFamily: 'OpenSans',
-              fontSize: 24,
-              fontWeight: FontWeight.w700),
-        ));
+    return SizedBox(
+      height: 30,
+      child: ElevatedButton(
+          onPressed: changeRole,
+          style: ElevatedButton.styleFrom(
+              shape: const StadiumBorder(),
+              foregroundColor: Colors.white,
+              backgroundColor: const Color(0xffe45f1e)),
+          child: const Text(
+            'Change User to Regular',
+            style: TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 24,
+                fontWeight: FontWeight.w700),
+          )),
+    );
   }
 
   void updateUser() {

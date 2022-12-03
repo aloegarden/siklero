@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -7,6 +8,7 @@ import 'package:siklero/admin/helper_users_screen.dart';
 import 'package:siklero/admin/manage_users_screen.dart';
 import 'package:siklero/admin/sos_calls_screen.dart';
 import 'package:siklero/login_screen.dart';
+import 'package:siklero/model/user_info.dart';
 
 class AdminHomeScreen extends StatefulWidget {
   const AdminHomeScreen({super.key});
@@ -27,6 +29,8 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   String? numberOfHelperUsers;
   String? numberOfSosCalls;
   String? numberOfPendingSosCalls;
+  UserData? userData = UserData();
+  final user = FirebaseAuth.instance.currentUser!;
 
   void assigning() async {
     String? regularUsers = await countRegularUsers();
@@ -43,151 +47,176 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: Container(
-        height: 50,
-        width: 60,
-        child: FloatingActionButton(
-          onPressed: () {
-            showModalBottomSheet(
-              context: context,
-              isScrollControlled: true,
-              backgroundColor: Colors.transparent,
-              builder: (context) => buildSheet(),
-            );
-          },
-          backgroundColor: Color(0xFFE45F1E), //E45F1E
-          child: const Icon(
-            Icons.settings,
-            size: 45,
-          ),
-        ),
-      ),
-      backgroundColor: Color(0xFFED8F5B),
-      body: Column(
-        children: [
-          Container(
-            padding:
-                EdgeInsets.only(top: 40, left: 30.0, right: 0.0, bottom: 20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+    return FutureBuilder<UserData?>(
+      future: readUser(),
+      builder:(context, snapshot) {
+        if (snapshot.hasError) {
+          return Text('Something went wrong! ${snapshot.error}');
+        } else if (snapshot.hasData) {
+          userData = snapshot.data;
+
+          return Scaffold(
+            floatingActionButton: Container(
+              height: 50,
+              width: 60,
+              child: FloatingActionButton(
+                onPressed: () {
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    builder: (context) => buildSheet(),
+                  );
+                },
+                backgroundColor: Color(0xFFE45F1E), //E45F1E
+                child: const Icon(
+                  Icons.settings,
+                  size: 45,
+                ),
+              ),
+            ),
+            backgroundColor: Color(0xFFED8F5B),
+            body: Column(
               children: [
-                const Hero(
-                  tag: 'logo',
-                  child: Image(
-                    image: AssetImage(
-                      'images/siklero-logo.png',
-                    ),
-                    height: 130.0,
+                Container(
+                  padding:
+                      EdgeInsets.only(top: 40, left: 30.0, right: 0.0, bottom: 20.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      const Hero(
+                        tag: 'logo',
+                        child: Image(
+                          image: AssetImage(
+                            'asset/img/siklero-logo.png',
+                          ),
+                          height: 130.0,
+                        ),
+                      ),
+                      Hero(
+                        tag: 'red-ribbon',
+                        child: Container(
+                          //margin: EdgeInsets.only(left: 30),
+                          child: const Image(
+                            image: AssetImage(
+                              'asset/img/red-ribbon.png',
+                            ),
+                            height: 35.0,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                Hero(
-                  tag: 'red-ribbon',
+                Expanded(
                   child: Container(
-                    //margin: EdgeInsets.only(left: 30),
-                    child: const Image(
-                      image: AssetImage(
-                        'images/red-ribbon.png',
+                    padding: EdgeInsets.symmetric(horizontal: 25.0),
+                    height: 100,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30.0),
+                          topRight: Radius.circular(30.0)),
+                    ),
+                    child: RefreshIndicator(
+                      onRefresh: () async {
+                        String? regularUsers = await countRegularUsers();
+                        String? sosCalls = await countSosCalls();
+                        String? pendingSosCalls = await countPendingSosCalls();
+                        String? helperUsers = await countHelperUsers();
+                        setState(() {
+                          numberOfRegularUsers = regularUsers;
+                          numberOfSosCalls = sosCalls;
+                          numberOfPendingSosCalls = pendingSosCalls;
+                          numberOfHelperUsers = helperUsers;
+                        });
+                      },
+                      child: Scrollbar(
+                        child: ListView(
+                          //crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            //SizedBox(height: 10),
+                            ReusableCard(
+                              recordedNumber: numberOfSosCalls.toString(),
+                              description: 'Bicycle Failures Records',
+                              function: 'view',
+                              imagePath: 'asset/img/repair-icon.png',
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const BikeRecordsScreen(),
+                                    ));
+                              },
+                            ),
+                            ReusableCard(
+                              recordedNumber: '${numberOfRegularUsers}',
+                              description: 'Regular Users',
+                              function: 'manage',
+                              imagePath: 'asset/img/user-icon.png',
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ManageUsers(),
+                                    ));
+                              },
+                            ),
+                            ReusableCard(
+                              recordedNumber: numberOfHelperUsers.toString(),
+                              description: 'Helper Users',
+                              function: 'manage',
+                              imagePath: 'asset/img/user-icon.png',
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const ManageHelpers(),
+                                    ));
+                              },
+                            ),
+                            ReusableCard(
+                              recordedNumber: numberOfPendingSosCalls.toString(),
+                              description: 'Pending SOS call',
+                              function: 'manage',
+                              imagePath: 'asset/img/user-icon.png',
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => ManageSOS(),
+                                    ));
+                              },
+                            ),
+                            const SizedBox(
+                              height: 70,
+                            )
+                          ],
+                        ),
                       ),
-                      height: 35.0,
                     ),
                   ),
                 ),
               ],
             ),
-          ),
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 25.0),
-              height: 100,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30.0),
-                    topRight: Radius.circular(30.0)),
-              ),
-              child: RefreshIndicator(
-                onRefresh: () async {
-                  String? regularUsers = await countRegularUsers();
-                  String? sosCalls = await countSosCalls();
-                  String? pendingSosCalls = await countPendingSosCalls();
-                  String? helperUsers = await countHelperUsers();
-                  setState(() {
-                    numberOfRegularUsers = regularUsers;
-                    numberOfSosCalls = sosCalls;
-                    numberOfPendingSosCalls = pendingSosCalls;
-                    numberOfHelperUsers = helperUsers;
-                  });
-                },
-                child: Scrollbar(
-                  child: ListView(
-                    //crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      //SizedBox(height: 10),
-                      ReusableCard(
-                        recordedNumber: numberOfSosCalls.toString(),
-                        description: 'Bicycle Failures Records',
-                        function: 'view',
-                        imagePath: 'images/repair-icon.png',
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const BikeRecordsScreen(),
-                              ));
-                        },
-                      ),
-                      ReusableCard(
-                        recordedNumber: '${numberOfRegularUsers}',
-                        description: 'Regular Users',
-                        function: 'manage',
-                        imagePath: 'images/user-icon.png',
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ManageUsers(),
-                              ));
-                        },
-                      ),
-                      ReusableCard(
-                        recordedNumber: numberOfHelperUsers.toString(),
-                        description: 'Helper Users',
-                        function: 'manage',
-                        imagePath: 'images/user-icon.png',
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const ManageHelpers(),
-                              ));
-                        },
-                      ),
-                      ReusableCard(
-                        recordedNumber: numberOfPendingSosCalls.toString(),
-                        description: 'Pending SOS call',
-                        function: 'manage',
-                        imagePath: 'images/user-icon.png',
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ManageSOS(),
-                              ));
-                        },
-                      ),
-                      const SizedBox(
-                        height: 70,
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+          );
+        } else {
+          return const Center(child: CircularProgressIndicator(),);
+        }
+      }, 
     );
+  }
+
+  Future<UserData?> readUser () async {
+
+    final docUser = FirebaseFirestore.instance.collection('user_profile').doc(user.uid);
+    final userSnapShot = await docUser.get();
+
+    if (userSnapShot.exists) {
+      return UserData.fromJSON(userSnapShot.data()!);
+    }
+    
+    return null;
   }
 
   Future<String> countRegularUsers() async => await FirebaseFirestore.instance
@@ -250,7 +279,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
                         const Image(
-                          image: AssetImage('images/user-icon.png'),
+                          image: AssetImage('asset/img/user-icon.png'),
                           width: 80,
                           height: 80,
                         ),
@@ -261,9 +290,9 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const <Widget>[
+                            children: <Widget>[
                               Text(
-                                'ss89as967sh',
+                                userData!.fName! + " " + userData!.lName!,
                                 style: TextStyle(
                                     fontFamily: 'OpenSans',
                                     fontSize: 24,
@@ -272,7 +301,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                                 overflow: TextOverflow.ellipsis,
                               ),
                               Text(
-                                'Jonathan Doe',
+                                userData!.userName!,
                                 style: TextStyle(
                                     fontFamily: 'OpenSans',
                                     fontSize: 24,
@@ -291,12 +320,12 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const <Widget>[
+                      children: <Widget>[
                         InfoText(
-                            title: 'Contact#', data: '09669978081', maxLine: 1),
+                            title: 'Contact#', data: userData!.contact!, maxLine: 1),
                         InfoText(
                             title: 'Address',
-                            data: 'This is an Address',
+                            data: userData!.address!,
                             maxLine: 3)
                       ],
                     ),

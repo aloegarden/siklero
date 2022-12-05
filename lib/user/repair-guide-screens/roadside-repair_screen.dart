@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:siklero/model/repair_guide/repair.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class RoadsideRepairScreen extends StatefulWidget {
   const RoadsideRepairScreen({super.key});
@@ -45,10 +47,54 @@ class _RoadsideRepairScreenState extends State<RoadsideRepairScreen> {
           ExpansionTile(
             title: Text(repair.title),
             subtitle: Text("Courtesy: " + repair.courtesy),
-            children: [ListTile(title: Text(repair.description),)],
+            children: [ListTile(title: Text(repair.description),), buildYoutubeVideo(repair.videoLink)],
           )
         ],
       ),
     ),
-  ); 
+  );
+  
+  Widget buildYoutubeVideo(String videoLink) {
+    String videoID;
+    videoID = YoutubePlayer.convertUrlToId(videoLink)!;
+
+    YoutubePlayerController _controller = YoutubePlayerController(
+      initialVideoId: videoID,
+      flags: const YoutubePlayerFlags(
+          autoPlay: false,
+      ),
+    );
+
+    return YoutubePlayerBuilder(
+      player: YoutubePlayer(
+        controller: _controller,
+        bottomActions: [
+          CurrentPosition(),
+          ProgressBar(
+            isExpanded: true,
+            colors: const ProgressBarColors(
+              playedColor: Colors.amber,
+              handleColor: Colors.amber
+            ),
+          ),
+          //FullScreenButton()
+        ],
+      ),
+      builder: (context, player) {
+        return Stack(
+          children: <Widget>[
+            player,
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                onPressed:() => launchUrlString(videoLink), 
+                icon: Image.asset("asset/img/youtube-logo.png")
+              ),
+            ),
+          ],
+        );
+      },
+
+    );
+  } 
 }

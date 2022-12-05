@@ -14,11 +14,11 @@ dependencies:
 
   flutter_native_splash: ^2.2.8
   cupertino_icons: ^1.0.2
-  cloud_firestore: ^3.4.6
-  firebase_auth: ^3.7.0
+  cloud_firestore: ^4.1.0
+  firebase_auth: ^4.1.5
   google_maps_flutter: ^2.2.0
   sliding_up_panel: ^2.0.0+1
-  connectivity_plus: ^2.3.6+1
+  connectivity_plus: ^3.0.2
   email_validator: ^2.1.17
   intl: ^0.17.0
   geocoding: ^2.0.5
@@ -29,6 +29,7 @@ dependencies:
   expandable: ^5.0.1
   http: ^0.13.5
   flutter_pw_validator: ^1.4.2
+  youtube_player_flutter: ^8.1.1
 
 flutter_native_splash:
   color: "#ed8f5b"

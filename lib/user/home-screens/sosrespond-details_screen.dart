@@ -91,95 +91,102 @@ class _SOSRespondDetailsScreenState extends State<SOSRespondDetailsScreen> {
         backgroundColor: const Color(0xffed8f5b),
         centerTitle: true,
       ),
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            Container(
-              color: Color.fromARGB(255, 201, 201, 201),
-              width: MediaQuery.of(context).size.width,
-
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  children: <Widget>[
-                    Icon(Icons.calendar_month_rounded),
-                    SizedBox(width: 10,),
-                    Text(
-                      dateFormat,
-                      style: headerFormat,
-                      //overflow: TextOverflow.fade,
-                    ),
-                    Spacer(),
-                    Text(
-                      'ID# ${widget.details.documentID!}',
-                      style: headerFormat,
-                      //maxLines: 3,
-                    )
-                  ],
-                ),
-              ),
-            ),            
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-              child: Container(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  distance > 1000 ? '${(distance / 1000).toStringAsFixed(2)} KM away from you' : '${distance.toStringAsFixed(2)} Meters away from you',
-                  style: distanceFormat,
-                ),
-              ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 221, 221, 221),
-                  borderRadius: BorderRadius.circular(30)
-                ),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Column(
+            children: <Widget>[
+              Container(
+                color: Color.fromARGB(255, 201, 201, 201),
                 width: MediaQuery.of(context).size.width,
-
+      
                 child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Container(
-                    child: ListTile(
-                      title: Text(
-                        widget.details.locationAddress!,
-                    
-                        style: cardFormat,
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    children: <Widget>[
+                      Icon(Icons.calendar_month_rounded),
+                      SizedBox(width: 10,),
+                      Text(
+                        dateFormat,
+                        style: headerFormat,
+                        //overflow: TextOverflow.fade,
                       ),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-
-                        children: <Widget>[
-                          IconButton(
-                            iconSize: 35,
-                            onPressed:() => Utils.openCall(widget.userDetails!.contact!),
-                            icon: Icon(Icons.local_phone_outlined, color: Colors.green,),
-                          ),
-                          SizedBox(width: 10,),
-                          IconButton(
-                            iconSize: 35,
-                            onPressed:() => Utils.openMap(currentLocation.latitude, currentLocation.longitude, widget.details.coordinates!.latitude, widget.details.coordinates!.longitude), 
-                            icon: Icon(Icons.assistant_direction_rounded, color: Colors.deepOrangeAccent,),
-                          ),
-                        ],
-                      ),
-                    )
+                      Spacer(),
+                      Text(
+                        'ID# ${widget.details.documentID!}',
+                        style: headerFormat,
+                        //maxLines: 3,
+                      )
+                    ],
+                  ),
+                ),
+              ),            
+      
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                child: Container(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    distance > 1000 ? '${(distance / 1000).toStringAsFixed(2)} KM away from you' : '${distance.toStringAsFixed(2)} Meters away from you',
+                    style: distanceFormat,
                   ),
                 ),
               ),
-            ),
-
-            Spacer(),
-
-            Container(
-              color: Color.fromARGB(255, 235, 235, 235),
-              width: MediaQuery.of(context).size.width,
-              child: isAccepted == false ? acceptButton(context) : respondButtons(context),
-            )
-          ],
+      
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 221, 221, 221),
+                    borderRadius: BorderRadius.circular(30)
+                  ),
+                  width: MediaQuery.of(context).size.width,
+      
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Container(
+                      child: ListTile(
+                        title: Text(
+                          widget.details.locationAddress!,
+                      
+                          style: cardFormat,
+                        ),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+      
+                          children: <Widget>[
+                            IconButton(
+                              iconSize: 35,
+                              onPressed:() => Utils.openCall(widget.userDetails!.contact!),
+                              icon: Icon(Icons.local_phone_outlined, color: Colors.green,),
+                            ),
+                            SizedBox(width: 10,),
+                            IconButton(
+                              iconSize: 35,
+                              onPressed:() => Utils.openMap(currentLocation.latitude, currentLocation.longitude, widget.details.coordinates!.latitude, widget.details.coordinates!.longitude), 
+                              icon: Icon(Icons.assistant_direction_rounded, color: Colors.deepOrangeAccent,),
+                            ),
+                          ],
+                        ),
+                      )
+                    ),
+                  ),
+                ),
+              ),
+      
+              Image.network(
+                widget.details.imageUrl!,
+                width: double.infinity,
+              ),
+      
+              //Spacer(),
+      
+              Container(
+                color: Color.fromARGB(255, 235, 235, 235),
+                width: MediaQuery.of(context).size.width,
+                child: isAccepted == false ? acceptButton(context) : respondButtons(context),
+              )
+            ],
+          ),
         ),
       )
     );

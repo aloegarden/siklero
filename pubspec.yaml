@@ -30,6 +30,8 @@ dependencies:
   http: ^0.13.5
   flutter_pw_validator: ^1.4.2
   youtube_player_flutter: ^8.1.1
+  image_picker: ^0.8.6
+  firebase_storage: ^11.0.6
 
 flutter_native_splash:
   color: "#ed8f5b"

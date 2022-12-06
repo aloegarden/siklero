@@ -55,24 +55,18 @@ List<Home> homeitemsHelper = [
   ),
   Home(
     id: 2, 
-    text: "Send SOS", 
-    icon: Icon(Icons.sos_rounded, color: Colors.white, size: 75,),
-    screen: SOSDetailsScreen(userInfo: null,)
-  ),
-  Home(
-    id: 3, 
     text: "SOS Respond", 
     icon: Icon(Icons.emergency_share_rounded, color: Colors.white, size: 75,),
     screen: SOSRespondScreen()
   ),
   Home(
-    id: 4, 
+    id: 3, 
     text: "Hotlines", 
     icon: Icon(Icons.menu_book_rounded, color: Colors.white, size: 75,),
     screen: HotlineScreen()
   ),
   Home(
-    id: 5, 
+    id: 4, 
     text: "Repair Guide", 
     icon: Icon(Icons.map_outlined, color: Colors.white, size: 75,),
     screen: RepairGuideScreen()

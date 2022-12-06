@@ -80,12 +80,6 @@ class _SOSCallScreenState extends State<SOSCallScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.only(bottom: 20),
-                      child: sosCall?.isReviewed == true ? 
-                      ((sosCall?.isApproved == true ? Text("Approved", style: approved,) : Text("Declined", style: declined,))) : Text("Under Review", style: underReview,),
-                    ),
-          
                     ElevatedButton(
                       onPressed: () {
                         updateSOSCall();

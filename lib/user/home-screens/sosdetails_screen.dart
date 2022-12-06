@@ -1,8 +1,15 @@
+import 'dart:io';
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:siklero/main.dart';
 import 'package:siklero/model/sos.dart';
@@ -20,6 +27,7 @@ class SOSDetailsScreen extends StatefulWidget {
 
 class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
 
+  File? chosenImage;
   final user = FirebaseAuth.instance.currentUser!;
   SOSCall sosCall = SOSCall();
   final formKey = GlobalKey<FormState>();
@@ -75,29 +83,66 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
     }
   }
 
+  Future<String?> uploadFile() async {
+
+    String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
+
+    Reference referenceRoot = FirebaseStorage.instance.ref();
+    Reference referenceDirImages = referenceRoot.child('img/');
+
+    Reference referenceImageToUpload = referenceDirImages.child(uniqueFileName);
+
+    try {
+      await referenceImageToUpload.putFile(chosenImage!);
+      await referenceImageToUpload.getDownloadURL().then((value) {
+        print("this is the image url : $value");
+        //sosCall.imageUrl = value;
+        return value;
+      });
+    } catch (e) {
+      print('An error occured $e');
+    }
+
+    //return null;
+  }
+
   Future writeSOS() async {
     final isValid = formKey.currentState!.validate();
     if (!isValid) return;
 
-    //if()
+    if (chosenImage == null) {
+      return Utils.showSnackBar("Please upload an image");
+    }
 
-
+  
     if (sosCall.coordinates == null) {
       loadData();
       return;
     }
+
 
     DateTime date = DateTime.now();
 
     sosCall.callerID = user.uid;
     sosCall.details = detailsController.text;
     sosCall.isActive = true;
-    // sosCall.isApproved = false;
-    sosCall.isReviewed = false;
     //sosCall.city = "";
     sosCall.createdAt = Timestamp.fromDate(date);
 
     try {
+      String uniqueFileName = DateTime.now().millisecondsSinceEpoch.toString();
+
+      Reference referenceRoot = FirebaseStorage.instance.ref();
+      Reference referenceDirImages = referenceRoot.child('img/');
+
+      Reference referenceImageToUpload = referenceDirImages.child(uniqueFileName);
+
+      await referenceImageToUpload.putFile(chosenImage!);
+      await referenceImageToUpload.getDownloadURL().then((value) {
+        print("this is the image url : $value");
+        sosCall.imageUrl = value;
+        print(sosCall.imageUrl);
+      });
 
       final docSOS = FirebaseFirestore.instance.collection('sos_call').doc();
       final json = sosCall.toJSON();
@@ -111,7 +156,9 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
           (route) => false
         );
   } on FirebaseException catch (e) {
-      Utils.showSnackBar(e.message);
+    Utils.showSnackBar(e.message);
+  } on Exception catch (e) {
+    print('An error occuerd $e');
   }
 
   navigatorKey.currentState!.popUntil((route) => route.isFirst);
@@ -143,72 +190,76 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
           centerTitle: true,
         ),
     
-        body: Form(
-          key: formKey,
-          child: Padding(
-            padding: EdgeInsets.all(30),
-            child: Container(
-              decoration: BoxDecoration(
-                color: const Color(0xffFFD4BC),
-                borderRadius: BorderRadius.circular(30)
-              ),
-              child: Padding(
-                padding: EdgeInsets.all(15.0),
-                child: Column(
-                  //crossAxisAlignment: CrossAxisAlignment.center,
-                  //mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    const Padding(
-                      padding: EdgeInsets.only(top: 20),
-                      child: Image(
-                        //alignment: Alignment.topCenter,
-                        height: 65,
-                        width: 85,
-                        image: AssetImage('asset/img/repair-icon.png'),
+        body: SingleChildScrollView(
+          child: Form(
+            key: formKey,
+            child: Padding(
+              padding: EdgeInsets.all(30),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: const Color(0xffFFD4BC),
+                  borderRadius: BorderRadius.circular(30)
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: Column(
+                    //crossAxisAlignment: CrossAxisAlignment.center,
+                    //mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      const Padding(
+                        padding: EdgeInsets.only(top: 20),
+                        child: Image(
+                          //alignment: Alignment.topCenter,
+                          height: 65,
+                          width: 85,
+                          image: AssetImage('asset/img/repair-icon.png'),
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 20,),
-                    const Text("Bicycle Failure Details:", style: TextStyle(
-                      fontSize: 24, 
-                      fontWeight: FontWeight.w700, 
-                      fontFamily: 'OpenSans', 
-                      color: Color(0xff581D00))
-                    ),
-                    const SizedBox(height: 20,),
-                    TextFormField(
-                      maxLines: 3,
-                      maxLength: 50,
-                      style: const TextStyle(fontSize: 20, fontFamily: 'OpenSans'),
-                      controller: detailsController,
-                      decoration: InputDecoration(
-                        hintText: "Type the specified bicycle failure/s encountered.)",
-                        filled: true,
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0)
-                        )
+                      const SizedBox(height: 20,),
+                      const Text("Bicycle Failure Details:", style: TextStyle(
+                        fontSize: 24, 
+                        fontWeight: FontWeight.w700, 
+                        fontFamily: 'OpenSans', 
+                        color: Color(0xff581D00))
                       ),
-                      textInputAction: TextInputAction.done,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator:(value) => value != null && value.isEmpty
-                        ? "Don't leave this field empty"
-                        : null
-                    ),
-                    const SizedBox(height: 50,),
-                    ElevatedButton(
-                      onPressed: /*isDisabled ? null : */() => writeSOS(), 
-                      style: ElevatedButton.styleFrom(
-                      shape: StadiumBorder(),
-                      foregroundColor: Colors.white,
-                      backgroundColor: Color(0xffe45f1e),
-                      padding: EdgeInsets.all(30)
+                      const SizedBox(height: 20,),
+                      TextFormField(
+                        maxLines: 3,
+                        maxLength: 50,
+                        style: const TextStyle(fontSize: 20, fontFamily: 'OpenSans'),
+                        controller: detailsController,
+                        decoration: InputDecoration(
+                          hintText: "Type the specified bicycle failure/s encountered.)",
+                          filled: true,
+                          fillColor: Colors.white,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10.0)
+                          )
+                        ),
+                        textInputAction: TextInputAction.done,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator:(value) => value != null && value.isEmpty
+                          ? "Don't leave this field empty"
+                          : null
                       ),
-                      child: const Text(
-                        'Confirm SOS Call',
-                        style: 
-                          TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w700),
-                    ))
-                  ],
+                      const SizedBox(height: 20,),
+                      inputImage(),
+                      const SizedBox(height: 50,),
+                      ElevatedButton(
+                        onPressed: /*isDisabled ? null : */() => writeSOS(), 
+                        style: ElevatedButton.styleFrom(
+                        shape: StadiumBorder(),
+                        foregroundColor: Colors.white,
+                        backgroundColor: Color(0xffe45f1e),
+                        padding: EdgeInsets.all(30)
+                        ),
+                        child: const Text(
+                          'Confirm SOS Call',
+                          style: 
+                            TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w700),
+                      ))
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -223,4 +274,52 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
       value: city,
       child: Text(city, style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24),)
     );
+    
+  Future pickImage(ImageSource imageSource) async {
+    try {
+      final image = await ImagePicker().pickImage(source: imageSource);
+
+      if (image == null) return;
+
+      final imageTemporary = File(image.path);
+      print(imageTemporary);
+      
+      setState(() {
+        chosenImage = imageTemporary;
+      });
+    } on PlatformException catch (e) {
+      print('Failed to pick image: $e');
+    }
+  }
+
+  Widget inputImage() {
+    return Column(
+      children: [
+        Container(
+          color: Colors.white,
+          child: ListTile(
+            title: chosenImage == null ? Text("Insert an image"): Text(chosenImage!.path.split("/").last, maxLines: 1, overflow: TextOverflow.ellipsis,),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+
+              children: [
+                IconButton(
+                  onPressed: () => pickImage(ImageSource.camera), 
+                  icon: const Icon(Icons.camera_alt_rounded)
+                ),
+                IconButton(
+                  onPressed: () => pickImage(ImageSource.gallery), 
+                  icon: const Icon(Icons.insert_photo_rounded)
+                ),
+              ],
+            ),
+          ),
+        ),
+
+        chosenImage == null ? Container() : Image.file(chosenImage!, width: double.infinity),
+      ],
+    );
+  }
 }

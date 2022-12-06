@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -9,9 +10,8 @@ class SOSCall {
   late String? details;
   late String? locationAddress;
   late String? city;
+  late String? imageUrl;
   late bool? isActive;
-  late bool? isApproved;
-  late bool? isReviewed;
   late GeoPoint? coordinates;
   late Timestamp? createdAt;
 
@@ -25,9 +25,8 @@ class SOSCall {
       this.details,
       this.locationAddress,
       this.city,
+      this.imageUrl,
       this.isActive,
-      this.isApproved,
-      this.isReviewed,
       this.coordinates,
       this.createdAt
     });
@@ -39,9 +38,8 @@ class SOSCall {
       'sos_details': details,
       'location_address': locationAddress,
       'city': city,
+      'image_url' : imageUrl,
       'is_active': isActive,
-      'is_approved': isApproved,
-      'is_reviewed' : isReviewed,
       'coordinates': coordinates,
       'created_at' : createdAt
   };
@@ -53,9 +51,8 @@ class SOSCall {
       details: json['sos_details'],
       locationAddress: json['location_address'],
       city: json['city'],
+      imageUrl: json['image_url'],
       isActive: json['is_active'],
-      isApproved: json['is_approved'],
-      isReviewed: json['is_reviewed'],
       coordinates: json['coordinates'],
       createdAt: json['created_at']
     );

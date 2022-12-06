@@ -265,9 +265,10 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
                         icon: Icon(Icons.assistant_direction_rounded, color: Colors.deepOrangeAccent,),
                       ),
                     ],
-                  ),
+                    ),
                       ),
-                    )
+                    ),
+                    
                   ],
                 ),
               )

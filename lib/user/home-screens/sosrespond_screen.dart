@@ -18,6 +18,8 @@ class SOSRespondScreen extends StatefulWidget {
 }
 
 class _SOSRespondScreenState extends State<SOSRespondScreen> {
+
+  final user = FirebaseAuth.instance.currentUser;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -196,6 +198,7 @@ class _SOSRespondScreenState extends State<SOSRespondScreen> {
       .collection('sos_call')
       .where('is_active', isEqualTo : true)
       .where('respondant_id', isNull: true)
+      //.where('caller_id', isNotEqualTo: user!.uid)
       //.where('is_approved', isEqualTo: true)
       .snapshots()
       .map((snapshot) => 

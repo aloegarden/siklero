@@ -318,8 +318,50 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
           ),
         ),
 
-        chosenImage == null ? Container() : Image.file(chosenImage!, width: double.infinity),
+        chosenImage == null ? Container() : 
+        GestureDetector(
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) { return ViewImageScreen(imagePath: chosenImage!,); } ));
+          },
+          child: Stack(
+            children: <Widget>[
+              SizedBox(
+                width: double.infinity,
+                height: 300,
+                child: Image.file(chosenImage!, fit: BoxFit.cover,)
+              ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Icon(Icons.zoom_in, size: 50, color: Colors.orange)
+              )
+            ],
+          ),
+        ),
       ],
+    );
+  }
+}
+
+class ViewImageScreen extends StatelessWidget {
+  final File imagePath;
+  const ViewImageScreen({super.key, required this.imagePath,});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: GestureDetector(
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: Hero(
+            tag: 'imageHero',
+            child: Image.file(imagePath),
+          ),
+        ),
+        onTap: () {
+          Navigator.pop(context);
+        },
+      ),
     );
   }
 }

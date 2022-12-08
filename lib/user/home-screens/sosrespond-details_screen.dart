@@ -173,9 +173,30 @@ class _SOSRespondDetailsScreenState extends State<SOSRespondDetailsScreen> {
                 ),
               ),
       
-              Image.network(
-                widget.details.imageUrl!,
-                width: double.infinity,
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) { return ViewImageScreen(imageUrl: widget.details.imageUrl!,); } ));
+                  },
+                  child: Stack(
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        height: 250,
+                        child: Image.network(
+                          widget.details.imageUrl!,
+                                    
+                          fit: BoxFit.cover
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: Icon(Icons.zoom_in, size: 50, color: Colors.orange,)
+                      )
+                    ]
+                  ),
+                ),
               ),
       
               //Spacer(),
@@ -297,6 +318,30 @@ class _SOSRespondDetailsScreenState extends State<SOSRespondDetailsScreen> {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class ViewImageScreen extends StatelessWidget {
+  final String imageUrl;
+  const ViewImageScreen({super.key, required this.imageUrl});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: GestureDetector(
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: Hero(
+            tag: 'imageHero',
+            child: Image.network(imageUrl),
+          ),
+        ),
+        onTap: () {
+          Navigator.pop(context);
+        },
       ),
     );
   }

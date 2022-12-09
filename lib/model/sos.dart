@@ -15,9 +15,6 @@ class SOSCall {
   late GeoPoint? coordinates;
   late Timestamp? createdAt;
 
-
-  //late Map<String, double> coordinates;
-
   SOSCall({
       this.documentID,
       this.callerID,

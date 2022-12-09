@@ -10,6 +10,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:siklero/model/sos.dart';
 import 'package:siklero/model/user_info.dart';
 import 'package:siklero/user/utils/utils.dart';
@@ -91,123 +92,127 @@ class _SOSRespondDetailsScreenState extends State<SOSRespondDetailsScreen> {
         backgroundColor: const Color(0xffed8f5b),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          child: Column(
-            children: <Widget>[
-              Container(
-                color: Color.fromARGB(255, 201, 201, 201),
-                width: MediaQuery.of(context).size.width,
+      body: Container(
+        child: Column(
+          children: <Widget>[
+            Container(
+              color: Color.fromARGB(255, 201, 201, 201),
+              width: MediaQuery.of(context).size.width,
       
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    children: <Widget>[
-                      Icon(Icons.calendar_month_rounded),
-                      SizedBox(width: 10,),
-                      Text(
-                        dateFormat,
-                        style: headerFormat,
-                        //overflow: TextOverflow.fade,
-                      ),
-                      Spacer(),
-                      Text(
-                        'ID# ${widget.details.documentID!}',
-                        style: headerFormat,
-                        //maxLines: 3,
-                      )
-                    ],
-                  ),
-                ),
-              ),            
-      
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                child: Container(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    distance > 1000 ? '${(distance / 1000).toStringAsFixed(2)} KM away from you' : '${distance.toStringAsFixed(2)} Meters away from you',
-                    style: distanceFormat,
-                  ),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  children: <Widget>[
+                    Icon(Icons.calendar_month_rounded),
+                    SizedBox(width: 10,),
+                    Text(
+                      dateFormat,
+                      style: headerFormat,
+                      //overflow: TextOverflow.fade,
+                    ),
+                    Spacer(),
+                    Text(
+                      'ID# ${widget.details.documentID!}',
+                      style: headerFormat,
+                      //maxLines: 3,
+                    )
+                  ],
                 ),
               ),
+            ),            
       
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 221, 221, 221),
-                    borderRadius: BorderRadius.circular(30)
-                  ),
-                  width: MediaQuery.of(context).size.width,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+              child: Container(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  distance > 1000 ? '${(distance / 1000).toStringAsFixed(2)} KM away from you' : '${distance.toStringAsFixed(2)} Meters away from you',
+                  style: distanceFormat,
+                ),
+              ),
+            ),
       
-                  child: Padding(
-                    padding: const EdgeInsets.all(20),
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
                     child: Container(
-                      child: ListTile(
-                        title: Text(
-                          widget.details.locationAddress!,
-                      
-                          style: cardFormat,
-                        ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-      
-                          children: <Widget>[
-                            IconButton(
-                              iconSize: 35,
-                              onPressed:() => Utils.openCall(widget.userDetails!.contact!),
-                              icon: Icon(Icons.local_phone_outlined, color: Colors.green,),
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 221, 221, 221),
+                        borderRadius: BorderRadius.circular(30)
+                      ),
+                      width: MediaQuery.of(context).size.width,
+                  
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Container(
+                          child: ListTile(
+                            title: Text(
+                              widget.details.locationAddress!,
+                          
+                              style: cardFormat,
                             ),
-                            SizedBox(width: 10,),
-                            IconButton(
-                              iconSize: 35,
-                              onPressed:() => Utils.openMap(currentLocation.latitude, currentLocation.longitude, widget.details.coordinates!.latitude, widget.details.coordinates!.longitude), 
-                              icon: Icon(Icons.assistant_direction_rounded, color: Colors.deepOrangeAccent,),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                  
+                              children: <Widget>[
+                                IconButton(
+                                  iconSize: 35,
+                                  onPressed:() => Utils.openCall(widget.userDetails!.contact!),
+                                  icon: Icon(Icons.local_phone_outlined, color: Colors.green,),
+                                ),
+                                SizedBox(width: 10,),
+                                IconButton(
+                                  iconSize: 35,
+                                  onPressed:() => Utils.openMap(currentLocation.latitude, currentLocation.longitude, widget.details.coordinates!.latitude, widget.details.coordinates!.longitude), 
+                                  icon: Icon(Icons.assistant_direction_rounded, color: Colors.deepOrangeAccent,),
+                                ),
+                              ],
                             ),
-                          ],
+                          )
                         ),
-                      )
+                      ),
                     ),
                   ),
-                ),
-              ),
-      
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) { return ViewImageScreen(imageUrl: widget.details.imageUrl!,); } ));
-                  },
-                  child: Stack(
-                    children: [
-                      SizedBox(
-                        width: double.infinity,
-                        height: 250,
-                        child: Image.network(
-                          widget.details.imageUrl!,
-                                    
-                          fit: BoxFit.cover
-                        ),
+                  
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) { return ViewImageScreen(imageUrl: widget.details.imageUrl!,); } ));
+                      },
+                      child: Stack(
+                        children: [
+                          SizedBox(
+                            width: double.infinity,
+                            height: 250,
+                            child: Image.network(
+                              widget.details.imageUrl!,
+                                        
+                              fit: BoxFit.cover
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: Icon(Icons.zoom_in, size: 50, color: Colors.orange,)
+                          )
+                        ]
                       ),
-                      Align(
-                        alignment: Alignment.bottomRight,
-                        child: Icon(Icons.zoom_in, size: 50, color: Colors.orange,)
-                      )
-                    ]
+                    ),
                   ),
-                ),
+                ],
               ),
+            ),
       
-              //Spacer(),
+            const Spacer(),
       
-              Container(
-                color: Color.fromARGB(255, 235, 235, 235),
-                width: MediaQuery.of(context).size.width,
-                child: isAccepted == false ? acceptButton(context) : respondButtons(context),
-              )
-            ],
-          ),
+            Container(
+              color: Color.fromARGB(255, 235, 235, 235),
+              width: MediaQuery.of(context).size.width,
+              child: isAccepted == false ? acceptButton(context) : respondButtons(context),
+            )
+          ],
         ),
       )
     );
@@ -330,13 +335,25 @@ class ViewImageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context), 
+          icon: Icon(Icons.close))
+      ),
       body: GestureDetector(
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Hero(
             tag: 'imageHero',
-            child: Image.network(imageUrl),
+            child: PhotoView(
+              minScale: PhotoViewComputedScale.contained * 1,
+              maxScale: PhotoViewComputedScale.covered * 2,
+              imageProvider: NetworkImage(imageUrl),
+            ),
           ),
         ),
         onTap: () {

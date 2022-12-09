@@ -11,6 +11,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:siklero/main.dart';
 import 'package:siklero/model/sos.dart';
 import 'package:siklero/model/user_info.dart';
@@ -349,13 +350,25 @@ class ViewImageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () => Navigator.pop(context), 
+          icon: Icon(Icons.close))
+      ),
       body: GestureDetector(
         child: SizedBox(
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Hero(
             tag: 'imageHero',
-            child: Image.file(imagePath),
+            child: PhotoView(
+              minScale: PhotoViewComputedScale.contained * 1,
+              maxScale: PhotoViewComputedScale.covered * 2,
+              imageProvider: FileImage(imagePath),
+            ),
           ),
         ),
         onTap: () {

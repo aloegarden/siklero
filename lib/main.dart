@@ -46,56 +46,6 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
 
-  late StreamSubscription subscription;
-  var isDeviceConnected = false;
-  bool isAlertSet = false;
-
-  @override
-  void initState() {
-    getConnectivity();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    subscription.cancel();
-  }
-
-  getConnectivity() => 
-      subscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult result) async { 
-        isDeviceConnected = await InternetConnectionChecker().hasConnection;
-        if(!isDeviceConnected && isAlertSet == false) {
-          showDialogBox();
-        }
-      });
-
-  showDialogBox() => showDialog<String>(
-    context: context,
-    builder:(BuildContext context) => AlertDialog(
-      title: const Text('No Connection'),
-      content: const Text('Please check your internet connection'),
-      actions: <Widget>[
-        TextButton(
-          onPressed: () async {
-            Navigator.pop(context, 'Cancel');
-            setState(() {
-              isAlertSet = false;
-            });
-            isDeviceConnected = await InternetConnectionChecker().hasConnection;
-            if(!isDeviceConnected) {
-              showDialogBox();
-              setState(() {
-                isAlertSet = true;
-              });
-            }
-          }, 
-          child: const Text('Ok')
-        )
-      ],
-    ),
-  );
-
   @override
   Widget build(BuildContext context) => Scaffold(
     body: StreamBuilder<User?>(

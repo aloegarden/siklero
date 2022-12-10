@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 //import 'package:siklero/map_utils.dart';
 import 'package:siklero/model/sos.dart';
 import 'package:siklero/model/user_info.dart';
+import 'package:siklero/model/users.dart';
 import 'package:siklero/user/home-screens/sosrespond-details_screen.dart';
 import 'package:siklero/user/utils/utils.dart';
 
@@ -20,6 +21,9 @@ class SOSRespondScreen extends StatefulWidget {
 class _SOSRespondScreenState extends State<SOSRespondScreen> {
 
   final user = FirebaseAuth.instance.currentUser;
+  UserData? helperData = UserData();
+  UserData? userData = UserData();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,32 +32,46 @@ class _SOSRespondScreenState extends State<SOSRespondScreen> {
         title: const Text('SOS Respond', style: TextStyle(fontFamily: 'OpenSans', fontSize: 24),),
         centerTitle: true,
       ),
-      body: StreamBuilder<List<SOSCall>>(
-        stream: readSOSCalls(),
-        builder:(context, snapshot) {
-          
-          //final testcall = snapshot.data;
+      body: FutureBuilder<UserData?>(
+        future: readHelperUser(),
+        builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return Center(child: Text('Something went wrong! ${snapshot.error}'));
+            return Text('Something went wrong! ${snapshot.error}');
           } else if (snapshot.hasData) {
-            final sosCalls = snapshot.data!;
-            print("streambuilder");
+            helperData = snapshot.data;
+            //print(helperData!.city);
+            return StreamBuilder<List<SOSCall>>(
+              stream: readSOSCalls(),
+              builder:(context, snapshot) {
+                
+                //final testcall = snapshot.data;
+                if (snapshot.hasError) {
+                  return Center(child: Text('Something went wrong! ${snapshot.error}'));
+                } else if (snapshot.hasData) {
+                  final sosCalls = snapshot.data!;
+                  print("streambuilder");
 
-            return ListView(
-              padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
-              children: sosCalls.map(buildSOSCall).toList(),
+                  return ListView(
+                    //reverse: true,
+                    padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                    children: sosCalls.map(buildSOSCall).toList(),
+                  );
+                } else {
+                  return const Center(child: CircularProgressIndicator(),);
+                }
+              },
             );
           } else {
             return const Center(child: CircularProgressIndicator(),);
           }
         },
-      ),
+
+      )
     );
   }
 
   Widget buildSOSCall(SOSCall SOSCall) {
     //String test = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
-    UserData? userData = UserData();
     return FutureBuilder<UserData?>(
       future: readUser(SOSCall.callerID),
       builder:(context, snapshot) {
@@ -178,6 +196,17 @@ class _SOSRespondScreenState extends State<SOSRespondScreen> {
     );
   }
 
+  Future<UserData?> readHelperUser () async {
+
+    final docUser = FirebaseFirestore.instance.collection('user_profile').doc(user!.uid);
+    final snapShot = await docUser.get();
+
+    if (snapShot.exists) {
+      return UserData.fromJSON(snapShot.data()!);
+    }
+    return null;
+  }
+
   Future<UserData?> readUser (String? userID) async {
 
     final docUser = FirebaseFirestore.instance.collection('user_profile').doc(userID);
@@ -193,14 +222,19 @@ class _SOSRespondScreenState extends State<SOSRespondScreen> {
       .collection('user_profile')
       .doc() */
 
-  Stream<List<SOSCall>> readSOSCalls() =>
-    FirebaseFirestore.instance
+  Stream<List<SOSCall>> readSOSCalls() {
+    var today = new DateTime.now();
+    today = new DateTime(today.year, today.month, today.day);
+
+    return FirebaseFirestore.instance
       .collection('sos_call')
       .where('is_active', isEqualTo : true)
       .where('respondant_id', isNull: true)
-      //.where('caller_id', isNotEqualTo: user!.uid)
-      //.where('is_approved', isEqualTo: true)
+      .where('created_at', isGreaterThanOrEqualTo: today)
+      //.where('city', isEqualTo: helperData.city)
       .snapshots()
       .map((snapshot) => 
         snapshot.docs.map((doc) => SOSCall.fromJSON(doc.data())).toList());
+
+  }
 }

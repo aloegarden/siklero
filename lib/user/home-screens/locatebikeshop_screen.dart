@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -8,6 +9,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:siklero/model/bikeshops.dart';
 import 'package:siklero/model/repair_guide/bikeshop.dart';
 import 'package:siklero/user/utils/utils.dart';
+import 'package:google_api_headers/google_api_headers.dart';
+import 'package:google_maps_webservice/places.dart';
 
 class LocateBikeShopScreen extends StatefulWidget {
   const LocateBikeShopScreen({super.key});
@@ -19,6 +22,8 @@ class LocateBikeShopScreen extends StatefulWidget {
 class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
 
   Completer<GoogleMapController> _controller = Completer();
+  final Mode _mode = Mode.overlay;
+  final homeScaffoldKey = GlobalKey<ScaffoldState>();
 
   static const _kGoogleApiKey = "AIzaSyBD7rR2WX5-WT7dN-IiyrOpfPfxK4CaIJ0";
 
@@ -60,6 +65,7 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: homeScaffoldKey,
       appBar: AppBar(
         title: const Text('Locate Bike Shops', style: TextStyle(fontFamily: 'OpenSans', fontSize: 24),),
         backgroundColor: const Color(0xffed8f5b),
@@ -76,27 +82,44 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
             },
           ),
 
-          Align(
-            alignment: Alignment.topCenter,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.1),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  shape: const StadiumBorder(),
-                  foregroundColor: Colors.white,
-                  backgroundColor: const Color(0xffe45f1e)
-                ),
+          Column(
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.1),
+                child: Container(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 204, 204, 204),
+                      side: const BorderSide(color: Colors.grey) 
+                    ),
 
-                onPressed: () async {
-                  goToCurrentLocation();
-                },
-
-                child: const ListTile(
-                  leading: Icon(Icons.my_location_rounded, color: Colors.white,),
-                  title: Text("Use Current Location", style: TextStyle(color: Colors.white),),
+                    onPressed: _handleButtonPress, 
+                    child: const Text("Set Location", style: TextStyle(color: Colors.grey),)
+                  ),
                 ),
               ),
-            ),
+
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.1),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    shape: const StadiumBorder(),
+                    foregroundColor: Colors.white,
+                    backgroundColor: const Color(0xffe45f1e)
+                  ),
+
+                  onPressed: () async {
+                    goToCurrentLocation();
+                  },
+
+                  child: const ListTile(
+                    leading: Icon(Icons.my_location_rounded, color: Colors.white,),
+                    title: Text("Use Current Location", style: TextStyle(color: Colors.white),),
+                  ),
+                ),
+              ),
+            ],
           )
         ],
       ),
@@ -115,6 +138,7 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
   Future<void> goToCurrentLocation() async {
     getUserCurrentLocation().then((value) async {
       //print(value.longitude.toString() + " " + value.latitude.toString());
+      markers.clear();
       
       currentLocation = LatLng(value.latitude, value.longitude);
       markers.add(
@@ -139,6 +163,62 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
         
       });
     });
+  }
+
+  Future<void> _handleButtonPress() async {
+    Prediction? p = await PlacesAutocomplete.show(
+        context: context,
+        apiKey: _kGoogleApiKey,
+        onError: onError,
+        mode: _mode,
+        language: 'en',
+        strictbounds: false,
+        types: [""],
+        decoration: InputDecoration(
+            hintText: 'Search',
+            focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(20), borderSide: BorderSide(color: Colors.white))),
+        components: [Component(Component.country,"ph")]);
+
+    displayPrediction(p!, homeScaffoldKey.currentState);
+  }
+
+  void onError(PlacesAutocompleteResponse response) {
+    Utils.showSnackBar(response.errorMessage);
+  }
+
+  Future<void> displayPrediction(Prediction p, ScaffoldState? currentState, ) async {
+
+    GoogleMapsPlaces places = GoogleMapsPlaces(
+      apiKey: _kGoogleApiKey,
+      apiHeaders: await const GoogleApiHeaders().getHeaders()
+    );
+
+    PlacesDetailsResponse detail = await places.getDetailsByPlaceId(p.placeId!);
+
+    final lat = detail.result.geometry!.location.lat;
+    final lng = detail.result.geometry!.location.lng;
+
+    markers.clear();
+    markers.add(
+      Marker(
+          markerId: const MarkerId("currentLocation"),
+          icon: currentLocationIcon,
+          position: LatLng(lat, lng)
+        )
+    );
+
+    setState(() {
+      
+    });
+
+    CameraPosition cameraPosition = 
+        CameraPosition(
+          zoom: 14,
+          target: LatLng(lat, lng,
+        ));
+
+    final GoogleMapController controller = await _controller.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
   }
   
   Future<Position> getUserCurrentLocation() async {
@@ -175,6 +255,7 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
       );
     } else {
       var locationMarker = markers.first;
+      _bikeShops.clear();
       getBikeShops(locationMarker.position.latitude, locationMarker.position.longitude).then((value) async {
         _bikeShops.addAll(value);
 

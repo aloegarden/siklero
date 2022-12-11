@@ -195,14 +195,14 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
           child: Form(
             key: formKey,
             child: Padding(
-              padding: EdgeInsets.all(30),
+              padding: const EdgeInsets.all(30),
               child: Container(
                 decoration: BoxDecoration(
                   color: const Color(0xffFFD4BC),
                   borderRadius: BorderRadius.circular(30)
                 ),
                 child: Padding(
-                  padding: EdgeInsets.all(15.0),
+                  padding: const EdgeInsets.all(15.0),
                   child: Column(
                     //crossAxisAlignment: CrossAxisAlignment.center,
                     //mainAxisAlignment: MainAxisAlignment.center,
@@ -249,10 +249,10 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
                       ElevatedButton(
                         onPressed: /*isDisabled ? null : */() => writeSOS(), 
                         style: ElevatedButton.styleFrom(
-                        shape: StadiumBorder(),
+                        shape: const StadiumBorder(),
                         foregroundColor: Colors.white,
-                        backgroundColor: Color(0xffe45f1e),
-                        padding: EdgeInsets.all(30)
+                        backgroundColor: const Color(0xffe45f1e),
+                        padding: const EdgeInsets.all(30)
                         ),
                         child: const Text(
                           'Confirm SOS Call',
@@ -299,7 +299,7 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
         Container(
           color: Colors.white,
           child: ListTile(
-            title: chosenImage == null ? Text("Insert an image"): Text(chosenImage!.path.split("/").last, maxLines: 1, overflow: TextOverflow.ellipsis,),
+            title: chosenImage == null ? const Text("Insert an image"): Text(chosenImage!.path.split("/").last, maxLines: 1, overflow: TextOverflow.ellipsis,),
             trailing: Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -331,7 +331,7 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
                 height: 300,
                 child: Image.file(chosenImage!, fit: BoxFit.cover,)
               ),
-              Align(
+              const Align(
                 alignment: Alignment.bottomRight,
                 child: Icon(Icons.zoom_in, size: 50, color: Colors.orange)
               )
@@ -356,7 +356,7 @@ class ViewImageScreen extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           onPressed: () => Navigator.pop(context), 
-          icon: Icon(Icons.close))
+          icon: const Icon(Icons.close))
       ),
       body: GestureDetector(
         child: SizedBox(

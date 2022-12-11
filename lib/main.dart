@@ -1,9 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:siklero/login_screen.dart';
 import 'package:siklero/user/home-screens/reminder_screen.dart';
 import 'package:firebase_core/firebase_core.dart';

@@ -28,7 +28,7 @@ class _BikeRecordsScreenState extends State<BikeRecordsScreen> {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(Icons.arrow_back_ios_new),
+            icon: const Icon(Icons.arrow_back_ios_new),
           ),
           title: const Text(
             'Bicycle Failures Records',
@@ -39,9 +39,9 @@ class _BikeRecordsScreenState extends State<BikeRecordsScreen> {
           ),
           centerTitle: true,
         ),
-        backgroundColor: Color(0xFFED8F5B),
+        backgroundColor: const Color(0xFFED8F5B),
         body: Container(
-          margin: EdgeInsets.all(10.0),
+          margin: const EdgeInsets.all(10.0),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20.0), color: Colors.white),
           child: Column(
@@ -49,14 +49,14 @@ class _BikeRecordsScreenState extends State<BikeRecordsScreen> {
             children: [
               Container(
                 height: 40,
-                margin: EdgeInsets.fromLTRB(180, 16, 30, 16),
+                margin: const EdgeInsets.fromLTRB(180, 16, 30, 16),
                 child: TextField(
                   controller: searchController,
                   textAlignVertical: TextAlignVertical.bottom,
-                  style: TextStyle(fontSize: 15, color: Color(0xFFE45F1E)),
+                  style: const TextStyle(fontSize: 15, color: Color(0xFFE45F1E)),
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: Color(0xFFFFD4BC),
+                    fillColor: const Color(0xFFFFD4BC),
                     prefixIcon: const Icon(
                       Icons.search,
                       size: 17,
@@ -84,7 +84,7 @@ class _BikeRecordsScreenState extends State<BikeRecordsScreen> {
                 ),
               ),
               //RecordsCard(),
-              RecordsStream(),
+              const RecordsStream(),
             ],
           ),
         ),
@@ -135,8 +135,6 @@ class _RecordsStreamState extends State<RecordsStream> {
 
   @override
   void initState() {
-    // TODO: implement initState
-
     recordsStream = FirebaseFirestore.instance
         .collection('sos_call')
         .snapshots()
@@ -221,9 +219,9 @@ class RecordsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20), color: Color(0xFFFFD4BC)),
+          borderRadius: BorderRadius.circular(20), color: const Color(0xFFFFD4BC)),
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -236,7 +234,7 @@ class RecordsCard extends StatelessWidget {
                   width: 75,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),
-                      color: Color(0xFFED8F5B)),
+                      color: const Color(0xFFED8F5B)),
                   child: const Center(
                     child: Text(
                       '01',

@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 class BikeShops {
   String? businessStatus;
   //GeoPoint? geoPoint;

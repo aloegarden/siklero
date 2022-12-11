@@ -75,7 +75,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
             )
           ),
           ExpansionTile(
-            backgroundColor: Color(0xFfFFD4BC),
+            backgroundColor: const Color(0xFfFFD4BC),
             title: Text(
               tool.title,
               style: titleStyle
@@ -86,7 +86,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
             ),
             children: [
               ListTile(title: Text(tool.description, style: contentStyle,)),
-              Divider()
+              const Divider()
             ],
           )
         ],

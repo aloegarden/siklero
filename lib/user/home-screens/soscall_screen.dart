@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:siklero/main.dart';
 import 'package:siklero/model/sos.dart';
 import 'package:siklero/model/user_info.dart';
-import 'package:siklero/user/home-screens/home_screen.dart';
 import 'package:siklero/user/home-screens/reminder_screen.dart';
 
 class SOSCallScreen extends StatefulWidget {
@@ -94,10 +92,10 @@ class _SOSCallScreenState extends State<SOSCallScreen> {
                       navigatorKey.currentState!.popUntil((route) => route.isFirst);
                       },
                       style: ElevatedButton.styleFrom(
-                        shape: CircleBorder(),
-                        padding: EdgeInsets.all(24),
-                        minimumSize: Size(300, 300),
-                        backgroundColor: Color(0xffE45F1E),
+                        shape: const CircleBorder(),
+                        padding: const EdgeInsets.all(24),
+                        minimumSize: const Size(300, 300),
+                        backgroundColor: const Color(0xffE45F1E),
                         foregroundColor: Colors.white
                       ),
                       child: const Text(
@@ -114,8 +112,8 @@ class _SOSCallScreenState extends State<SOSCallScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          Text("Repsondant: "),
-                          sosCall!.respondantID != null ? respondingHelper(sosCall: sosCall) : const Text(''),
+                          const Text("Repsondant: "),
+                          sosCall!.respondantID != null ? RespondingHelper(sosCall: sosCall) : const Text(''),
 
                         ],
                       ),
@@ -156,8 +154,8 @@ class _SOSCallScreenState extends State<SOSCallScreen> {
   }
 }
 
-class respondingHelper extends StatelessWidget {
-  respondingHelper({
+class RespondingHelper extends StatelessWidget {
+  RespondingHelper({
     Key? key,
     required this.sosCall,
   }) : super(key: key);
@@ -174,13 +172,13 @@ class respondingHelper extends StatelessWidget {
         if(snapshot.hasError) {
           return Text('Something went wrong! ${snapshot.error}');
         } else if (!snapshot.hasData) {
-          return Text(''); 
+          return const Text(''); 
         } else if (snapshot.hasData) {
 
           helperData = UserData.fromJSON(snapshot.data!.data()!);
           return Text('${helperData!.fName} ${helperData!.lName}');
         } else {
-          return Text(''); 
+          return const Text(''); 
         }
       }
     );

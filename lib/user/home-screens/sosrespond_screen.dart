@@ -228,7 +228,8 @@ class _SOSRespondScreenState extends State<SOSRespondScreen> {
 
     return FirebaseFirestore.instance
       .collection('sos_call')
-      .where('is_active', isEqualTo : true)
+      .orderBy('created_at')
+      //.where('is_active', isEqualTo : true)
       .where('respondant_id', isNull: true)
       .where('created_at', isGreaterThanOrEqualTo: today)
       //.where('city', isEqualTo: helperData.city)

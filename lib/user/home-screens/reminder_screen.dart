@@ -1,12 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:siklero/admin/admin-home_screen.dart';
 import 'package:siklero/main.dart';
-import 'package:siklero/model/home.dart';
 import 'package:siklero/model/user_info.dart';
-import 'package:siklero/model/users.dart';
 import 'package:siklero/user/home-screens/home_screen.dart';
 
 class ReminderScreen extends StatefulWidget {
@@ -101,7 +98,7 @@ class _ReminderScreenState extends State<ReminderScreen> {
             )
           );
         } else {
-          return Center(child: CircularProgressIndicator(),);
+          return const Center(child: CircularProgressIndicator(),);
         }
 
       },

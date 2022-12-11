@@ -62,10 +62,10 @@ class _AvoidingCrashesScreenState extends State<AvoidingCrashesScreen> {
             )
           ),
           ExpansionTile(
-            backgroundColor: Color(0xFfFFD4BC),
+            backgroundColor: const Color(0xFfFFD4BC),
             title: Text(crash.title, style: titleStyle,),
             subtitle: Text("Courtesy: " + crash.courtesy, style: courtesyStyle,),
-            children: [ListTile(title: Text(crash.description, style: contentStyle,),), Divider()],
+            children: [ListTile(title: Text(crash.description, style: contentStyle,),), const Divider()],
           )
         ],
       ),

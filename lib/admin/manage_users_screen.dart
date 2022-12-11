@@ -1,7 +1,5 @@
-import 'dart:ui';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:siklero/admin/admin-edit-profile_screen.dart';
 
@@ -24,7 +22,7 @@ class ManageUsers extends StatefulWidget {
 class _ManageUsersState extends State<ManageUsers> {
   @override
   void initState() {
-    // TODO: implement initState
+
     searchController.clear();
     searchCards.clear();
     isDone = false;
@@ -43,7 +41,7 @@ class _ManageUsersState extends State<ManageUsers> {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(Icons.arrow_back_ios_new),
+            icon: const Icon(Icons.arrow_back_ios_new),
           ),
           title: const Text(
             'Manage Users',
@@ -54,9 +52,9 @@ class _ManageUsersState extends State<ManageUsers> {
           ),
           centerTitle: true,
         ),
-        backgroundColor: Color(0xFFED8F5B),
+        backgroundColor: const Color(0xFFED8F5B),
         body: Container(
-          margin: EdgeInsets.all(10.0),
+          margin: const EdgeInsets.all(10.0),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20.0), color: Colors.white),
           child: Padding(
@@ -66,14 +64,14 @@ class _ManageUsersState extends State<ManageUsers> {
               children: [
                 Container(
                   height: 40,
-                  margin: EdgeInsets.fromLTRB(180, 16, 30, 16),
+                  margin: const EdgeInsets.fromLTRB(180, 16, 30, 16),
                   child: TextField(
                     controller: searchController,
                     textAlignVertical: TextAlignVertical.bottom,
-                    style: TextStyle(fontSize: 15, color: Color(0xFFE45F1E)),
+                    style: const TextStyle(fontSize: 15, color: Color(0xFFE45F1E)),
                     decoration: InputDecoration(
                       filled: true,
-                      fillColor: Color(0xFFFFD4BC),
+                      fillColor: const Color(0xFFFFD4BC),
                       prefixIcon: const Icon(
                         Icons.search,
                         size: 17,
@@ -100,7 +98,7 @@ class _ManageUsersState extends State<ManageUsers> {
                     onChanged: searchUser,
                   ),
                 ),
-                UsersStream(),
+                const UsersStream(),
               ],
             ),
           ),
@@ -112,7 +110,7 @@ class _ManageUsersState extends State<ManageUsers> {
   void searchUser(String query) {
     final suggestions = userCards.where((user) {
       final userName =
-          user.fName.toLowerCase() + ' ' + user.lName.toLowerCase();
+          '${user.fName.toLowerCase()} ${user.lName.toLowerCase()}';
       print(userName);
       final input = query.toLowerCase();
       return userName.contains(input);
@@ -223,10 +221,10 @@ class UsersCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(20),
-        margin: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
+        margin: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20), color: Color(0xFFFFD4BC)),
+            borderRadius: BorderRadius.circular(20), color: const Color(0xFFFFD4BC)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -246,11 +244,11 @@ class UsersCard extends StatelessWidget {
                           width: 35,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15),
-                            color: Color(0xFFED8F5B),
+                            color: const Color(0xFFED8F5B),
                           ),
                           child: Center(
                             child: Text(
-                              '0${counter}',
+                              '0$counter',
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontFamily: 'OpenSans',
@@ -277,12 +275,12 @@ class UsersCard extends StatelessWidget {
                             searchController.clear();
                           },
                           child: Container(
-                            margin: EdgeInsets.only(left: 5),
+                            margin: const EdgeInsets.only(left: 5),
                             width: 69,
                             height: 30,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15),
-                                color: Color(0xFFE45F1E)),
+                                color: const Color(0xFFE45F1E)),
                             child: const Center(
                               child: Text(
                                 'Edit',
@@ -298,7 +296,7 @@ class UsersCard extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      '${fName}',
+                      fName,
                       style: const TextStyle(
                         fontFamily: 'OpenSansCondensed',
                         fontWeight: FontWeight.w700,
@@ -306,7 +304,7 @@ class UsersCard extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      '${lName}',
+                      lName,
                       style: const TextStyle(
                         fontFamily: 'OpenSansCondensed',
                         fontWeight: FontWeight.w700,
@@ -325,9 +323,9 @@ class UsersCard extends StatelessWidget {
                 thickness: 1,
               ),
             ),
-            Text('Email: ${email}', style: kUserLabelTextStyle),
-            Text('Contact Number: ${number}', style: kUserLabelTextStyle),
-            Text('Address: ${address}', style: kUserLabelTextStyle),
+            Text('Email: $email', style: kUserLabelTextStyle),
+            Text('Contact Number: $number', style: kUserLabelTextStyle),
+            Text('Address: $address', style: kUserLabelTextStyle),
           ],
         ));
   }

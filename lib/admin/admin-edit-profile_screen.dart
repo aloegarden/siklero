@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:siklero/user/utils/utils.dart';
-import 'package:siklero/model/users.dart';
 import 'package:siklero/admin/manage_users_screen.dart';
 
 class AdminEditProfileScreen extends StatefulWidget {
@@ -185,7 +183,7 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
                                   usernameController,
                                   widget.userID,
                                 )),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             Container(
@@ -208,7 +206,7 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
                                         addressController,
                                         usernameController,
                                         widget.userID)),
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                           ],

@@ -61,10 +61,10 @@ class _FirstAidScreenState extends State<FirstAidScreen> {
             )
           ),
           ExpansionTile(
-            backgroundColor: Color(0xFfFFD4BC),
+            backgroundColor: const Color(0xFfFFD4BC),
             title: Text(firstAid.title, style: titleStyle,),
             subtitle: Text("Courtesy: " + firstAid.courtesy, style: courtesyStyle,),
-            children: [ListTile(title: Text(firstAid.description, style: contentStyle,),), Divider()],
+            children: [ListTile(title: Text(firstAid.description, style: contentStyle,),), const Divider()],
           )
         ],
       ),

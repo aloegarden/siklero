@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:siklero/admin/constants.dart';
-import 'package:siklero/admin/bikefailures_records_screen.dart';
 
 List<SosCallCard> searchCards = [];
 bool isDone = false;
@@ -19,7 +18,6 @@ class ManageSOS extends StatefulWidget {
 class _ManageSOSState extends State<ManageSOS> {
   @override
   void initState() {
-    // TODO: implement initState
     searchController.clear();
     searchCards.clear();
     isDone = false;
@@ -36,7 +34,7 @@ class _ManageSOSState extends State<ManageSOS> {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back_ios_new),
+          icon: const Icon(Icons.arrow_back_ios_new),
         ),
         title: const Text(
           'Pending SOS Calls',
@@ -47,9 +45,9 @@ class _ManageSOSState extends State<ManageSOS> {
         ),
         centerTitle: true,
       ),
-      backgroundColor: Color(0xFFED8F5B),
+      backgroundColor: const Color(0xFFED8F5B),
       body: Container(
-        margin: EdgeInsets.all(10.0),
+        margin: const EdgeInsets.all(10.0),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.0), color: Colors.white),
         child: Padding(
@@ -59,14 +57,14 @@ class _ManageSOSState extends State<ManageSOS> {
             children: [
               Container(
                 height: 40,
-                margin: EdgeInsets.fromLTRB(180, 16, 30, 16),
+                margin: const EdgeInsets.fromLTRB(180, 16, 30, 16),
                 child: TextField(
                   controller: searchController,
                   textAlignVertical: TextAlignVertical.bottom,
-                  style: TextStyle(fontSize: 15, color: Color(0xFFE45F1E)),
+                  style: const TextStyle(fontSize: 15, color: Color(0xFFE45F1E)),
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: Color(0xFFFFD4BC),
+                    fillColor: const Color(0xFFFFD4BC),
                     prefixIcon: const Icon(
                       Icons.search,
                       size: 17,
@@ -93,7 +91,7 @@ class _ManageSOSState extends State<ManageSOS> {
                   onChanged: searchUser,
                 ),
               ),
-              SosCallStream(),
+              const SosCallStream(),
             ],
           ),
         ),
@@ -143,7 +141,6 @@ class _SosCallStreamState extends State<SosCallStream> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -272,9 +269,9 @@ class _SosCallCardState extends State<SosCallCard> {
   Widget build(BuildContext context) {
     print('SosCallCard build');
     return Container(
-      margin: EdgeInsets.all(20),
+      margin: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20), color: Color(0xFFFFD4BC)),
+          borderRadius: BorderRadius.circular(20), color: const Color(0xFFFFD4BC)),
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -287,7 +284,7 @@ class _SosCallCardState extends State<SosCallCard> {
                   width: 75,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20.0),
-                      color: Color(0xFFED8F5B)),
+                      color: const Color(0xFFED8F5B)),
                   child: const Center(
                     child: Text(
                       'SOS',
@@ -435,12 +432,12 @@ class _SosCallCardState extends State<SosCallCard> {
                     searchController.clear();
                   },
                   child: Container(
-                    margin: EdgeInsets.only(left: 5),
+                    margin: const EdgeInsets.only(left: 5),
                     width: 100,
                     height: 30,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        color: Color(0xFFE45F1E)),
+                        color: const Color(0xFFE45F1E)),
                     child: const Center(
                       child: Text(
                         'Accept',
@@ -464,12 +461,12 @@ class _SosCallCardState extends State<SosCallCard> {
                     searchController.clear();
                   },
                   child: Container(
-                    margin: EdgeInsets.only(left: 5),
+                    margin: const EdgeInsets.only(left: 5),
                     width: 100,
                     height: 30,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        color: Color(0xFFE45F1E)),
+                        color: const Color(0xFFE45F1E)),
                     child: const Center(
                       child: Text(
                         'Decline',

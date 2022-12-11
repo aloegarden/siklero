@@ -179,9 +179,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 children: <Widget>[
                                   Container(
                                     alignment: Alignment.topLeft,
-                                    child: Text(
+                                    child: const Text(
                                       "City:",
-                                      style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w400, color: Color(0xffe45f1e)),
+                                      style: TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w400, color: Color(0xffe45f1e)),
                                     ),
                                   ),
                                   Container(
@@ -478,9 +478,9 @@ Widget _buildSignUpButton(
   return ElevatedButton(
     onPressed: signUp, 
     style: ElevatedButton.styleFrom(
-      shape: StadiumBorder(),
+      shape: const StadiumBorder(),
       foregroundColor: Colors.white,
-      backgroundColor: Color(0xffe45f1e)
+      backgroundColor: const Color(0xffe45f1e)
     ),
     child: const Text(
       'Sign Up',

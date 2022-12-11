@@ -1,8 +1,6 @@
-import 'dart:ffi';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:siklero/model/user_info.dart';
 import 'package:siklero/user/utils/utils.dart';
@@ -137,9 +135,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     children: <Widget>[
                                       Container(
                                         alignment: Alignment.topLeft,
-                                        child: Text(
+                                        child: const Text(
                                           "City:",
-                                          style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w400, color: Color(0xffe45f1e)),
+                                          style: TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w400, color: Color(0xffe45f1e)),
                                         ),
                                       ),
                                       Container(

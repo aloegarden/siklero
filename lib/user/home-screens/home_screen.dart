@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -171,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       
                       children: <Widget>[
                         Text(
-                          userData!.fName! + " " + userData!.lName!,
+                          "${userData!.fName!} ${userData!.lName!}",
                           style: const TextStyle(
                             fontFamily: 'OpenSans',
                             fontSize: 24,

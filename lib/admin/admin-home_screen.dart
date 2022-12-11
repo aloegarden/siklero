@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:siklero/admin/bikefailures_records_screen.dart';
 import 'package:siklero/admin/helper_users_screen.dart';
 import 'package:siklero/admin/manage_users_screen.dart';
@@ -56,7 +54,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
           userData = snapshot.data;
 
           return Scaffold(
-            floatingActionButton: Container(
+            floatingActionButton: SizedBox(
               height: 50,
               width: 60,
               child: FloatingActionButton(
@@ -68,23 +66,23 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                     builder: (context) => buildSheet(),
                   );
                 },
-                backgroundColor: Color(0xFFE45F1E), //E45F1E
+                backgroundColor: const Color(0xFFE45F1E), //E45F1E
                 child: const Icon(
                   Icons.settings,
                   size: 45,
                 ),
               ),
             ),
-            backgroundColor: Color(0xFFED8F5B),
+            backgroundColor: const Color(0xFFED8F5B),
             body: Column(
               children: [
                 Container(
                   padding:
-                      EdgeInsets.only(top: 40, left: 30.0, right: 0.0, bottom: 20.0),
+                      const EdgeInsets.only(top: 40, left: 30.0, right: 0.0, bottom: 20.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      const Hero(
+                    children: const [
+                      Hero(
                         tag: 'logo',
                         child: Image(
                           image: AssetImage(
@@ -95,14 +93,11 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                       ),
                       Hero(
                         tag: 'red-ribbon',
-                        child: Container(
-                          //margin: EdgeInsets.only(left: 30),
-                          child: const Image(
-                            image: AssetImage(
-                              'asset/img/red-ribbon.png',
-                            ),
-                            height: 35.0,
+                        child: Image(
+                          image: AssetImage(
+                            'asset/img/red-ribbon.png',
                           ),
+                          height: 35.0,
                         ),
                       ),
                     ],
@@ -110,7 +105,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                 ),
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 25.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     height: 100,
                     decoration: const BoxDecoration(
                       color: Colors.white,
@@ -150,7 +145,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                               },
                             ),
                             ReusableCard(
-                              recordedNumber: '${numberOfRegularUsers}',
+                              recordedNumber: '$numberOfRegularUsers',
                               description: 'Regular Users',
                               function: 'manage',
                               imagePath: 'asset/img/user-icon.png',
@@ -184,7 +179,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => ManageSOS(),
+                                      builder: (context) => const ManageSOS(),
                                     ));
                               },
                             ),
@@ -292,8 +287,8 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                userData!.fName! + " " + userData!.lName!,
-                                style: TextStyle(
+                                "${userData!.fName!} ${userData!.lName!}",
+                                style: const TextStyle(
                                     fontFamily: 'OpenSans',
                                     fontSize: 24,
                                     color: Color(0xff581D00)),
@@ -302,7 +297,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                               ),
                               Text(
                                 userData!.userName!,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontFamily: 'OpenSans',
                                     fontSize: 24,
                                     color: Color(0xff581D00)),
@@ -370,16 +365,16 @@ class ReusableCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       //padding: EdgeInsets.only(bottom: 0),
-      margin: EdgeInsets.only(top: 20.0, bottom: 10.0),
+      margin: const EdgeInsets.only(top: 20.0, bottom: 10.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
-        color: Color(0xFFFFD4BC),
+        color: const Color(0xFFFFD4BC),
       ),
       //padding: EdgeInsets.only(bottom: 0),
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.only(bottom: 10),
+            margin: const EdgeInsets.only(bottom: 10),
             child: Padding(
               padding: const EdgeInsets.only(left: 15.0, right: 10.0),
               child: Row(
@@ -411,7 +406,7 @@ class ReusableCard extends StatelessWidget {
                   ),
                   Container(
                     //margin: EdgeInsets.only(top: 20, left: 20),
-                    margin: EdgeInsets.only(top: 20),
+                    margin: const EdgeInsets.only(top: 20),
                     child: Image(
                       image: AssetImage(
                         imagePath,
@@ -434,7 +429,7 @@ class ReusableCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Container(
-              margin: EdgeInsets.only(left: 20.0, right: 20.0, top: 1.0),
+              margin: const EdgeInsets.only(left: 20.0, right: 20.0, top: 1.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

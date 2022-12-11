@@ -24,31 +24,31 @@ List<RepairGuide> repairguideItems = [
   RepairGuide(
     id: 1, 
     text: 'Tools', 
-    icon: Icon(Icons.home_repair_service_rounded, color: Colors.white, size: 75,), 
-    screen: ToolsScreen()
+    icon: const Icon(Icons.home_repair_service_rounded, color: Colors.white, size: 75,), 
+    screen: const ToolsScreen()
   ),
   RepairGuide(
     id: 2, 
     text: 'Preparation', 
-    icon: Icon(Icons.assignment_rounded, color: Colors.white, size: 75,), 
-    screen: PreparationScreen()
+    icon: const Icon(Icons.assignment_rounded, color: Colors.white, size: 75,), 
+    screen: const PreparationScreen()
   ),
   RepairGuide(
     id: 3, 
     text: 'Roadside Repair', 
-    icon: Icon(Icons.build_circle_rounded, color: Colors.white, size: 75,), 
-    screen: RoadsideRepairScreen()
+    icon: const Icon(Icons.build_circle_rounded, color: Colors.white, size: 75,), 
+    screen: const RoadsideRepairScreen()
   ),
   RepairGuide(
     id: 4, 
     text: 'Avoiding Crashes', 
-    icon: Icon(Icons.warning_rounded, color: Colors.white, size: 75,), 
-    screen: AvoidingCrashesScreen()
+    icon: const Icon(Icons.warning_rounded, color: Colors.white, size: 75,), 
+    screen: const AvoidingCrashesScreen()
   ),
   RepairGuide(
     id: 5, 
     text: 'Basic First Aid', 
-    icon: Icon(Icons.medical_information_rounded, color: Colors.white, size: 75,), 
-    screen: FirstAidScreen()
+    icon: const Icon(Icons.medical_information_rounded, color: Colors.white, size: 75,), 
+    screen: const FirstAidScreen()
   ),
 ];

@@ -140,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     'Forgot Password?',
                                     style: TextStyle(fontFamily: 'OpenSans', fontSize: 17, color: Color(0xffe45f1e)),
                                   ),
-                                  _buildTextButton(context, 'Reset Password', () => ResetPasswordScreen())
+                                  _buildTextButton(context, 'Reset Password', () => const ResetPasswordScreen())
                                 ],
                               ),
                             ),
@@ -160,7 +160,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     'No account yet?',
                                     style: TextStyle(fontFamily: 'OpenSans', fontSize: 17, color: Color(0xffe45f1e)),
                                   ),
-                                  _buildTextButton(context, 'Sign Up', () => SignUpScreen())
+                                  _buildTextButton(context, 'Sign Up', () => const SignUpScreen())
                                 ],
                               ),
                             )
@@ -191,7 +191,7 @@ Widget _buildTextButton(BuildContext context, String text, Widget Function() cre
     ),
     child: Text(
       text,
-      style: TextStyle(fontFamily: 'OpenSans', fontSize: 17, color: Color(0xff581d00)),
+      style: const TextStyle(fontFamily: 'OpenSans', fontSize: 17, color: Color(0xff581d00)),
     )
   );
 }

@@ -23,26 +23,26 @@ List<Home> homeitemsUser = [
   Home(
     id: 1,
     text: "Locate Bike Shop",
-    icon: Icon(Icons.directions_bike_rounded, color: Colors.white, size: 75,),
-    screen: LocateBikeShopScreen()
+    icon: const Icon(Icons.directions_bike_rounded, color: Colors.white, size: 75,),
+    screen: const LocateBikeShopScreen()
   ),
   Home(
     id: 2, 
     text: "Send SOS", 
-    icon: Icon(Icons.sos_rounded, color: Colors.white, size: 75,),
-    screen: SOSDetailsScreen(userInfo: null,)
+    icon: const Icon(Icons.sos_rounded, color: Colors.white, size: 75,),
+    screen: const SOSDetailsScreen(userInfo: null,)
   ),
   Home(
     id: 3, 
     text: "Hotlines", 
-    icon: Icon(Icons.menu_book_rounded, color: Colors.white, size: 75,),
-    screen: HotlineScreen()
+    icon: const Icon(Icons.menu_book_rounded, color: Colors.white, size: 75,),
+    screen: const HotlineScreen()
   ),
   Home(
     id: 4, 
     text: "Repair Guide", 
-    icon: Icon(Icons.map_outlined, color: Colors.white, size: 75,),
-    screen: RepairGuideScreen()
+    icon: const Icon(Icons.map_outlined, color: Colors.white, size: 75,),
+    screen: const RepairGuideScreen()
   )
 ];
 
@@ -50,25 +50,25 @@ List<Home> homeitemsHelper = [
   Home(
     id: 1,
     text: "Locate Bike Shop",
-    icon: Icon(Icons.directions_bike_rounded, color: Colors.white, size: 75,),
-    screen: LocateBikeShopScreen()
+    icon: const Icon(Icons.directions_bike_rounded, color: Colors.white, size: 75,),
+    screen: const LocateBikeShopScreen()
   ),
   Home(
     id: 2, 
     text: "SOS Respond", 
-    icon: Icon(Icons.emergency_share_rounded, color: Colors.white, size: 75,),
-    screen: SOSRespondScreen()
+    icon: const Icon(Icons.emergency_share_rounded, color: Colors.white, size: 75,),
+    screen: const SOSRespondScreen()
   ),
   Home(
     id: 3, 
     text: "Hotlines", 
-    icon: Icon(Icons.menu_book_rounded, color: Colors.white, size: 75,),
-    screen: HotlineScreen()
+    icon: const Icon(Icons.menu_book_rounded, color: Colors.white, size: 75,),
+    screen: const HotlineScreen()
   ),
   Home(
     id: 4, 
     text: "Repair Guide", 
-    icon: Icon(Icons.map_outlined, color: Colors.white, size: 75,),
-    screen: RepairGuideScreen()
+    icon: const Icon(Icons.map_outlined, color: Colors.white, size: 75,),
+    screen: const RepairGuideScreen()
   )
 ];

@@ -1,10 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:siklero/login_screen.dart';
-import 'package:siklero/user/home-screens/home_screen.dart';
 import 'package:siklero/user/reset-password_screen.dart';
 import 'package:siklero/user/utils/utils.dart';
 
@@ -231,7 +228,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       showDialog(
         context: context, 
         barrierDismissible: false,
-        builder: (context) => Center(child: CircularProgressIndicator(),)
+        builder: (context) => const Center(child: CircularProgressIndicator(),)
       );
 
       final isValid = formKey.currentState!.validate();

@@ -1,13 +1,8 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_view/photo_view.dart';
@@ -69,18 +64,18 @@ class _SOSRespondDetailsScreenState extends State<SOSRespondDetailsScreen> {
     var dateTimeFormat = DateFormat("h:mma").format(date);
     var dateFormat = DateFormat('MMM dd h:mm a').format(date);
 
-    TextStyle headerFormat = TextStyle(
+    TextStyle headerFormat = const TextStyle(
       fontFamily: 'OpenSans',
       fontWeight: FontWeight.w700,
       fontSize: 12
     );
 
-    TextStyle cardFormat = TextStyle(
+    TextStyle cardFormat = const TextStyle(
       fontFamily: 'OpenSans',
       fontSize: 20
     );
 
-    TextStyle distanceFormat = TextStyle(
+    TextStyle distanceFormat = const TextStyle(
       fontFamily: 'OpenSans',
       fontWeight: FontWeight.w700,
       fontSize: 20
@@ -96,21 +91,21 @@ class _SOSRespondDetailsScreenState extends State<SOSRespondDetailsScreen> {
         child: Column(
           children: <Widget>[
             Container(
-              color: Color.fromARGB(255, 201, 201, 201),
+              color: const Color.fromARGB(255, 201, 201, 201),
               width: MediaQuery.of(context).size.width,
       
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Row(
                   children: <Widget>[
-                    Icon(Icons.calendar_month_rounded),
-                    SizedBox(width: 10,),
+                    const Icon(Icons.calendar_month_rounded),
+                    const SizedBox(width: 10,),
                     Text(
                       dateFormat,
                       style: headerFormat,
                       //overflow: TextOverflow.fade,
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Text(
                       'ID# ${widget.details.documentID!}',
                       style: headerFormat,
@@ -139,7 +134,7 @@ class _SOSRespondDetailsScreenState extends State<SOSRespondDetailsScreen> {
                     padding: const EdgeInsets.all(10.0),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 221, 221, 221),
+                        color: const Color.fromARGB(255, 221, 221, 221),
                         borderRadius: BorderRadius.circular(30)
                       ),
                       width: MediaQuery.of(context).size.width,
@@ -160,13 +155,13 @@ class _SOSRespondDetailsScreenState extends State<SOSRespondDetailsScreen> {
                                 IconButton(
                                   iconSize: 35,
                                   onPressed:() => Utils.openCall(widget.userDetails!.contact!),
-                                  icon: Icon(Icons.local_phone_outlined, color: Colors.green,),
+                                  icon: const Icon(Icons.local_phone_outlined, color: Colors.green,),
                                 ),
-                                SizedBox(width: 10,),
+                                const SizedBox(width: 10,),
                                 IconButton(
                                   iconSize: 35,
                                   onPressed:() => Utils.openMap(currentLocation.latitude, currentLocation.longitude, widget.details.coordinates!.latitude, widget.details.coordinates!.longitude), 
-                                  icon: Icon(Icons.assistant_direction_rounded, color: Colors.deepOrangeAccent,),
+                                  icon: const Icon(Icons.assistant_direction_rounded, color: Colors.deepOrangeAccent,),
                                 ),
                               ],
                             ),
@@ -193,7 +188,7 @@ class _SOSRespondDetailsScreenState extends State<SOSRespondDetailsScreen> {
                               fit: BoxFit.cover
                             ),
                           ),
-                          Align(
+                          const Align(
                             alignment: Alignment.bottomRight,
                             child: Icon(Icons.zoom_in, size: 50, color: Colors.orange,)
                           )
@@ -208,7 +203,7 @@ class _SOSRespondDetailsScreenState extends State<SOSRespondDetailsScreen> {
             const Spacer(),
       
             Container(
-              color: Color.fromARGB(255, 235, 235, 235),
+              color: const Color.fromARGB(255, 235, 235, 235),
               width: MediaQuery.of(context).size.width,
               child: isAccepted == false ? acceptButton(context) : respondButtons(context),
             )
@@ -272,8 +267,8 @@ class _SOSRespondDetailsScreenState extends State<SOSRespondDetailsScreen> {
                 
               });
             }, 
-            child: Padding(
-              padding: const EdgeInsets.all(18.0),
+            child: const Padding(
+              padding: EdgeInsets.all(18.0),
               child: Text(
                 "Accept",
                 
@@ -341,7 +336,7 @@ class ViewImageScreen extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           onPressed: () => Navigator.pop(context), 
-          icon: Icon(Icons.close))
+          icon: const Icon(Icons.close))
       ),
       body: GestureDetector(
         child: SizedBox(

@@ -13,7 +13,7 @@ class ManageAdmins extends StatelessWidget {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(Icons.arrow_back_ios_new),
+          icon: const Icon(Icons.arrow_back_ios_new),
         ),
         title: const Text(
           'Manage Admins',
@@ -24,9 +24,9 @@ class ManageAdmins extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      backgroundColor: Color(0xFFED8F5B),
+      backgroundColor: const Color(0xFFED8F5B),
       body: Container(
-        margin: EdgeInsets.all(10.0),
+        margin: const EdgeInsets.all(10.0),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20.0), color: Colors.white),
         child: Padding(
@@ -53,11 +53,11 @@ class UsersCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-          padding: EdgeInsets.all(20),
-          margin: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
+          margin: const EdgeInsets.all(20),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: Color(0xFFFFD4BC)),
+              color: const Color(0xFFFFD4BC)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -77,7 +77,7 @@ class UsersCard extends StatelessWidget {
                             width: 35,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: Color(0xFFED8F5B),
+                              color: const Color(0xFFED8F5B),
                             ),
                             child: const Center(
                               child: Text(
@@ -92,12 +92,12 @@ class UsersCard extends StatelessWidget {
                             //color: Color(0xFFED8F5B),
                           ),
                           Container(
-                            margin: EdgeInsets.only(left: 5),
+                            margin: const EdgeInsets.only(left: 5),
                             width: 69,
                             height: 30,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(15),
-                                color: Color(0xFFE45F1E)),
+                                color: const Color(0xFFE45F1E)),
                             child: const Center(
                               child: Text(
                                 'Edit',

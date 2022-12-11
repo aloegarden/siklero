@@ -71,7 +71,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: <Widget>[
                             const SizedBox(height: 50,),
-                            Text(
+                            const Text(
                               'Receive an email to\nreset your password',
                               style: TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w400, color: Color(0xff581D00)),
                             ),
@@ -164,9 +164,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
     return ElevatedButton(
       onPressed: sendEmail, 
       style: ElevatedButton.styleFrom(
-      shape: StadiumBorder(),
+      shape: const StadiumBorder(),
       foregroundColor: Colors.white,
-      backgroundColor: Color(0xffe45f1e)
+      backgroundColor: const Color(0xffe45f1e)
       ),
       child: const Text(
       'Reset Password',

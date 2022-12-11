@@ -225,7 +225,7 @@ class _SOSRespondScreenState extends State<SOSRespondScreen> {
   Stream<List<SOSCall>> readSOSCalls() {
     var today = new DateTime.now();
     today = new DateTime(today.year, today.month, today.day);
-
+    
     return FirebaseFirestore.instance
       .collection('sos_call')
       .orderBy('created_at')
@@ -236,6 +236,5 @@ class _SOSRespondScreenState extends State<SOSRespondScreen> {
       .snapshots()
       .map((snapshot) => 
         snapshot.docs.map((doc) => SOSCall.fromJSON(doc.data())).toList());
-
   }
 }

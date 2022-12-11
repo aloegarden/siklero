@@ -8,6 +8,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:siklero/model/sos.dart';
 import 'package:siklero/model/user_info.dart';
+import 'package:siklero/user/home-screens/chat_screen.dart';
 import 'package:siklero/user/utils/utils.dart';
 
 class SOSRespondDetailsScreen extends StatefulWidget {
@@ -242,6 +243,7 @@ class _SOSRespondDetailsScreenState extends State<SOSRespondDetailsScreen> {
     .update({
       'respondant_id' : user.uid
     });
+
   }
 
   Future removeResponandt() async {
@@ -289,35 +291,64 @@ class _SOSRespondDetailsScreenState extends State<SOSRespondDetailsScreen> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 50),
 
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10.0),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
 
-        child: SizedBox(
-          width: double.infinity,
-          child: ElevatedButton(
-            onPressed: () {
-              isAccepted = !isAccepted;
-              removeResponandt();
+            child: SizedBox(
+              width: double.infinity,
 
-              setState(() {
-                
-              });
-            },
+              child: ElevatedButton.icon(
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder:(context) => ChatScreen(callerID: widget.details.callerID!, respondantID: user.uid),)), 
+                icon: const Icon(Icons.message_rounded, color: Colors.white,), 
+                label: const Text(
+                  "Message",
 
-            style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.red
-            ),
+                  style: TextStyle(
+                    fontSize: 30,
+                    color: Colors.white
+                  ),
+                ),
 
-            child: const Padding(
-              padding: EdgeInsets.all(18.0),
-              child: Text(
-                "Cancel",
-                
-                style: TextStyle(fontSize: 30),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.green
+                ),
               ),
             ),
           ),
-        ),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  isAccepted = !isAccepted;
+                  removeResponandt();
+
+                  setState(() {
+                    
+                  });
+                },
+
+                style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red
+                ),
+
+                child: const Padding(
+                  padding: EdgeInsets.all(18.0),
+                  child: Text(
+                    "Cancel",
+                    
+                    style: TextStyle(fontSize: 30),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

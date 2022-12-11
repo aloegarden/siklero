@@ -339,7 +339,7 @@ packages:
     source: hosted
     version: "0.1.1"
   google_api_headers:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: google_api_headers
       url: "https://pub.dartlang.org"

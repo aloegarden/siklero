@@ -6,8 +6,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:siklero/model/home.dart';
+import 'package:siklero/model/sos.dart';
 import 'package:siklero/user/home-screens/soscall_screen.dart';
 import 'package:siklero/user/home-screens/sosdetails_screen.dart';
+import 'package:siklero/user/home-screens/sosrespond-details_screen.dart';
+import 'package:siklero/user/home-screens/sosrespond_screen.dart';
 import 'package:siklero/user/utils/utils.dart';
 import '../../model/user_info.dart';
 import '../change-password_screen.dart';
@@ -296,6 +299,23 @@ class _HomeScreenState extends State<HomeScreen> {
     }
     
     return null;
+  }
+
+  Future checkSOSResponse () async {
+    await FirebaseFirestore.instance.collection('sos_call')
+    .where('is_active', isEqualTo: true)
+    .where('respondant_id', isEqualTo: user.uid)
+    .limit(1)
+    .get()
+    .then((QuerySnapshot querySnapshot) {
+      if(querySnapshot.docs.isEmpty) {
+        Navigator.of(context).push(MaterialPageRoute(builder:(context) => const SOSRespondScreen(),));
+      } else {
+        querySnapshot.docs.forEach((doc) {
+          Navigator.of(context).push(MaterialPageRoute(builder:(context) => SOSRespondDetailsScreen(documentID: doc.id)));
+        });
+      }
+    });
   }
 
   Future checkSOSCall () async {

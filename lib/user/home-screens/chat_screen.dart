@@ -129,7 +129,7 @@ class _ChatScreenState extends State<ChatScreen> {
           
 
           return messages.isEmpty 
-          ? const Center(child : Text('Start typing to start the conversation')) 
+          ? const Center(child : Text('Send a message to start the conversation')) 
           : ListView(
             shrinkWrap: true,
             reverse: true,

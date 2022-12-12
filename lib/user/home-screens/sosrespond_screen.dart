@@ -231,7 +231,7 @@ class _SOSRespondScreenState extends State<SOSRespondScreen> {
       .orderBy('created_at')
       //.where('is_active', isEqualTo : true)
       .where('respondant_id', isNull: true)
-      .where('created_at', isGreaterThanOrEqualTo: today)
+      //.where('created_at', isGreaterThanOrEqualTo: today)
       //.where('city', isEqualTo: helperData.city)
       .snapshots()
       .map((snapshot) => 

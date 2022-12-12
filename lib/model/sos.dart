@@ -9,6 +9,7 @@ class SOSCall {
   late String? city;
   late String? imageUrl;
   late bool? isActive;
+  late bool? isCompleted;
   late GeoPoint? coordinates;
   late Timestamp? createdAt;
 
@@ -21,6 +22,7 @@ class SOSCall {
       this.city,
       this.imageUrl,
       this.isActive,
+      this.isCompleted,
       this.coordinates,
       this.createdAt
     });
@@ -34,6 +36,7 @@ class SOSCall {
       'city': city,
       'image_url' : imageUrl,
       'is_active': isActive,
+      'is_completed': isCompleted,
       'coordinates': coordinates,
       'created_at' : createdAt
   };
@@ -47,6 +50,7 @@ class SOSCall {
       city: json['city'],
       imageUrl: json['image_url'],
       isActive: json['is_active'],
+      isCompleted: json['is_completed'],
       coordinates: json['coordinates'],
       createdAt: json['created_at']
     );

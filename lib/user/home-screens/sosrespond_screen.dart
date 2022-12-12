@@ -1,15 +1,11 @@
 import 'dart:async';
-import 'dart:ffi';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-//import 'package:siklero/map_utils.dart';
 import 'package:siklero/model/sos.dart';
 import 'package:siklero/model/user_info.dart';
-import 'package:siklero/model/users.dart';
 import 'package:siklero/user/home-screens/sosrespond-details_screen.dart';
-import 'package:siklero/user/utils/utils.dart';
 
 class SOSRespondScreen extends StatefulWidget {
   const SOSRespondScreen({super.key});
@@ -115,7 +111,7 @@ class _SOSRespondScreenState extends State<SOSRespondScreen> {
                                       child: ElevatedButton(
                                         onPressed:() {
                                           //print('tapped');
-                                          Navigator.of(context).push(MaterialPageRoute(builder:(context) => SOSRespondDetailsScreen(details: SOSCall, userDetails: userData)));
+                                          Navigator.of(context).push(MaterialPageRoute(builder:(context) => SOSRespondDetailsScreen(documentID: SOSCall.documentID!)));
                                         }, 
                                         style: ElevatedButton.styleFrom(
                                             shape: const StadiumBorder(),
@@ -229,9 +225,9 @@ class _SOSRespondScreenState extends State<SOSRespondScreen> {
     return FirebaseFirestore.instance
       .collection('sos_call')
       .orderBy('created_at')
-      //.where('is_active', isEqualTo : true)
+      .where('is_active', isEqualTo : true)
       .where('respondant_id', isNull: true)
-      //.where('created_at', isGreaterThanOrEqualTo: today)
+      .where('created_at', isGreaterThanOrEqualTo: today)
       //.where('city', isEqualTo: helperData.city)
       .snapshots()
       .map((snapshot) => 

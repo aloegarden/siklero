@@ -302,12 +302,15 @@ class _SOSRespondDetailsScreenState extends State<SOSRespondDetailsScreen> {
               child: ElevatedButton.icon(
                 onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder:(context) => ChatScreen(callerID: widget.details.callerID!, respondantID: user.uid),)), 
                 icon: const Icon(Icons.message_rounded, color: Colors.white,), 
-                label: const Text(
-                  "Message",
+                label: const Padding(
+                  padding: EdgeInsets.all(18.0),
+                  child: Text(
+                    "Message",
 
-                  style: TextStyle(
-                    fontSize: 30,
-                    color: Colors.white
+                    style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.white
+                    ),
                   ),
                 ),
 

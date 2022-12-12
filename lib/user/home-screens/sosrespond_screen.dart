@@ -47,7 +47,9 @@ class _SOSRespondScreenState extends State<SOSRespondScreen> {
                   final sosCalls = snapshot.data!;
                   print("streambuilder");
 
-                  return ListView(
+                  return sosCalls.isEmpty 
+                  ? const Center(child: Text("There are no SOS Request at the moment."),) 
+                  :  ListView(
                     //reverse: true,
                     padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
                     children: sosCalls.map(buildSOSCall).toList(),

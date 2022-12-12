@@ -255,11 +255,17 @@ class _HomeScreenState extends State<HomeScreen> {
             } else {
               checkSOSCall();
             }
-          } else if (homeitems.text == "Locate Bike Shop" || homeitems.text == "SOS Respond") {
+          }  else if (homeitems.text == "Locate Bike Shop") {
             if(!hasInternet) {
               Utils.showSnackBar("No Internet connection. Please connect to the internet and try again");
             } else {
               Navigator.of(context).push(MaterialPageRoute(builder:(context) => homeitems.screen,));
+            }
+          } else if (homeitems.text == "SOS Respond") {
+            if(!hasInternet) {
+              Utils.showSnackBar("No Internet connection. Please connect to the internet and try again");
+            } else {
+              checkSOSResponse();
             }
           } else {
             Navigator.of(context).push(MaterialPageRoute(builder:(context) => homeitems.screen,));

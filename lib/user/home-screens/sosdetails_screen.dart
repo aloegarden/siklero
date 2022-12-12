@@ -127,6 +127,7 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
     sosCall.callerID = user.uid;
     sosCall.details = detailsController.text;
     sosCall.isActive = true;
+    sosCall.isCompleted = false;
     //sosCall.city = "";
     sosCall.createdAt = Timestamp.fromDate(date);
 

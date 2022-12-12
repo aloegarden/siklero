@@ -80,128 +80,155 @@ class _SOSRespondDetailsScreenState extends State<SOSRespondDetailsScreen> {
         if (snapshot.hasError) {
           return Text('Something went wrong! ${snapshot.error}');
         } else if (snapshot.hasData) {
-          goToLocation();
           sosCall = snapshot.data;
           var date = sosCall.createdAt!.toDate();
           var dateTimeFormat = DateFormat("h:mma").format(date);
           var dateFormat = DateFormat('MMM dd h:mm a').format(date);
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('SOS Respond Details', style: TextStyle(fontFamily: 'OpenSans', fontSize: 24),),
-              backgroundColor: const Color(0xffed8f5b),
-              centerTitle: true,
-            ),
-            body: Container(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    color: const Color.fromARGB(255, 201, 201, 201),
-                    width: MediaQuery.of(context).size.width,
-            
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
+          return FutureBuilder(
+            future: goToLocation(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Text('Something went wrong! ${snapshot.error}');
+              } else if (snapshot.hasData) {
+                return WillPopScope(
+                  onWillPop: () async {
+                    return false;
+                  },
+                  child: Scaffold(
+                    appBar: AppBar(
+                      title: const Text('SOS Respond Details', style: TextStyle(fontFamily: 'OpenSans', fontSize: 24),),
+                      backgroundColor: const Color(0xffed8f5b),
+                      centerTitle: true,
+                      automaticallyImplyLeading: false,
+                    ),
+                    body: SingleChildScrollView(
+                      child: Column(
                         children: <Widget>[
-                          const Icon(Icons.calendar_month_rounded),
-                          const SizedBox(width: 10,),
-                          Text(
-                            dateFormat,
-                            style: headerFormat,
-                            //overflow: TextOverflow.fade,
-                          ),
-                          const Spacer(),
-                          Text(
-                            'ID# ${sosCall.documentID!}',
-                            style: headerFormat,
-                            //maxLines: 3,
-                          )
-                        ],
-                      ),
-                    ),
-                  ),            
-            
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                    child: Container(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        distance > 1000 ? '${(distance / 1000).toStringAsFixed(2)} KM away from you' : '${distance.toStringAsFixed(2)} Meters away from you',
-                        style: distanceFormat,
-                      ),
-                    ),
-                  ),
-            
-                  SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: const Color.fromARGB(255, 221, 221, 221),
-                              borderRadius: BorderRadius.circular(30)
-                            ),
+                          Container(
+                            color: const Color.fromARGB(255, 201, 201, 201),
                             width: MediaQuery.of(context).size.width,
-                        
+                      
                             child: Padding(
-                              padding: const EdgeInsets.all(20),
-                              child: Container(
-                                child: ListTile(
-                                  title: Text(
-                                    sosCall.locationAddress!,
-                                
-                                    style: cardFormat,
+                              padding: const EdgeInsets.all(10.0),
+                              child: Row(
+                                children: <Widget>[
+                                  const Icon(Icons.calendar_month_rounded),
+                                  const SizedBox(width: 10,),
+                                  Text(
+                                    dateFormat,
+                                    style: headerFormat,
+                                    //overflow: TextOverflow.fade,
                                   ),
-                                  trailing: IconButton(
-                                    iconSize: 35,
-                                    onPressed:() => Utils.openMap(currentLocation.latitude, currentLocation.longitude, sosCall.coordinates!.latitude, sosCall.coordinates!.longitude), 
-                                    icon: const Icon(Icons.assistant_direction_rounded, color: Colors.deepOrangeAccent,),
-                                  ),
-                                )
+                                  const Spacer(),
+                                  Text(
+                                    'ID# ${sosCall.documentID!}',
+                                    style: headerFormat,
+                                    //maxLines: 3,
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),            
+                      
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                            child: Container(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                snapshot.data! > 1000 ? '${(snapshot.data! / 1000).toStringAsFixed(2)} KM away from you' : '${snapshot.data!.toStringAsFixed(2)} Meters away from you',
+                                style: distanceFormat,
                               ),
                             ),
                           ),
-                        ),
-                        
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) { return ViewImageScreen(imageUrl: sosCall.imageUrl!,); } ));
-                            },
-                            child: Stack(
-                              children: [
-                                SizedBox(
-                                  width: double.infinity,
-                                  height: 250,
-                                  child: Image.network(
-                                    sosCall.imageUrl!,
-                                              
-                                    fit: BoxFit.cover
+                      
+                          Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: const Color.fromARGB(255, 221, 221, 221),
+                                    borderRadius: BorderRadius.circular(30)
+                                  ),
+                                  width: MediaQuery.of(context).size.width,
+                              
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20),
+                                    child: Container(
+                                      child: ListTile(
+                                        title: Text(
+                                          sosCall.locationAddress!,
+                                      
+                                          style: cardFormat,
+                                        ),
+                                        trailing: IconButton(
+                                          iconSize: 35,
+                                          onPressed:() => Utils.openMap(currentLocation.latitude, currentLocation.longitude, sosCall.coordinates!.latitude, sosCall.coordinates!.longitude), 
+                                          icon: const Icon(Icons.assistant_direction_rounded, color: Colors.deepOrangeAccent,),
+                                        ),
+                                      )
+                                    ),
                                   ),
                                 ),
-                                const Align(
-                                  alignment: Alignment.bottomRight,
-                                  child: Icon(Icons.zoom_in, size: 50, color: Colors.orange,)
-                                )
-                              ]
-                            ),
+                              ),
+                              
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context) { return ViewImageScreen(imageUrl: sosCall.imageUrl!,); } ));
+                                  },
+                                  child: Stack(
+                                    children: [
+                                      SizedBox(
+                                        width: double.infinity,
+                                        height: 250,
+                                        child: Image.network(
+                                          sosCall.imageUrl!,
+                                                    
+                                          fit: BoxFit.cover,
+                    
+                                          loadingBuilder: (BuildContext context, Widget child,
+                                              ImageChunkEvent? loadingProgress) {
+                                            if (loadingProgress == null) return child;
+                                            return Center(
+                                              child: CircularProgressIndicator(
+                                                value: loadingProgress.expectedTotalBytes != null
+                                                    ? loadingProgress.cumulativeBytesLoaded /
+                                                        loadingProgress.expectedTotalBytes!
+                                                    : null,
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                      const Align(
+                                        alignment: Alignment.bottomRight,
+                                        child: Icon(Icons.zoom_in, size: 50, color: Colors.orange,)
+                                      )
+                                    ]
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
+                      
+                          //const Spacer(),
+                      
+                          Container(
+                            color: const Color.fromARGB(255, 235, 235, 235),
+                            width: MediaQuery.of(context).size.width,
+                            child: sosCall.respondantID == null ? acceptButton(context) : respondButtons(context),
+                          )
+                        ],
+                      ),
+                    )
                   ),
-            
-                  const Spacer(),
-            
-                  Container(
-                    color: const Color.fromARGB(255, 235, 235, 235),
-                    width: MediaQuery.of(context).size.width,
-                    child: isAccepted == false ? acceptButton(context) : respondButtons(context),
-                  )
-                ],
-              ),
-            )
+                );
+              } else {
+                return const Center(child: CircularProgressIndicator(),);
+              }
+            }
           );
         } else {
           return const Center(child: CircularProgressIndicator());
@@ -210,25 +237,15 @@ class _SOSRespondDetailsScreenState extends State<SOSRespondDetailsScreen> {
     );
   }
 
-  Future<void> goToLocation() async {
+  Future<double> goToLocation() async {
     print("went to go to location");
 
     currentLocation = await getUserCurrentLocation();
 
-    //print(currentLocation);
-    //print('${widget.details.coordinates!.latitude} ${widget.details.coordinates!.longitude}');
-    
-    distance = await Geolocator.distanceBetween(currentLocation.latitude, currentLocation.longitude, sosCall.coordinates!.latitude, sosCall.coordinates!.latitude);
+    distance = Geolocator.distanceBetween(currentLocation.latitude, currentLocation.longitude, sosCall.coordinates!.latitude, sosCall.coordinates!.longitude);
+    print(distance);
 
-    /*
-    if(distance > 1000) {
-      distance = distance / 1000;
-    }
-    */
-
-    setState(() {
-      
-    });
+    return distance;
   }
 
   Future readSOS() async {
@@ -252,6 +269,13 @@ class _SOSRespondDetailsScreenState extends State<SOSRespondDetailsScreen> {
     });
 
   }
+
+  Future sosCompleted() async {
+    final docSOS = FirebaseFirestore.instance.collection('sos_call').doc(sosCall.documentID);
+
+    await docSOS.update({'is_completed' : true, 'is_active' : false});
+  }
+
 
   Future removeResponandt() async {
 
@@ -351,6 +375,34 @@ class _SOSRespondDetailsScreenState extends State<SOSRespondDetailsScreen> {
 
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.green
+                ),
+              ),
+            ),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  sosCompleted();
+
+                  Navigator.of(context).pop();
+                },
+
+                style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue
+                ),
+
+                child: const Padding(
+                  padding: EdgeInsets.all(18.0),
+                  child: Text(
+                    "SOS Response Complete",
+                    
+                    style: TextStyle(fontSize: 30),
+                  ),
                 ),
               ),
             ),

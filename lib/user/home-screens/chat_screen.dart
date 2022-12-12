@@ -171,6 +171,9 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   Stream<List<Message>> readChat() {
+
+  var today = DateTime.now();
+  today = DateTime(today.year, today.month, today.day);
     
   return FirebaseFirestore.instance
   .collection('user_messages')
@@ -179,6 +182,7 @@ class _ChatScreenState extends State<ChatScreen> {
   .doc(widget.callerID)
   .collection('chat')
   .orderBy('sent_at', descending: true)
+  .where('sent_at', isGreaterThanOrEqualTo: today)
   .snapshots()
   .map((snapshot) => 
         snapshot.docs.map((doc) => Message.fromJSON(doc.data())).toList());
@@ -223,12 +227,12 @@ class _ChatScreenState extends State<ChatScreen> {
           : const BorderRadius.only(
             topLeft: Radius.circular(20),
             topRight: Radius.circular(20),
-            bottomLeft: Radius.circular(20)
+            bottomRight: Radius.circular(20)
           ),
     
           color: isMe 
           ? const Color(0xffed8f5b)
-          : Colors.grey 
+          : Color.fromARGB(255, 214, 214, 214) 
         ),
     
         child: Column(

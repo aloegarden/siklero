@@ -4,6 +4,7 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   connectivity_plus
+  file_saver
   geolocator_windows
   permission_handler_windows
   url_launcher_windows

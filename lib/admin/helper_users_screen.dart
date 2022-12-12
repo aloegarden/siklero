@@ -60,7 +60,8 @@ class _ManageHelpersState extends State<ManageHelpers> {
                 child: TextField(
                   controller: searchController,
                   textAlignVertical: TextAlignVertical.bottom,
-                  style: const TextStyle(fontSize: 15, color: Color(0xFFE45F1E)),
+                  style:
+                      const TextStyle(fontSize: 15, color: Color(0xFFE45F1E)),
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: const Color(0xFFFFD4BC),
@@ -90,7 +91,7 @@ class _ManageHelpersState extends State<ManageHelpers> {
                   onChanged: searchUser,
                 ),
               ),
-              const HelpersStream(),
+              HelpersStream(),
             ],
           ),
         ),
@@ -169,20 +170,22 @@ class _HelpersStreamState extends State<HelpersStream> {
         }
 
         return Expanded(
-          child: ListView.builder(
-              itemCount: searchHelperCards.length,
-              itemBuilder: (context, index) {
-                final searchCard = searchHelperCards[index];
+          child: Scrollbar(
+            child: ListView.builder(
+                itemCount: searchHelperCards.length,
+                itemBuilder: (context, index) {
+                  final searchCard = searchHelperCards[index];
 
-                return HelpersCard(
-                    fName: searchCard.fName,
-                    lName: searchCard.lName,
-                    email: searchCard.email,
-                    number: searchCard.number,
-                    address: searchCard.address,
-                    counter: searchCard.counter,
-                    userID: searchCard.userID);
-              }),
+                  return HelpersCard(
+                      fName: searchCard.fName,
+                      lName: searchCard.lName,
+                      email: searchCard.email,
+                      number: searchCard.number,
+                      address: searchCard.address,
+                      counter: searchCard.counter,
+                      userID: searchCard.userID);
+                }),
+          ),
         );
       },
     );
@@ -213,7 +216,8 @@ class HelpersCard extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         margin: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20), color: const Color(0xFFFFD4BC)),
+            borderRadius: BorderRadius.circular(20),
+            color: const Color(0xFFFFD4BC)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -237,7 +241,7 @@ class HelpersCard extends StatelessWidget {
                           ),
                           child: Center(
                             child: Text(
-                              '0$counter',
+                              '$counter',
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontFamily: 'OpenSans',
@@ -312,9 +316,46 @@ class HelpersCard extends StatelessWidget {
                 thickness: 1,
               ),
             ),
-            Text('Email: $email', style: kUserLabelTextStyle),
-            Text('Contact Number: $number', style: kUserLabelTextStyle),
-            Text('Address: $address', style: kUserLabelTextStyle),
+            Row(
+              children: [
+                const Text(
+                  'Username: ',
+                  style: kUserLabelTextStyle,
+                ),
+                Text(
+                  email,
+                  style: kUserDetailsTextStyle,
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                const Text(
+                  'Contact Number: ',
+                  style: kUserLabelTextStyle,
+                ),
+                Text(
+                  number,
+                  style: kUserDetailsTextStyle,
+                ),
+              ],
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.baseline,
+              textBaseline: TextBaseline.alphabetic,
+              children: [
+                const Text(
+                  'Address: ',
+                  style: kUserLabelTextStyle,
+                ),
+                Text(
+                  address,
+                  style: kUserDetailsTextStyle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
           ],
         ));
   }

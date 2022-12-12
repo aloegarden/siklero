@@ -1,7 +1,8 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:siklero/admin/admin-edit-profile_screen.dart';
+
+import 'constants.dart';
 
 final _firestore = FirebaseFirestore.instance;
 
@@ -22,7 +23,6 @@ class ManageUsers extends StatefulWidget {
 class _ManageUsersState extends State<ManageUsers> {
   @override
   void initState() {
-
     searchController.clear();
     searchCards.clear();
     isDone = false;
@@ -68,7 +68,8 @@ class _ManageUsersState extends State<ManageUsers> {
                   child: TextField(
                     controller: searchController,
                     textAlignVertical: TextAlignVertical.bottom,
-                    style: const TextStyle(fontSize: 15, color: Color(0xFFE45F1E)),
+                    style:
+                        const TextStyle(fontSize: 15, color: Color(0xFFE45F1E)),
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: const Color(0xFFFFD4BC),
@@ -98,7 +99,7 @@ class _ManageUsersState extends State<ManageUsers> {
                     onChanged: searchUser,
                   ),
                 ),
-                const UsersStream(),
+                UsersStream(),
               ],
             ),
           ),
@@ -115,6 +116,7 @@ class _ManageUsersState extends State<ManageUsers> {
       final input = query.toLowerCase();
       return userName.contains(input);
     }).toList();
+    print(suggestions);
     setState(() {
       searchCards = suggestions;
     });
@@ -127,8 +129,6 @@ class UsersStream extends StatefulWidget {
   @override
   State<UsersStream> createState() => _UsersStreamState();
 }
-//     .where("role", isEqualTo: "regular")
-// .snapshots()
 
 class _UsersStreamState extends State<UsersStream> {
   @override
@@ -180,20 +180,22 @@ class _UsersStreamState extends State<UsersStream> {
         }
 
         return Expanded(
-          child: ListView.builder(
-              itemCount: searchCards.length,
-              itemBuilder: (context, index) {
-                final searchCard = searchCards[index];
+          child: Scrollbar(
+            child: ListView.builder(
+                itemCount: searchCards.length,
+                itemBuilder: (context, index) {
+                  final searchCard = searchCards[index];
 
-                return UsersCard(
-                    fName: searchCard.fName,
-                    lName: searchCard.lName,
-                    email: searchCard.email,
-                    number: searchCard.number,
-                    address: searchCard.address,
-                    counter: searchCard.counter,
-                    userID: searchCard.userID);
-              }),
+                  return UsersCard(
+                      fName: searchCard.fName,
+                      lName: searchCard.lName,
+                      email: searchCard.email,
+                      number: searchCard.number,
+                      address: searchCard.address,
+                      counter: searchCard.counter,
+                      userID: searchCard.userID);
+                }),
+          ),
         );
       },
     );
@@ -224,7 +226,8 @@ class UsersCard extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         margin: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20), color: const Color(0xFFFFD4BC)),
+            borderRadius: BorderRadius.circular(20),
+            color: const Color(0xFFFFD4BC)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -248,7 +251,7 @@ class UsersCard extends StatelessWidget {
                           ),
                           child: Center(
                             child: Text(
-                              '0$counter',
+                              counter.toString(),
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontFamily: 'OpenSans',
@@ -323,9 +326,46 @@ class UsersCard extends StatelessWidget {
                 thickness: 1,
               ),
             ),
-            Text('Email: $email', style: kUserLabelTextStyle),
-            Text('Contact Number: $number', style: kUserLabelTextStyle),
-            Text('Address: $address', style: kUserLabelTextStyle),
+            Row(
+              children: [
+                const Text(
+                  'Username: ',
+                  style: kUserLabelTextStyle,
+                ),
+                Text(
+                  email,
+                  style: kUserDetailsTextStyle,
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                const Text(
+                  'Contact Number: ',
+                  style: kUserLabelTextStyle,
+                ),
+                Text(
+                  number,
+                  style: kUserDetailsTextStyle,
+                ),
+              ],
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.baseline,
+              textBaseline: TextBaseline.alphabetic,
+              children: [
+                const Text(
+                  'Address: ',
+                  style: kUserLabelTextStyle,
+                ),
+                Text(
+                  address,
+                  style: kUserDetailsTextStyle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
           ],
         ));
   }

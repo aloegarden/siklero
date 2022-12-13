@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:siklero/admin/bikefailures_records_screen.dart';
 import 'package:siklero/admin/helper_users_screen.dart';
 import 'package:siklero/admin/manage_users_screen.dart';
-import 'package:siklero/admin/sos_calls_screen.dart';
 import 'package:siklero/login_screen.dart';
 import 'package:siklero/model/user_info.dart';
 
@@ -26,19 +25,16 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   String? numberOfRegularUsers;
   String? numberOfHelperUsers;
   String? numberOfSosCalls;
-  String? numberOfPendingSosCalls;
   UserData? userData = UserData();
   final user = FirebaseAuth.instance.currentUser!;
 
   void assigning() async {
     String? regularUsers = await countRegularUsers();
     String? sosCalls = await countSosCalls();
-    String? pendingSosCalls = await countPendingSosCalls();
     String? helperUsers = await countHelperUsers();
     setState(() {
       numberOfRegularUsers = regularUsers;
       numberOfSosCalls = sosCalls;
-      numberOfPendingSosCalls = pendingSosCalls;
       numberOfHelperUsers = helperUsers;
     });
   }
@@ -47,7 +43,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
   Widget build(BuildContext context) {
     return FutureBuilder<UserData?>(
       future: readUser(),
-      builder:(context, snapshot) {
+      builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Text('Something went wrong! ${snapshot.error}');
         } else if (snapshot.hasData) {
@@ -77,8 +73,8 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             body: Column(
               children: [
                 Container(
-                  padding:
-                      const EdgeInsets.only(top: 40, left: 30.0, right: 0.0, bottom: 20.0),
+                  padding: const EdgeInsets.only(
+                      top: 40, left: 30.0, right: 0.0, bottom: 20.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: const [
@@ -117,12 +113,10 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                       onRefresh: () async {
                         String? regularUsers = await countRegularUsers();
                         String? sosCalls = await countSosCalls();
-                        String? pendingSosCalls = await countPendingSosCalls();
                         String? helperUsers = await countHelperUsers();
                         setState(() {
                           numberOfRegularUsers = regularUsers;
                           numberOfSosCalls = sosCalls;
-                          numberOfPendingSosCalls = pendingSosCalls;
                           numberOfHelperUsers = helperUsers;
                         });
                       },
@@ -140,7 +134,8 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => const BikeRecordsScreen(),
+                                      builder: (context) =>
+                                          const BikeRecordsScreen(),
                                     ));
                               },
                             ),
@@ -166,25 +161,13 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => const ManageHelpers(),
-                                    ));
-                              },
-                            ),
-                            ReusableCard(
-                              recordedNumber: numberOfPendingSosCalls.toString(),
-                              description: 'Pending SOS call',
-                              function: 'manage',
-                              imagePath: 'asset/img/user-icon.png',
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const ManageSOS(),
+                                      builder: (context) =>
+                                          const ManageHelpers(),
                                     ));
                               },
                             ),
                             const SizedBox(
-                              height: 70,
+                              height: 50,
                             )
                           ],
                         ),
@@ -196,21 +179,23 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
             ),
           );
         } else {
-          return const Center(child: CircularProgressIndicator(),);
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
         }
-      }, 
+      },
     );
   }
 
-  Future<UserData?> readUser () async {
-
-    final docUser = FirebaseFirestore.instance.collection('user_profile').doc(user.uid);
+  Future<UserData?> readUser() async {
+    final docUser =
+        FirebaseFirestore.instance.collection('user_profile').doc(user.uid);
     final userSnapShot = await docUser.get();
 
     if (userSnapShot.exists) {
       return UserData.fromJSON(userSnapShot.data()!);
     }
-    
+
     return null;
   }
 
@@ -233,16 +218,6 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
           .collection("sos_call")
           .get()
           .then((querySnapshot) {
-        return numberOfSosCalls = querySnapshot.size.toString();
-      });
-  Future<String> countPendingSosCalls() async =>
-      await FirebaseFirestore.instance
-          .collection('sos_call')
-          .where('is_active', isEqualTo: true)
-          .where('is_reviewed', isEqualTo: false)
-          .get()
-          .then((querySnapshot) {
-        print(querySnapshot.size.toString());
         return numberOfSosCalls = querySnapshot.size.toString();
       });
 
@@ -317,7 +292,9 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         InfoText(
-                            title: 'Contact#', data: userData!.contact!, maxLine: 1),
+                            title: 'Contact#',
+                            data: userData!.contact!,
+                            maxLine: 1),
                         InfoText(
                             title: 'Address',
                             data: userData!.address!,

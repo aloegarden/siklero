@@ -112,11 +112,11 @@ class _ManageUsersState extends State<ManageUsers> {
     final suggestions = userCards.where((user) {
       final userName =
           '${user.fName.toLowerCase()} ${user.lName.toLowerCase()}';
-      print(userName);
+
       final input = query.toLowerCase();
       return userName.contains(input);
     }).toList();
-    print(suggestions);
+
     setState(() {
       searchCards = suggestions;
     });
@@ -160,8 +160,6 @@ class _UsersStreamState extends State<UsersStream> {
             final userlName = user.get('last_name');
             final userNumber = user.get('contact');
             final userID = user.id;
-
-            print(userfName + userlName);
 
             final userCard = UsersCard(
               fName: userfName,

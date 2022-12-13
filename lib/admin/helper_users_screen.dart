@@ -103,7 +103,6 @@ class _ManageHelpersState extends State<ManageHelpers> {
     final suggestions = helperCards.where((helper) {
       final userName =
           '${helper.fName.toLowerCase()} ${helper.lName.toLowerCase()}';
-      print(userName);
       final input = query.toLowerCase();
       return userName.contains(input);
     }).toList();
@@ -150,8 +149,6 @@ class _HelpersStreamState extends State<HelpersStream> {
             final userlName = user.get('last_name');
             final userNumber = user.get('contact');
             final userID = user.id;
-
-            print(userfName + userlName);
 
             final userCard = HelpersCard(
               fName: userfName,

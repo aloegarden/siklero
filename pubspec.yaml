@@ -36,6 +36,7 @@ dependencies:
   flutter_google_places: ^0.3.0
   google_api_headers: ^1.5.0
   to_csv: ^1.1.1
+  telephony: ^0.2.0
 
 flutter_native_splash:
   color: "#ed8f5b"

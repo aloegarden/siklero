@@ -22,20 +22,10 @@ class Utils {
   }
 
   static Future<void> openMap(
-    double currLatitude,
-    double currLongitude,
-    double destLatitude, 
-    double destLongitude) async{
-      Uri googleMapUrl = Uri.parse("https://www.google.com/maps/dir/?api=1&origin=" + 
-                                currLatitude.toString() +
-                                ',' +
-                                currLongitude.toString() +
-                                '&destination=' +
-                                destLatitude.toString() +
-                                ',' +
-                                destLongitude.toString() +
-                                '&dir_action=navigate'
-                                  );
+    double latitude,
+    double longitude,
+    ) async{
+      Uri googleMapUrl = Uri.parse("https://www.google.com/maps/search/?api=1&query=$latitude,$longitude");
 
       if (await canLaunchUrl(googleMapUrl)) {
         await launchUrl(googleMapUrl, mode: LaunchMode.externalApplication);
@@ -45,7 +35,7 @@ class Utils {
   static Future<void> openCall(
     String number
   ) async {
-    Uri numberUrl = Uri.parse("tel:$number");
+    Uri numberUrl = Uri.parse("tel:+63$number");
 
     if (await canLaunchUrl(numberUrl)) {
       await launchUrl(numberUrl, mode: LaunchMode.externalApplication);

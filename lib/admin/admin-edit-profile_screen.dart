@@ -209,6 +209,22 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
                             const SizedBox(
                               height: 20,
                             ),
+                            Container(
+                                width: double.infinity,
+                                height: 50,
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 30),
+                                child: _buildDeleteButton(
+                                  fnameController,
+                                  lnameController,
+                                  contactController,
+                                  addressController,
+                                  usernameController,
+                                  widget.userID,
+                                )),
+                            const SizedBox(
+                              height: 10,
+                            ),
                           ],
                         ),
                       ),
@@ -283,14 +299,11 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
               TextButton(
                   onPressed: () {
                     int count = 0;
-                    //Navigator.of(context).pop();
                     isDone = false;
                     updateUser();
 
                     Navigator.popUntil(context, (route) => count++ == 2);
-                    //print(fnameController.text);
                     Utils.showSnackBar('Profile updated!');
-                    //print('profile updated');
                   },
                   child: const Text("Yes")),
               TextButton(
@@ -313,6 +326,66 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
             backgroundColor: const Color(0xffe45f1e)),
         child: const Text(
           'Update',
+          style: TextStyle(
+              fontFamily: 'OpenSans',
+              fontSize: 24,
+              fontWeight: FontWeight.w700),
+        ));
+  }
+
+  Widget _buildDeleteButton(
+      TextEditingController fnameController,
+      TextEditingController lnameController,
+      TextEditingController contactController,
+      TextEditingController addressController,
+      TextEditingController usernameController,
+      String userID) {
+    Future deleteProfile() async {
+      final isValid = formKey.currentState!.validate();
+      if (!isValid) return;
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text("Confirmation"),
+            content: SingleChildScrollView(
+              child: ListBody(
+                children: const <Widget>[
+                  Text("Are you sure to delete this account?"),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                  onPressed: () {
+                    int count = 0;
+
+                    isDone = false;
+                    deleteUser();
+                    Navigator.popUntil(context, (route) => count++ == 2);
+                    Utils.showSnackBar('Account deleted!');
+                  },
+                  child: const Text("Yes")),
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text("No"))
+            ],
+          );
+        },
+      );
+      //print("pumapasok");
+    }
+
+    return ElevatedButton(
+        onPressed: deleteProfile,
+        style: ElevatedButton.styleFrom(
+            shape: const StadiumBorder(),
+            foregroundColor: Colors.white,
+            backgroundColor: const Color(0xffe45f1e)),
+        child: const Text(
+          'Delete Account',
           style: TextStyle(
               fontFamily: 'OpenSans',
               fontSize: 24,
@@ -346,16 +419,12 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
               TextButton(
                   onPressed: () {
                     int count = 0;
-                    //Navigator.of(context).pop();
                     isDone = false;
                     changeUserType();
 
                     Navigator.popUntil(context, (route) => count++ == 2);
-                    //print(fnameController.text);
-                    Utils.showSnackBar('Profile updated!');
-                    //print('profile updated');
 
-                    //Navigator.of(context).popUntil((route) => '/ManageUsers');
+                    Utils.showSnackBar('Profile updated!');
                   },
                   child: const Text("Yes")),
               TextButton(
@@ -414,16 +483,11 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
               TextButton(
                   onPressed: () {
                     int count = 0;
-                    //Navigator.of(context).pop();
                     isDone = false;
                     changeUserType();
 
                     Navigator.popUntil(context, (route) => count++ == 2);
-                    //print(fnameController.text);
                     Utils.showSnackBar('Profile updated!');
-                    //print('profile updated');
-
-                    //Navigator.of(context).popUntil((route) => '/ManageUsers');
                   },
                   child: const Text("Yes")),
               TextButton(
@@ -468,6 +532,14 @@ class _AdminEditProfileScreenState extends State<AdminEditProfileScreen> {
       'last_name': lnameController.text,
       'username': usernameController.text
     });
+  }
+
+  void deleteUser() {
+    final docUser = FirebaseFirestore.instance
+        .collection('user_profile')
+        .doc(widget.userID);
+
+    docUser.delete();
   }
 
   void changeUserType() {

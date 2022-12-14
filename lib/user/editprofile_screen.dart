@@ -24,6 +24,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   TextEditingController lnameController = TextEditingController();
   TextEditingController contactController = TextEditingController();
   TextEditingController addressController = TextEditingController();
+  TextEditingController emergencyNameController = TextEditingController();
+  TextEditingController emergencyContactController = TextEditingController();
 
   @override
   void initState() {
@@ -111,22 +113,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 const SizedBox(height: 20,),
                                 Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 30),
-                                  child: _buildTextField('First Name:', userData!.fName!, 6, fnameController, false),
+                                  child: _buildTextField('First Name:', userData!.fName!, 6, TextInputType.name, fnameController),
                                 ),
                                 const SizedBox(height: 20,),
                                 Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 30),
-                                  child: _buildTextField('Last Name:', userData!.lName!, 6, lnameController, false),
+                                  child: _buildTextField('Last Name:', userData!.lName!, 6, TextInputType.name, lnameController),
                                 ),
                                 const SizedBox(height: 20,),
                                 Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 30),
-                                  child: _buildTextField('Contact #:', userData!.contact!, 6, contactController, false),
+                                  child: _buildTextField('Contact #:', userData!.contact!, 6, TextInputType.phone, contactController),
                                 ),
                                 const SizedBox(height: 20,),
                                 Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 30),
-                                  child: _buildTextField('Address:', userData!.address!, 6, addressController, false),
+                                  child: _buildTextField('Address:', userData!.address!, 6, TextInputType.streetAddress, addressController),
                                 ),
                                 const SizedBox(height: 20,),
                                 Padding(
@@ -161,7 +163,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 const SizedBox(height: 20,),
                                 Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 30),
-                                  child: _buildTextField('Username:', userData!.userName!, 6, usernameController, false),
+                                  child: _buildTextField('Username:', userData!.userName!, 6, TextInputType.none, usernameController),
+                                ),
+                                const SizedBox(height: 20,),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                                  child: _buildTextField('Emergency Contact Name:', userData!.emergencycontactName!, 6, TextInputType.phone, emergencyNameController),
                                 ),
                                 const SizedBox(height: 30,),
                                 Container(
@@ -197,7 +204,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
-  Widget _buildTextField(String title, String value, int action, TextEditingController controller, bool hideText){
+  Widget _buildTextField(String title, String value, int action, TextInputType textinputType, TextEditingController controller){
     return Column(
       children: <Widget>[
           Container(
@@ -208,8 +215,40 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             ),
           ),
           TextFormField(
+            keyboardType: textinputType,
             controller: controller,
-            obscureText: hideText,
+            textInputAction: TextInputAction.values.elementAt(action),
+            decoration: const InputDecoration(
+              contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              border: OutlineInputBorder(),
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xffe45f1e))
+              )
+            ),
+            style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24),
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (value) => value != null && value.isEmpty
+              ? "Don't leave this field empty"
+              : null
+          ),   
+      ],
+    );
+  }
+
+  Widget _buildContactField(String title, int action, TextInputType textinputType, TextEditingController controller){
+    return Column(
+      children: <Widget>[
+          Container(
+            alignment: Alignment.topLeft,
+            child: Text(
+              title,
+              style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w400, color: Color(0xffe45f1e)),
+            ),
+          ),
+          TextFormField(
+            keyboardType: textinputType,
+            controller: controller,
+            maxLength: 11,
             textInputAction: TextInputAction.values.elementAt(action),
             decoration: const InputDecoration(
               contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),

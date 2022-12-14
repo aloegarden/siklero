@@ -24,6 +24,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController fnameController = TextEditingController();
   TextEditingController lnameController = TextEditingController();
   TextEditingController contactController = TextEditingController();
+  TextEditingController emergencyNameController = TextEditingController();
+  TextEditingController emergencyContactController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -155,22 +157,22 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             const SizedBox(height: 20,),
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 30),
-                              child: _buildTextField('First Name:', 6, TextInputType.name, fnameController, false),
+                              child: _buildTextField('First Name:', 6, TextInputType.name, fnameController, ),
                             ),
                             const SizedBox(height: 20,),
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 30),
-                              child: _buildTextField('Last Name:', 6, TextInputType.name, lnameController, false),
+                              child: _buildTextField('Last Name:', 6, TextInputType.name, lnameController),
                             ),
                             const SizedBox(height: 20,),
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 30),
-                              child: _buildContactField('Contact #:', 6, TextInputType.phone, contactController, false),
+                              child: _buildContactField('Contact #:', 6, TextInputType.phone, contactController,),
                             ),
                             const SizedBox(height: 20,),
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 30),
-                              child: _buildTextField('Address:', 6, TextInputType.streetAddress, addressController, false),
+                              child: _buildTextField('Address:', 6, TextInputType.streetAddress, addressController),
                             ),
                             const SizedBox(height: 20,),
                             Padding(
@@ -205,7 +207,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             const SizedBox(height: 20,),
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 30),
-                              child: _buildTextField('Username:', 2, TextInputType.text, usernameController, false),
+                              child: _buildTextField('Username:', 6, TextInputType.text, usernameController),
+                            ),
+                            const SizedBox(height: 20,),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 30),
+                              child: _buildTextField('Emergency Contact Name:', 6, TextInputType.text, emergencyNameController),
+                            ),
+                            const SizedBox(height: 20,),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 30),
+                              child: _buildContactField('Emergency Contact #:', 2, TextInputType.number, emergencyContactController),
                             ),
                             const SizedBox(height: 50,),
                             Container(
@@ -218,6 +230,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 fnameController,
                                 lnameController,
                                 contactController,
+                                emergencyNameController,
+                                emergencyContactController,
                                 addressController,
                                 usernameController,
                                 value,
@@ -338,7 +352,7 @@ Widget _buildPasswordField(String title, TextEditingController controller) {
   );
 }
 
-Widget _buildContactField(String title, int action, TextInputType textinputType, TextEditingController controller, bool hideText){
+Widget _buildContactField(String title, int action, TextInputType textinputType, TextEditingController controller){
     return Column(
       children: <Widget>[
           Container(
@@ -351,7 +365,6 @@ Widget _buildContactField(String title, int action, TextInputType textinputType,
           TextFormField(
             keyboardType: textinputType,
             controller: controller,
-            obscureText: hideText,
             maxLength: 11,
             textInputAction: TextInputAction.values.elementAt(action),
             decoration: const InputDecoration(
@@ -371,7 +384,7 @@ Widget _buildContactField(String title, int action, TextInputType textinputType,
     );
   }
 
-Widget _buildTextField(String title, int action, TextInputType textinputType, TextEditingController controller, bool hideText){
+Widget _buildTextField(String title, int action, TextInputType textinputType, TextEditingController controller){
     return Column(
       children: <Widget>[
           Container(
@@ -384,7 +397,6 @@ Widget _buildTextField(String title, int action, TextInputType textinputType, Te
           TextFormField(
             keyboardType: textinputType,
             controller: controller,
-            obscureText: hideText,
             textInputAction: TextInputAction.values.elementAt(action),
             decoration: const InputDecoration(
               contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -419,6 +431,8 @@ Widget _buildSignUpButton(
   TextEditingController fnameController,
   TextEditingController lnameController,
   TextEditingController  contactController,
+  TextEditingController emergencyNameController,
+  TextEditingController emergencyContactController,
   TextEditingController  addressController,
   TextEditingController  usernameController,
   String? cityValue,
@@ -453,6 +467,8 @@ Widget _buildSignUpButton(
           fName: fnameController.text.trim(),
           lName: lnameController.text.trim(),
           contact: contactController.text.trim(),
+          emergencycontactName: emergencyNameController.text.trim(),
+          emergencycontactNumber: emergencyContactController.text.trim(),
           role: "Regular"
         );
         final docUser = FirebaseFirestore.instance.collection('user_profile').doc(firebaseUser.user?.uid);

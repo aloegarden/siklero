@@ -124,7 +124,10 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
 
     var number = '+63${widget.userInfo!.emergencycontactNumber}';
     List<String> recipients = [number];
-    _sendSMS('this is a test', recipients);
+    String message = '${widget.userInfo!.fName} ${widget.userInfo!.lName} has made an SOS call in this approximate location. '
+              'You are receiving this because ${widget.userInfo!.fName} has listed you as an emergency contact. Sent via Siklero App. '
+              'LOCATION: https://www.google.com/maps/search/?api=1&query=${sosCall.coordinates!.latitude},${sosCall.coordinates!.longitude}';
+    _sendSMS(message, recipients);
 
 
 

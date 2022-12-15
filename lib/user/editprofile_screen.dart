@@ -166,12 +166,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 const SizedBox(height: 20,),
                                 Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 30),
-                                  child: _buildTextField('Username:', userData!.userName!, 6, TextInputType.none, usernameController),
+                                  child: _buildTextField('Username:', userData!.userName!, 6, TextInputType.text, usernameController),
                                 ),
                                 const SizedBox(height: 20,),
                                 Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 30),
-                                  child: _buildTextField('Emergency Contact Name:', userData!.emergencycontactName!, 6, TextInputType.none, emergencyNameController),
+                                  child: _buildTextField('Emergency Contact Name:', userData!.emergencycontactName!, 6, TextInputType.name, emergencyNameController),
                                 ),
                                 const SizedBox(height: 20,),
                                 Container(

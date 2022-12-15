@@ -17,6 +17,7 @@ import 'package:siklero/model/sos.dart';
 import 'package:siklero/model/user_info.dart';
 import 'package:siklero/user/home-screens/soscall_screen.dart';
 import 'package:siklero/user/utils/utils.dart';
+import 'package:telephony/telephony.dart';
 
 class SOSDetailsScreen extends StatefulWidget {
   final UserData? userInfo;
@@ -28,6 +29,7 @@ class SOSDetailsScreen extends StatefulWidget {
 
 class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
 
+  final Telephony telephony = Telephony.instance;
   File? chosenImage;
   final user = FirebaseAuth.instance.currentUser!;
   SOSCall sosCall = SOSCall();
@@ -120,6 +122,14 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
       loadData();
       return;
     }
+
+    telephony.sendSms(
+      to: '+63${widget.userInfo!.emergencycontactNumber}', 
+      message: '${widget.userInfo!.fName} ${widget.userInfo!.fName} has made an emergency call in this approximate location. '
+      'You are receiving this because ${widget.userInfo!.fName} has listed you as an emergency contact. Sent via Siklero App. '
+      'LOCATION: https://www.google.com/maps/search/?api=1&query=${sosCall.coordinates!.latitude},${sosCall.coordinates!.longitude}',
+      isMultipart: true
+    );
 
 
     DateTime date = DateTime.now();

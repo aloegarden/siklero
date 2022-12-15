@@ -163,7 +163,7 @@ class _SOSRespondDetailsScreenState extends State<SOSRespondDetailsScreen> {
                                         ),
                                         trailing: IconButton(
                                           iconSize: 35,
-                                          onPressed:() => Utils.openMap(currentLocation.latitude, currentLocation.longitude, sosCall.coordinates!.latitude, sosCall.coordinates!.longitude), 
+                                          onPressed:() => Utils.openMap(sosCall.coordinates!.latitude, sosCall.coordinates!.longitude), 
                                           icon: const Icon(Icons.assistant_direction_rounded, color: Colors.deepOrangeAccent,),
                                         ),
                                       )

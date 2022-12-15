@@ -388,7 +388,7 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
                     const SizedBox(width: 10,),
                     IconButton(
                       iconSize: 35,
-                      onPressed:() => Utils.openMap(currentLocation.latitude, currentLocation.longitude, bikeShop.latitude!, bikeShop.longitude!), 
+                      onPressed:() => Utils.openMap(bikeShop.latitude!, bikeShop.longitude!), 
                       icon: const Icon(Icons.assistant_direction_rounded, color: Colors.deepOrangeAccent,),
                     ),
                     ],

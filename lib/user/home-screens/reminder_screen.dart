@@ -56,32 +56,35 @@ class _ReminderScreenState extends State<ReminderScreen> {
               },
               child: Stack(
                 children: <Widget>[
-                  Container(
-                    alignment: Alignment.center,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
                     child: Container(
-                      height: 400,
-                      width: 315,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white),
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(30)
-                      ),
-                      child: Column(
-                        children: const <Widget>[
-                          SizedBox(height: 20,),
-                          Image(
-                            alignment: Alignment.topCenter,
-                            image: AssetImage('asset/img/repair-icon.png'),
-                            height: 65,
-                            width: 85,
-                          ),
-                          SizedBox(height: 20,),
-                          Text(
-                            'This is a reminder to conduct regular check-up before riding',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontFamily: 'OpenSans', fontSize: 36, fontWeight: FontWeight.w700, color: Color(0xff581d00)),
-                          )
-                        ],
+                      alignment: Alignment.center,
+                      child: Container(
+                        height: 400,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.white),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(30)
+                        ),
+                        child: Column(
+                          children: const <Widget>[
+                            SizedBox(height: 20,),
+                            Image(
+                              alignment: Alignment.topCenter,
+                              image: AssetImage('asset/img/repair-icon.png'),
+                              height: 65,
+                              width: 85,
+                            ),
+                            SizedBox(height: 20,),
+                            Text(
+                              'This is a reminder to conduct regular check-up before riding',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(fontFamily: 'OpenSans', fontSize: 36, fontWeight: FontWeight.w700, color: Color(0xff581d00)),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),

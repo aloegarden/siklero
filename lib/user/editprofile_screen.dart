@@ -38,6 +38,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       lnameController.text = value.lName!;
       contactController.text = value.contact!;
       addressController.text = value.address!;
+      emergencyContactController.text = value.emergencycontactNumber!;
+      emergencyNameController.text = value.emergencycontactName!;
       cityValue = value.city!;
     });
 
@@ -52,7 +54,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     lnameController.dispose();
     contactController.dispose();
     addressController.dispose();
-
+    emergencyContactController.dispose();
+    emergencyNameController.dispose();
     super.dispose();
   }
 
@@ -123,7 +126,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 const SizedBox(height: 20,),
                                 Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 30),
-                                  child: _buildTextField('Contact #:', userData!.contact!, 6, TextInputType.phone, contactController),
+                                  child: _buildContactField('Contact #:', userData!.contact!, 6, TextInputType.phone, contactController),
                                 ),
                                 const SizedBox(height: 20,),
                                 Container(
@@ -168,7 +171,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                 const SizedBox(height: 20,),
                                 Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 30),
-                                  child: _buildTextField('Emergency Contact Name:', userData!.emergencycontactName!, 6, TextInputType.phone, emergencyNameController),
+                                  child: _buildTextField('Emergency Contact Name:', userData!.emergencycontactName!, 6, TextInputType.none, emergencyNameController),
+                                ),
+                                const SizedBox(height: 20,),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                                  child: _buildContactField('Emergency Contact #:', userData!.emergencycontactNumber!, 6, TextInputType.phone, emergencyContactController),
                                 ),
                                 const SizedBox(height: 30,),
                                 Container(
@@ -179,6 +187,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     fnameController,
                                     lnameController,
                                     contactController,
+                                    emergencyNameController,
+                                    emergencyContactController,
                                     addressController,
                                     usernameController,
                                     cityValue,
@@ -235,7 +245,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
   }
 
-  Widget _buildContactField(String title, int action, TextInputType textinputType, TextEditingController controller){
+ Widget _buildContactField(String title, String value, int action, TextInputType textinputType, TextEditingController controller){
     return Column(
       children: <Widget>[
           Container(
@@ -248,12 +258,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           TextFormField(
             keyboardType: textinputType,
             controller: controller,
-            maxLength: 11,
+            maxLength: 10,
             textInputAction: TextInputAction.values.elementAt(action),
-            decoration: const InputDecoration(
-              contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              border: OutlineInputBorder(),
-              focusedBorder: OutlineInputBorder(
+            decoration: InputDecoration(
+              prefixIcon: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.only(left: 8.0, right: 8.0),
+                    child: Text('+63 ', style: TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w700)),
+                  ),
+                ],
+              ),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              border: const OutlineInputBorder(),
+              focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Color(0xffe45f1e))
               )
             ),
@@ -271,6 +291,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     TextEditingController fnameController,
     TextEditingController lnameController,
     TextEditingController contactController,
+    TextEditingController emergencycontactName,
+    TextEditingController emergencycontactNumber,
     TextEditingController addressController,
     TextEditingController usernameController,
     String? cityValue,
@@ -335,6 +357,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     await docUser.update({
       'address': addressController.text.trim(),
       'contact': contactController.text.trim(),
+      'emergency_contact_name': emergencyNameController.text.trim(),
+      'emergency_contact_number': emergencyContactController.text.trim(),
       'first_name': fnameController.text.trim(),
       'last_name': lnameController.text.trim(),
       'username': usernameController.text.trim(),

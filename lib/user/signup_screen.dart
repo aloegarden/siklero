@@ -365,12 +365,22 @@ Widget _buildContactField(String title, int action, TextInputType textinputType,
           TextFormField(
             keyboardType: textinputType,
             controller: controller,
-            maxLength: 11,
+            maxLength: 10,
             textInputAction: TextInputAction.values.elementAt(action),
-            decoration: const InputDecoration(
-              contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              border: OutlineInputBorder(),
-              focusedBorder: OutlineInputBorder(
+            decoration: InputDecoration(
+              prefixIcon: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Padding(
+                    padding: EdgeInsets.only(left: 8.0, right: 8.0),
+                    child: Text('+63 ', style: TextStyle(fontFamily: 'OpenSans', fontSize: 24, fontWeight: FontWeight.w700)),
+                  ),
+                ],
+              ),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              border: const OutlineInputBorder(),
+              focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Color(0xffe45f1e))
               )
             ),

@@ -374,7 +374,7 @@ packages:
     source: hosted
     version: "0.1.1"
   google_api_headers:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: google_api_headers
       url: "https://pub.dartlang.org"
@@ -409,7 +409,7 @@ packages:
     source: hosted
     version: "2.2.4"
   google_maps_webservice:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: google_maps_webservice
       url: "https://pub.dartlang.org"
@@ -840,6 +840,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.1"
+  uuid:
+    dependency: "direct main"
+    description:
+      name: uuid
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.7"
   vector_math:
     dependency: transitive
     description:

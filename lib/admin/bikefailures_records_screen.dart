@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:siklero/admin/constants.dart';
 import 'package:to_csv/to_csv.dart' as exportCSV;
+import 'package:siklero/admin/api/pdf_api.dart';
+import 'package:siklero/admin/api/pdf_reports_api.dart';
 
 List<RecordsCard> searchCards = [];
 bool isDone = false;
@@ -14,6 +16,10 @@ List<String> header = []; //Header list variable
 List<List<String>> listOfLists = [];
 List<String> dataRecord = [];
 
+//for pdf
+List<RecordsCard> monthCards = [];
+List<RecordsCard> locationCards = [];
+
 class BikeRecordsScreen extends StatefulWidget {
   const BikeRecordsScreen({Key? key}) : super(key: key);
 
@@ -23,6 +29,43 @@ class BikeRecordsScreen extends StatefulWidget {
 
 class _BikeRecordsScreenState extends State<BikeRecordsScreen> {
   final searchController = TextEditingController();
+
+  List<String> locations = [
+    'Caloocan',
+    'Las Piñas',
+    'Makati',
+    'Malabon',
+    'Mandaluyong',
+    'Manila',
+    'Marikina',
+    'Muntinlupa',
+    'Navotas',
+    'Parañaque',
+    'Pasay',
+    'Pasig',
+    'Quezon City',
+    'San Juan',
+    'Taguig',
+    'Valenzuela'
+  ];
+
+  String selectedLocation = 'Taguig';
+
+  List<String> months = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ];
+  String selectedMonth = 'January';
 
   @override
   void initState() {
@@ -80,10 +123,284 @@ class _BikeRecordsScreenState extends State<BikeRecordsScreen> {
             children: [
               Container(
                 height: 40,
-                margin: const EdgeInsets.fromLTRB(90, 16, 30, 16),
+                margin: const EdgeInsets.fromLTRB(40, 16, 30, 16),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
+                    IconButton(
+                        alignment: AlignmentDirectional.centerEnd,
+                        tooltip: 'Generate PDF file',
+                        color: Colors.red,
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              barrierDismissible: true,
+                              builder: (BuildContext context) {
+                                return SimpleDialog(
+                                  title: const Text('Select Option'),
+                                  children: <Widget>[
+                                    SimpleDialogOption(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 24, vertical: 20),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: const Text(
+                                                  'Export PDF?',
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                // content: Text(
+                                                //     'Would you like to Export this into PDF'),
+                                                actions: [
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      ElevatedButton(
+                                                          style: ElevatedButton.styleFrom(
+                                                              shape:
+                                                                  const StadiumBorder(),
+                                                              foregroundColor:
+                                                                  Colors.white,
+                                                              backgroundColor:
+                                                                  const Color(
+                                                                      0xffe45f1e)),
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          },
+                                                          child: Text('No')),
+                                                      const SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      ElevatedButton(
+                                                          style: ElevatedButton.styleFrom(
+                                                              shape:
+                                                                  const StadiumBorder(),
+                                                              foregroundColor:
+                                                                  Colors.white,
+                                                              backgroundColor:
+                                                                  const Color(
+                                                                      0xffe45f1e)),
+                                                          onPressed: () async {
+                                                            final pdfFile =
+                                                                await PdfReportsApi
+                                                                    .generate(
+                                                                        userCards,
+                                                                        "");
+
+                                                            PdfApi.openFile(
+                                                                pdfFile);
+
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pop();
+                                                          },
+                                                          child: Text('Yes'))
+                                                    ],
+                                                  ),
+                                                ],
+                                              );
+                                            });
+
+                                        //Utils.showSnackBar(context, title: 'Selected Option 1');
+                                        //Navigator.pop(context);
+                                      },
+                                      child: const Text('Consolidated Records',
+                                          style: TextStyle(fontSize: 16)),
+                                    ),
+                                    SimpleDialogOption(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 24, vertical: 20),
+                                      child: const Text('Sorted By Month',
+                                          style: TextStyle(fontSize: 16)),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        showDialog(
+                                            context: context,
+                                            barrierDismissible: true,
+                                            builder: (BuildContext context) {
+                                              return StatefulBuilder(
+                                                  builder: (context, setState) {
+                                                return AlertDialog(
+                                                  title: const Text(
+                                                    'Select Month',
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                  content:
+                                                      DropdownButton<String>(
+                                                    isExpanded: true,
+                                                    onChanged: (month) =>
+                                                        setState(() =>
+                                                            selectedMonth =
+                                                                month!),
+                                                    value: selectedMonth,
+                                                    items: months
+                                                        .map((month) =>
+                                                            DropdownMenuItem<
+                                                                    String>(
+                                                                value: month,
+                                                                child: Text(
+                                                                  month,
+                                                                  style: const TextStyle(
+                                                                      fontSize:
+                                                                          20),
+                                                                )))
+                                                        .toList(),
+                                                  ),
+                                                  actions: [
+                                                    Center(
+                                                      child: ElevatedButton(
+                                                          style: ElevatedButton.styleFrom(
+                                                              shape:
+                                                                  const StadiumBorder(),
+                                                              foregroundColor:
+                                                                  Colors.white,
+                                                              backgroundColor:
+                                                                  const Color(
+                                                                      0xffe45f1e)),
+                                                          onPressed: () async {
+                                                            checkMonth(
+                                                                selectedMonth);
+                                                            if (monthCards
+                                                                .isEmpty) {
+                                                              await _showDialog(
+                                                                  context:
+                                                                      context,
+                                                                  title:
+                                                                      "Error",
+                                                                  msg:
+                                                                      "There\'s no record in the month of ${selectedMonth}");
+                                                            } else {
+                                                              final pdfFile =
+                                                                  await PdfReportsApi
+                                                                      .generate(
+                                                                          monthCards,
+                                                                          "Month of ${selectedMonth}");
+
+                                                              PdfApi.openFile(
+                                                                  pdfFile);
+
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                            }
+                                                          },
+                                                          child: const Text(
+                                                            'Submit',
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                          )),
+                                                    )
+                                                  ],
+                                                );
+                                              });
+                                            });
+
+                                        //Utils.showSnackBar(context, title: 'Selected Option 2');
+                                        //Navigator.pop(context);
+                                      },
+                                    ),
+                                    SimpleDialogOption(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 24, vertical: 20),
+                                      child: const Text('Sorted By Location',
+                                          style: TextStyle(fontSize: 16)),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return StatefulBuilder(
+                                                  builder: (context, setState) {
+                                                return AlertDialog(
+                                                  title: const Text(
+                                                    'Select Location',
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                  content:
+                                                      DropdownButton<String>(
+                                                    isExpanded: true,
+                                                    onChanged: (location) =>
+                                                        setState(() =>
+                                                            selectedLocation =
+                                                                location!),
+                                                    value: selectedLocation,
+                                                    items: locations
+                                                        .map((location) =>
+                                                            DropdownMenuItem<
+                                                                    String>(
+                                                                value: location,
+                                                                child: Text(
+                                                                  location,
+                                                                  style: const TextStyle(
+                                                                      fontSize:
+                                                                          20),
+                                                                )))
+                                                        .toList(),
+                                                  ),
+                                                  actions: [
+                                                    Center(
+                                                      child: ElevatedButton(
+                                                          style: ElevatedButton.styleFrom(
+                                                              shape:
+                                                                  const StadiumBorder(),
+                                                              foregroundColor:
+                                                                  Colors.white,
+                                                              backgroundColor:
+                                                                  const Color(
+                                                                      0xffe45f1e)),
+                                                          onPressed: () async {
+                                                            checkLocation(
+                                                                selectedLocation);
+                                                            if (locationCards
+                                                                .isEmpty) {
+                                                              await _showDialog(
+                                                                  context:
+                                                                      context,
+                                                                  title:
+                                                                      "Error",
+                                                                  msg:
+                                                                      "There\'s no record found located ${selectedLocation}");
+                                                            } else {
+                                                              final pdfFile =
+                                                                  await PdfReportsApi
+                                                                      .generate(
+                                                                          locationCards,
+                                                                          "${selectedLocation}");
+
+                                                              PdfApi.openFile(
+                                                                  pdfFile);
+
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop();
+                                                            }
+                                                          },
+                                                          child: const Text(
+                                                            'Submit',
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                          )),
+                                                    )
+                                                  ],
+                                                );
+                                              });
+                                            });
+                                        // Utils.showSnackBar(context, title: 'Selected Option 3');
+                                        //Navigator.pop(context);
+                                      },
+                                    ),
+                                  ],
+                                );
+                              });
+                        },
+                        icon: Icon(Icons.picture_as_pdf)),
                     IconButton(
                         tooltip: 'Generate CSV file',
                         color: Colors.green,
@@ -183,6 +500,48 @@ class _BikeRecordsScreenState extends State<BikeRecordsScreen> {
         ),
       ),
     );
+  }
+
+  Future _showDialog(
+      {required BuildContext context,
+      required String msg,
+      required String title}) async {
+    return await showDialog<bool>(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(title),
+            content: Text(msg),
+            actions: [
+              TextButton(
+                child: Text('Ok'),
+                onPressed: () => Navigator.of(context).pop(true),
+              ),
+            ],
+          );
+        });
+  }
+
+  void checkLocation(String location) {
+    final chosenLocation = userCards.where((record) {
+      final city = record.location.toLowerCase();
+      final inputtedLocation = location.toLowerCase();
+      return city.contains(inputtedLocation);
+    }).toList();
+    setState(() {
+      locationCards = chosenLocation;
+    });
+  }
+
+  void checkMonth(String month) {
+    final chosenMonth = userCards.where((record) {
+      final date = record.date.toLowerCase();
+      final inputMonth = month.toLowerCase();
+      return date.contains(inputMonth);
+    }).toList();
+    setState(() {
+      monthCards = chosenMonth;
+    });
   }
 
   void searchUser(String query) {

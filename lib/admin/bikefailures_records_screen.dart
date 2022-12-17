@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:siklero/admin/constants.dart';
 import 'package:to_csv/to_csv.dart' as exportCSV;
+import 'package:siklero/admin/api/pdf_api.dart';
+import 'package:siklero/admin/api/pdf_reports_api.dart';
 
 List<RecordsCard> searchCards = [];
 bool isDone = false;
@@ -80,10 +82,67 @@ class _BikeRecordsScreenState extends State<BikeRecordsScreen> {
             children: [
               Container(
                 height: 40,
-                margin: const EdgeInsets.fromLTRB(90, 16, 30, 16),
+                margin: const EdgeInsets.fromLTRB(40, 16, 30, 16),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
+                    IconButton(
+                        alignment: AlignmentDirectional.centerEnd,
+                        tooltip: 'Generate PDF file',
+                        color: Colors.red,
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text(
+                                    'Export PDF?',
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  // content: Text(
+                                  //     'Would you like to Export this into PDF'),
+                                  actions: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                                shape: const StadiumBorder(),
+                                                foregroundColor: Colors.white,
+                                                backgroundColor:
+                                                    const Color(0xffe45f1e)),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text('No')),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                                shape: const StadiumBorder(),
+                                                foregroundColor: Colors.white,
+                                                backgroundColor:
+                                                    const Color(0xffe45f1e)),
+                                            onPressed: () async {
+                                              final pdfFile =
+                                                  await PdfReportsApi.generate(
+                                                      userCards);
+
+                                              PdfApi.openFile(pdfFile);
+
+                                              Navigator.of(context).pop();
+                                            },
+                                            child: Text('Yes'))
+                                      ],
+                                    ),
+                                  ],
+                                );
+                              });
+                        },
+                        icon: Icon(Icons.picture_as_pdf)),
                     IconButton(
                         tooltip: 'Generate CSV file',
                         color: Colors.green,

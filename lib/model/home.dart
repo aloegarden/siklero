@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:siklero/user/home-screens/locatebikeshop_screen.dart';
 import 'package:siklero/user/home-screens/repair-guide_screen.dart';
+import 'package:siklero/user/home-screens/sos-history_screen.dart';
 import 'package:siklero/user/home-screens/sosdetails_screen.dart';
 import 'package:siklero/user/home-screens/sosrespond_screen.dart';
 import 'package:siklero/user/home-screens/hotline_screen.dart';
@@ -34,12 +35,18 @@ List<Home> homeitemsUser = [
   ),
   Home(
     id: 3, 
+    text: "SOS History", 
+    icon: const Icon(Icons.contact_phone_outlined , color: Colors.white, size: 75,), 
+    screen: const SOSHistoryScreen()
+  ),
+  Home(
+    id: 4, 
     text: "Hotlines", 
     icon: const Icon(Icons.menu_book_rounded, color: Colors.white, size: 75,),
     screen: const HotlineScreen()
   ),
   Home(
-    id: 4, 
+    id: 5, 
     text: "Repair Guide", 
     icon: const Icon(Icons.map_outlined, color: Colors.white, size: 75,),
     screen: const RepairGuideScreen()
@@ -56,17 +63,23 @@ List<Home> homeitemsHelper = [
   Home(
     id: 2, 
     text: "SOS Respond", 
-    icon: const Icon(Icons.emergency_share_rounded, color: Colors.white, size: 75,),
+    icon: const Icon(Icons.announcement_rounded, color: Colors.white, size: 75,),
     screen: const SOSRespondScreen()
   ),
   Home(
     id: 3, 
+    text: "SOS History", 
+    icon: const Icon(Icons.contact_phone_outlined , color: Colors.white, size: 75,), 
+    screen: const SOSHistoryScreen()
+  ),
+  Home(
+    id: 4, 
     text: "Hotlines", 
     icon: const Icon(Icons.menu_book_rounded, color: Colors.white, size: 75,),
     screen: const HotlineScreen()
   ),
   Home(
-    id: 4, 
+    id: 5, 
     text: "Repair Guide", 
     icon: const Icon(Icons.map_outlined, color: Colors.white, size: 75,),
     screen: const RepairGuideScreen()

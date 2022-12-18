@@ -3,8 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:intl/intl.dart';
 import 'package:siklero/model/sos.dart';
 import 'package:siklero/model/user_info.dart';
+import 'package:siklero/user/home-screens/sos-details-history_screen.dart';
 
 class SOSHistoryScreen extends StatefulWidget {
   const SOSHistoryScreen({super.key});
@@ -67,6 +69,10 @@ class _SOSHistoryScreenState extends State<SOSHistoryScreen> {
   }
 
   Widget buildCard(SOSCall sosCall) {
+
+    var date = sosCall.createdAt!.toDate();
+    var dateFormat = DateFormat('MMM dd h:mm a').format(date);
+    
     return FutureBuilder<UserData?>(
       future: readUser(sosCall.callerID!),
       builder:(context, snapshot) {
@@ -95,30 +101,23 @@ class _SOSHistoryScreenState extends State<SOSHistoryScreen> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            const Image(
-                              width: 100,
-                              height: 100,
-                              image: AssetImage('asset/img/user-icon.png')
+                            const Icon(
+                              
+                              Icons.sos_outlined,
+                              color: Color(0xff581d00),
+                              size: 50,
                             ),
                             Expanded(
                               child: Column(
                                 children: <Widget>[
                                   Text(
-                                    '${userData?.fName} ${userData?.lName}',
+                                    dateFormat,
                                     maxLines: 2,
                                     overflow: TextOverflow.fade,
                                     style: const TextStyle(
                                       fontFamily: 'OpenSans',
                                       fontSize: 25,
                                       fontWeight: FontWeight.w700,
-                                      color: Color(0xff581d00)
-                                    ),
-                                  ),
-                                  Text(
-                                    '${userData?.contact}',
-                                    style: const TextStyle(
-                                      fontFamily: 'OpenSans',
-                                      fontSize: 24,
                                       color: Color(0xff581d00)
                                     ),
                                   ),
@@ -129,31 +128,33 @@ class _SOSHistoryScreenState extends State<SOSHistoryScreen> {
                         ),
                       ),
                       const SizedBox(height: 20,),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          const Text(
-                            'Bicycle Failure Details:',
-                            style: TextStyle(
-                              fontFamily: 'OpenSans',
-                              fontSize: 20,
-                              color: Color(0xff581d00)
-                            ),
+                      ListTile(
+                        title: const Text(
+                          'Bicycle Failure Details:',
+                          style: TextStyle(
+                            fontFamily: 'OpenSans',
+                            fontSize: 18,
+                            color: Color(0xff581d00)
                           ),
-                          Text(
-                            '${sosCall.details}',
-                            //test,
-                            style: const TextStyle(
-                              fontFamily: 'OpenSans',
-                              fontSize: 18,
-                              color: Color(0xff581d00)
-                            ),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          )
-                        ],
+                        ),
+                        subtitle: Text(
+                          '${sosCall.details}',
+                          //test,
+                          style: const TextStyle(
+                            fontFamily: 'OpenSans',
+                            fontSize: 18,
+                            color: Color(0xff581d00)
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        trailing: IconButton(
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(builder:(context) => SOSDetailsHistoryScreen(documentID: sosCall.documentID!),));
+                          },
+                          icon: const Icon(Icons.arrow_forward_ios_outlined, color: Color(0xff581d00)),
+                        ),
                       ),
-                      //SizedBox(height: 40,)
                     ],
                   ),
                 )
@@ -183,7 +184,7 @@ class _SOSHistoryScreenState extends State<SOSHistoryScreen> {
     return role == "Regular" 
       ? FirebaseFirestore.instance
           .collection('sos_call')
-          .orderBy('created_at')
+          .orderBy('created_at', descending: true)
           .where('is_active', isEqualTo: false)
           .where('caller_id', isEqualTo: user!.uid)
           .snapshots()
@@ -191,7 +192,7 @@ class _SOSHistoryScreenState extends State<SOSHistoryScreen> {
             snapshot.docs.map((doc) => SOSCall.fromJSON(doc.data())).toList())
       : FirebaseFirestore.instance
           .collection('sos_call')
-          .orderBy('created_at')
+          .orderBy('created_at', descending: true)
           .where('is_active', isEqualTo: false)
           .where('respondant_id', isEqualTo: user!.uid)
           .snapshots()

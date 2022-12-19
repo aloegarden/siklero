@@ -27,6 +27,7 @@ class _RouteScreenState extends State<RouteScreen> {
 
   late BitmapDescriptor destinationLocationIcon;
   late BitmapDescriptor currentLocationIcon;
+  late BitmapDescriptor startingLocationIcon;
 
   static const _kGoogleApiKey = "AIzaSyBD7rR2WX5-WT7dN-IiyrOpfPfxK4CaIJ0";
 
@@ -66,6 +67,11 @@ class _RouteScreenState extends State<RouteScreen> {
     BitmapDescriptor.fromAssetImage(
       const ImageConfiguration(), 
       'asset/img/helper-pin.png')
+      .then((value) => startingLocationIcon = value);
+
+    BitmapDescriptor.fromAssetImage(
+      const ImageConfiguration(), 
+      'asset/img/current-location-pin.png')
       .then((value) => currentLocationIcon = value);
   }
 

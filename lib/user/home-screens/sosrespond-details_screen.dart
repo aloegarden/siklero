@@ -362,7 +362,7 @@ class _SOSRespondDetailsScreenState extends State<SOSRespondDetailsScreen> {
               width: double.infinity,
 
               child: ElevatedButton.icon(
-                onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder:(context) => RouteScreen(destination: sosCall.coordinates!, docId: sosCall.documentID!))), 
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder:(context) => RouteScreen(destination: sosCall.coordinates!, location: GeoPoint(currentLocation.latitude, currentLocation.longitude), docId: sosCall.documentID!))), 
                 icon: const Icon(Icons.assistant_direction_rounded, color: Colors.white,), 
                 label: const Padding(
                   padding: EdgeInsets.all(18.0),

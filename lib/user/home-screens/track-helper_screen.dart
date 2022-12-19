@@ -39,7 +39,7 @@ class _TrackHelperScreenState extends State<TrackHelperScreen> {
 
     BitmapDescriptor.fromAssetImage(
       const ImageConfiguration(), 
-      'asset/img/bike-shop-pin.png')
+      'asset/img/helper-pin.png')
       .then((value) => helperLocationIcon = value);
   }
 

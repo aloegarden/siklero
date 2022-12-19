@@ -41,6 +41,8 @@ dependencies:
   pdf: ^3.8.4
   open_file: ^3.2.1
   path_provider: ^2.0.11
+  flutter_polyline_points: ^1.0.0
+  location: ^4.4.0
 
 flutter_native_splash:
   color: "#ed8f5b"

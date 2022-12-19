@@ -5,6 +5,7 @@ import 'package:siklero/model/sos.dart';
 import 'package:siklero/model/user_info.dart';
 import 'package:siklero/user/home-screens/chat_screen.dart';
 import 'package:siklero/user/home-screens/reminder_screen.dart';
+import 'package:siklero/user/home-screens/track-helper_screen.dart';
 import 'package:siklero/user/utils/utils.dart';
 
 class SOSCallScreen extends StatefulWidget {
@@ -113,7 +114,7 @@ class _SOSCallScreenState extends State<SOSCallScreen> {
                               fontSize: 40
                             ),),
                         )
-                      : RespondingHelper(sosCall: sosCall),
+                      : RespondingHelper(sosCall: sosCall, sosId: widget.sosID),
                       ElevatedButton(
                         onPressed: sosCall!.isCompleted! ? () {
                           Navigator.of(context).pushAndRemoveUntil(
@@ -166,9 +167,10 @@ class _SOSCallScreenState extends State<SOSCallScreen> {
 }
 
 class RespondingHelper extends StatefulWidget {
+  final String sosId;
   const RespondingHelper({
     Key? key,
-    required this.sosCall,
+    required this.sosCall, required this.sosId,
   }) : super(key: key);
 
   final SOSCall? sosCall;
@@ -217,8 +219,10 @@ class _RespondingHelperState extends State<RespondingHelper> {
                         icon: const Icon(Icons.message_rounded, color: Colors.blue,)
                       ),
                       IconButton(
-                        onPressed:() => Utils.openCall(helperData!.contact!), 
-                        icon: const Icon(Icons.call, color: Colors.green,)
+                        onPressed:() {
+                          Navigator.of(context).push(MaterialPageRoute(builder:(context) => TrackHelperScreen(sourceLocation :widget.sosCall!.helperCoordinates! , destinationLocation: widget.sosCall!.coordinates!, documentID: widget.sosId)));
+                        }, 
+                        icon: const Icon(Icons.assistant_direction_rounded, color: Colors.green,)
                       ),
                     ],
                   ),

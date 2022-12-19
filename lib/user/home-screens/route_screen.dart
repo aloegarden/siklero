@@ -23,6 +23,7 @@ class _RouteScreenState extends State<RouteScreen> {
 
   late StreamSubscription<LocationData> locationSubscription;
 
+
   
 
   late BitmapDescriptor destinationLocationIcon;
@@ -33,19 +34,20 @@ class _RouteScreenState extends State<RouteScreen> {
 
   //List<Marker> _markers = <Marker>[];
   List<LatLng> polylineCoordinates = [];
-  Set<Polyline> _polylines = Set<Polyline>();
 
 
 
   LocationData? currentLocation;
 
-  static const LatLng test = LatLng(14.583777828416313, 121.11498237081021);
+  static const  LatLng startingPoint = LatLng(14.585324535215058, 121.11490272878397);
 
   @override
   void initState() {    
-    initIcons();
+
     getPolyPoints();
     getCurrentLocation();
+    initIcons();
+    
     
 
     super.initState();
@@ -77,22 +79,23 @@ class _RouteScreenState extends State<RouteScreen> {
 
   void getPolyPoints() async {
     PolylinePoints polylinePoints = PolylinePoints();
-
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-      _kGoogleApiKey, 
-      PointLatLng(widget.location.latitude, widget.location.latitude), 
-      PointLatLng(widget.destination.latitude, widget.destination.longitude));
-
-      if (result.points.isNotEmpty) {
+        _kGoogleApiKey,
+        PointLatLng(widget.location.latitude, widget.location.longitude),
+        PointLatLng(widget.destination.latitude, widget.destination.longitude),
+      );
+    if (result.points.isNotEmpty) {
         result.points.forEach(
-          (PointLatLng point) => polylineCoordinates.add(
+          (PointLatLng point) { 
+            print("pumasok sa loop");
+            print("latitude: " + point.longitude.toString());
+            print("longitude:" + point.latitude.toString());
+            polylineCoordinates.add(
             LatLng(point.latitude, point.longitude),
-          ),
+          );}
         );
-        setState(() {
-
-        });
-      }
+        setState(() {});
+    }
   }
   
   @override
@@ -117,14 +120,14 @@ class _RouteScreenState extends State<RouteScreen> {
             polylineId: const PolylineId("route"),
             points: polylineCoordinates,
             color: Colors.orange,
-            width: 7
-          ),
+            width: 6,
+          )
         },
         markers: {
           Marker(
             markerId: MarkerId("source"),
             icon: startingLocationIcon,
-            position: LatLng(widget.location.latitude, widget.location.longitude),
+            position: LatLng(startingPoint.latitude, startingPoint.longitude),
         ),
           Marker(
           markerId: MarkerId("destination"),
@@ -175,11 +178,9 @@ class _RouteScreenState extends State<RouteScreen> {
 
       updateLocation(newLocation.latitude!, newLocation.longitude!);
 
-      if (mounted) {
-        setState(() {
-          
-        });
-      }
+      setState(() {
+        
+      });
 
     });
 

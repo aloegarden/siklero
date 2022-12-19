@@ -57,10 +57,12 @@ class PdfReportsApi {
       );
 
   static Widget buildRecords(List<RecordsCard> records) {
-    final headers = ['Caller', 'Responder', 'Date', 'Time', 'Location'];
+    final headers = ['No.', 'Caller', 'Responder', 'Date', 'Time', 'Location'];
+    int number = 1;
 
     final data = records.map((record) {
       return [
+        number++,
         record.caller,
         record.responder,
         record.date,
@@ -82,6 +84,7 @@ class PdfReportsApi {
           2: Alignment.center,
           3: Alignment.center,
           4: Alignment.center,
+          5: Alignment.center,
         });
   }
 

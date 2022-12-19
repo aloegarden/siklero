@@ -32,13 +32,20 @@ class _RouteScreenState extends State<RouteScreen> {
 
   //List<Marker> _markers = <Marker>[];
   List<LatLng> polylineCoordinates = [];
+  Set<Polyline> _polylines = Set<Polyline>();
+
+
+
   LocationData? currentLocation;
+
+  static const LatLng test = LatLng(14.583777828416313, 121.11498237081021);
 
   @override
   void initState() {    
     initIcons();
-    getCurrentLocation();
     getPolyPoints();
+    getCurrentLocation();
+    
 
     super.initState();
   }
@@ -63,20 +70,21 @@ class _RouteScreenState extends State<RouteScreen> {
   }
 
   void getPolyPoints() async {
-    print(widget.destination.latitude);
-    print(widget.location.latitude);
     PolylinePoints polylinePoints = PolylinePoints();
 
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       _kGoogleApiKey, 
-      PointLatLng(widget.location.latitude, widget.location.longitude), 
+      PointLatLng(widget.location.latitude, widget.location.latitude), 
       PointLatLng(widget.destination.latitude, widget.destination.longitude));
 
       if (result.points.isNotEmpty) {
-        result.points.forEach((PointLatLng point) => polylineCoordinates.add(LatLng(point.latitude, point.longitude)));
-
+        result.points.forEach(
+          (PointLatLng point) => polylineCoordinates.add(
+            LatLng(point.latitude, point.longitude),
+          ),
+        );
         setState(() {
-          
+
         });
       }
   }
@@ -96,11 +104,11 @@ class _RouteScreenState extends State<RouteScreen> {
         mapType: MapType.normal,
         initialCameraPosition: CameraPosition(
           target: LatLng(currentLocation!.latitude!, currentLocation!.longitude!),
-          zoom: 14
+          zoom: 18
         ),
         polylines: {
           Polyline(
-            polylineId: PolylineId("route"),
+            polylineId: const PolylineId("route"),
             points: polylineCoordinates,
             color: Colors.orange,
             width: 7
@@ -110,7 +118,7 @@ class _RouteScreenState extends State<RouteScreen> {
           Marker(
             markerId: MarkerId("source"),
             icon: currentLocationIcon,
-            position: LatLng(widget.location.latitude, widget.location.longitude)
+            position: LatLng(widget.location.latitude, widget.location.longitude),
         ),
           Marker(
           markerId: MarkerId("destination"),

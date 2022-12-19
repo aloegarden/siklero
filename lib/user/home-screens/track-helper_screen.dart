@@ -82,15 +82,6 @@ class _TrackHelperScreenState extends State<TrackHelperScreen> {
             );
 
 
-            _controller?.animateCamera(CameraUpdate.newCameraPosition(
-              CameraPosition(
-                target: helperLatLng,
-                zoom: 14,
-              ),
-            ));
-
-            print(_markers.length);
-
             return GoogleMap(
               initialCameraPosition: CameraPosition(
                 target: LatLng(helperLocation.latitude, helperLocation.longitude),

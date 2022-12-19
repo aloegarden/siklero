@@ -137,7 +137,11 @@ class _BikeRecordsScreenState extends State<BikeRecordsScreen> {
                               barrierDismissible: true,
                               builder: (BuildContext context) {
                                 return SimpleDialog(
-                                  title: const Text('Select Option'),
+                                  clipBehavior: Clip.antiAlias,
+                                  title: const Text(
+                                    'Select Option',
+                                    textAlign: TextAlign.center,
+                                  ),
                                   children: <Widget>[
                                     SimpleDialogOption(
                                       padding: const EdgeInsets.symmetric(
@@ -255,47 +259,54 @@ class _BikeRecordsScreenState extends State<BikeRecordsScreen> {
                                                   ),
                                                   actions: [
                                                     Center(
-                                                      child: ElevatedButton(
-                                                          style: ElevatedButton.styleFrom(
-                                                              shape:
-                                                                  const StadiumBorder(),
-                                                              foregroundColor:
-                                                                  Colors.white,
-                                                              backgroundColor:
-                                                                  const Color(
-                                                                      0xffe45f1e)),
-                                                          onPressed: () async {
-                                                            checkMonth(
-                                                                selectedMonth);
-                                                            if (monthCards
-                                                                .isEmpty) {
-                                                              await _showDialog(
+                                                      child: Container(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(10.0),
+                                                        width: double.infinity,
+                                                        child: ElevatedButton(
+                                                            style: ElevatedButton.styleFrom(
+                                                                shape:
+                                                                    const StadiumBorder(),
+                                                                foregroundColor:
+                                                                    Colors
+                                                                        .white,
+                                                                backgroundColor:
+                                                                    const Color(
+                                                                        0xffe45f1e)),
+                                                            onPressed:
+                                                                () async {
+                                                              checkMonth(
+                                                                  selectedMonth);
+                                                              if (monthCards
+                                                                  .isEmpty) {
+                                                                await _showDialog(
                                                                   context:
                                                                       context,
                                                                   title:
-                                                                      "Error",
-                                                                  msg:
-                                                                      "There\'s no record in the month of ${selectedMonth}");
-                                                            } else {
-                                                              final pdfFile =
-                                                                  await PdfReportsApi
-                                                                      .generate(
-                                                                          monthCards,
-                                                                          "Month of ${selectedMonth}");
+                                                                      "There\'s no record found in the month of ${selectedMonth}",
+                                                                );
+                                                              } else {
+                                                                final pdfFile =
+                                                                    await PdfReportsApi.generate(
+                                                                        monthCards,
+                                                                        "Month of ${selectedMonth}");
 
-                                                              PdfApi.openFile(
-                                                                  pdfFile);
+                                                                PdfApi.openFile(
+                                                                    pdfFile);
 
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pop();
-                                                            }
-                                                          },
-                                                          child: const Text(
-                                                            'Submit',
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          )),
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                              }
+                                                            },
+                                                            child: const Text(
+                                                              'Submit',
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                            )),
+                                                      ),
                                                     )
                                                   ],
                                                 );
@@ -346,47 +357,53 @@ class _BikeRecordsScreenState extends State<BikeRecordsScreen> {
                                                   ),
                                                   actions: [
                                                     Center(
-                                                      child: ElevatedButton(
-                                                          style: ElevatedButton.styleFrom(
-                                                              shape:
-                                                                  const StadiumBorder(),
-                                                              foregroundColor:
-                                                                  Colors.white,
-                                                              backgroundColor:
-                                                                  const Color(
-                                                                      0xffe45f1e)),
-                                                          onPressed: () async {
-                                                            checkLocation(
-                                                                selectedLocation);
-                                                            if (locationCards
-                                                                .isEmpty) {
-                                                              await _showDialog(
+                                                      child: Container(
+                                                        padding: EdgeInsets.all(
+                                                            10.0),
+                                                        width: double.infinity,
+                                                        child: ElevatedButton(
+                                                            style: ElevatedButton.styleFrom(
+                                                                shape:
+                                                                    const StadiumBorder(),
+                                                                foregroundColor:
+                                                                    Colors
+                                                                        .white,
+                                                                backgroundColor:
+                                                                    const Color(
+                                                                        0xffe45f1e)),
+                                                            onPressed:
+                                                                () async {
+                                                              checkLocation(
+                                                                  selectedLocation);
+                                                              if (locationCards
+                                                                  .isEmpty) {
+                                                                await _showDialog(
                                                                   context:
                                                                       context,
                                                                   title:
-                                                                      "Error",
-                                                                  msg:
-                                                                      "There\'s no record found located ${selectedLocation}");
-                                                            } else {
-                                                              final pdfFile =
-                                                                  await PdfReportsApi
-                                                                      .generate(
-                                                                          locationCards,
-                                                                          "${selectedLocation}");
+                                                                      "There\'s no record found located in ${selectedLocation}",
+                                                                );
+                                                              } else {
+                                                                final pdfFile =
+                                                                    await PdfReportsApi.generate(
+                                                                        locationCards,
+                                                                        "${selectedLocation}");
 
-                                                              PdfApi.openFile(
-                                                                  pdfFile);
+                                                                PdfApi.openFile(
+                                                                    pdfFile);
 
-                                                              Navigator.of(
-                                                                      context)
-                                                                  .pop();
-                                                            }
-                                                          },
-                                                          child: const Text(
-                                                            'Submit',
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                          )),
+                                                                Navigator.of(
+                                                                        context)
+                                                                    .pop();
+                                                              }
+                                                            },
+                                                            child: const Text(
+                                                              'Submit',
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                            )),
+                                                      ),
                                                     )
                                                   ],
                                                 );
@@ -504,18 +521,38 @@ class _BikeRecordsScreenState extends State<BikeRecordsScreen> {
 
   Future _showDialog(
       {required BuildContext context,
-      required String msg,
+      //required String msg,
       required String title}) async {
     return await showDialog<bool>(
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text(title),
-            content: Text(msg),
+            icon: const Icon(
+              Icons.error_outline,
+              color: Colors.red,
+              size: 70.0,
+            ),
+            title: Text(
+              title,
+              textAlign: TextAlign.center,
+            ),
+            // content: Text(
+            //   msg,
+            //   textAlign: TextAlign.center,
+            // ),
             actions: [
-              TextButton(
-                child: Text('Ok'),
-                onPressed: () => Navigator.of(context).pop(true),
+              Center(
+                child: Container(
+                  padding: EdgeInsets.all(10.0),
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          shape: const StadiumBorder(),
+                          foregroundColor: Colors.white,
+                          backgroundColor: const Color(0xffe45f1e)),
+                      onPressed: () => Navigator.of(context).pop(true),
+                      child: Text('Ok')),
+                ),
               ),
             ],
           );

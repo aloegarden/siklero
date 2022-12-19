@@ -9,8 +9,9 @@ import 'package:permission_handler/permission_handler.dart';
 
 class RouteScreen extends StatefulWidget {
   final GeoPoint destination;
+  final GeoPoint location;
   final String docId;
-  const RouteScreen({super.key, required this.destination, required this.docId});
+  const RouteScreen({super.key, required this.destination, required this.docId, required this.location});
 
   @override
   State<RouteScreen> createState() => _RouteScreenState();
@@ -18,44 +19,57 @@ class RouteScreen extends StatefulWidget {
 
 class _RouteScreenState extends State<RouteScreen> {
 
-  Completer<GoogleMapController> _controller = Completer();
+  final Completer<GoogleMapController> _controller = Completer();
 
+  late StreamSubscription<LocationData> locationSubscription;
+
+  
+
+  late BitmapDescriptor destinationLocationIcon;
   late BitmapDescriptor currentLocationIcon;
-  late BitmapDescriptor bikeShopIcon;
 
   static const _kGoogleApiKey = "AIzaSyBD7rR2WX5-WT7dN-IiyrOpfPfxK4CaIJ0";
 
   //List<Marker> _markers = <Marker>[];
   List<LatLng> polylineCoordinates = [];
-  LocationData? current;
+  LocationData? currentLocation;
 
   @override
-  void initState() {
-    super.initState();
-    
+  void initState() {    
     initIcons();
     getCurrentLocation();
     getPolyPoints();
+
+    super.initState();
   }
 
-  initIcons() {
+  @override
+  void dispose() {
+    locationSubscription.cancel();
+    
+    super.dispose();
+  }
+
+  void initIcons() {
     BitmapDescriptor.fromAssetImage(
       const ImageConfiguration(), 
       'asset/img/user-pin.png')
-      .then((value) => currentLocationIcon = value);
+      .then((value) => destinationLocationIcon = value);
 
     BitmapDescriptor.fromAssetImage(
       const ImageConfiguration(), 
-      'asset/img/bike-shop-pin.png')
-      .then((value) => bikeShopIcon = value);
+      'asset/img/helper-pin.png')
+      .then((value) => currentLocationIcon = value);
   }
 
   void getPolyPoints() async {
+    print(widget.destination.latitude);
+    print(widget.location.latitude);
     PolylinePoints polylinePoints = PolylinePoints();
 
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       _kGoogleApiKey, 
-      PointLatLng(current!.latitude!, current!.longitude!), 
+      PointLatLng(widget.location.latitude, widget.location.longitude), 
       PointLatLng(widget.destination.latitude, widget.destination.longitude));
 
       if (result.points.isNotEmpty) {
@@ -71,17 +85,17 @@ class _RouteScreenState extends State<RouteScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Locate Bike Shops', style: TextStyle(fontFamily: 'OpenSans', fontSize: 24),),
+        title: const Text('Route', style: TextStyle(fontFamily: 'OpenSans', fontSize: 24),),
         backgroundColor: const Color(0xffed8f5b),
         centerTitle: true,
       ),
 
-      body: current == null 
+      body: currentLocation == null 
       ? const Center(child: Text("Loading"),)
       : GoogleMap(
         mapType: MapType.normal,
         initialCameraPosition: CameraPosition(
-          target: LatLng(current!.latitude!, current!.longitude!),
+          target: LatLng(currentLocation!.latitude!, currentLocation!.longitude!),
           zoom: 14
         ),
         polylines: {
@@ -93,15 +107,20 @@ class _RouteScreenState extends State<RouteScreen> {
           ),
         },
         markers: {
-           Marker(
-            markerId: MarkerId("destination"),
-            icon: bikeShopIcon,
-            position: LatLng(widget.destination.latitude, widget.destination.longitude)
-          ),
+          Marker(
+            markerId: MarkerId("source"),
+            icon: currentLocationIcon,
+            position: LatLng(widget.location.latitude, widget.location.longitude)
+        ),
+          Marker(
+          markerId: MarkerId("destination"),
+          icon: destinationLocationIcon,
+          position: LatLng(widget.destination.latitude, widget.destination.longitude)
+        ),
           Marker(
             markerId: MarkerId("currentLocation"),
             icon: currentLocationIcon,
-            position: LatLng(current!.latitude!, current!.longitude!)
+            position: LatLng(currentLocation!.latitude!, currentLocation!.longitude!)
           )
         },
         onMapCreated: (controller) {
@@ -112,32 +131,45 @@ class _RouteScreenState extends State<RouteScreen> {
   }
 
   void getCurrentLocation() async {
+    print("pumasok sa getcurrentlocation");
     Location location = Location();
 
+    location.changeSettings(interval: 5);
+
     location.getLocation().then((location) {
-      current = location;
+      currentLocation = location;
+      print(currentLocation);
+
+      setState(() {
+        
+      });
     });
 
-    GoogleMapController _googleMapController = await _controller.future;
+    GoogleMapController googleMapController = await _controller.future;
 
-    location.onLocationChanged.listen((newLocation) { 
-      current = newLocation;
+    locationSubscription = location.onLocationChanged.listen((newLocation) { 
+      currentLocation = newLocation;
 
-      _googleMapController.animateCamera(
+      googleMapController.animateCamera(
         CameraUpdate.newCameraPosition(
           CameraPosition(
             target: LatLng(newLocation.latitude!, newLocation.longitude!),
-            zoom: 14
+            zoom: 18
           )
         )
       );
 
       updateLocation(newLocation.latitude!, newLocation.longitude!);
 
-      setState(() {
-        
-      });
+      if (mounted) {
+        setState(() {
+          
+        });
+      }
+
     });
+
+    
   }
 
   Future updateLocation(double latitude, double longitude) async {

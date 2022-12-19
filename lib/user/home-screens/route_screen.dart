@@ -123,7 +123,7 @@ class _RouteScreenState extends State<RouteScreen> {
         markers: {
           Marker(
             markerId: MarkerId("source"),
-            icon: currentLocationIcon,
+            icon: startingLocationIcon,
             position: LatLng(widget.location.latitude, widget.location.longitude),
         ),
           Marker(

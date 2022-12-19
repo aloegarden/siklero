@@ -9,6 +9,7 @@ import 'package:photo_view/photo_view.dart';
 import 'package:siklero/model/sos.dart';
 import 'package:siklero/model/user_info.dart';
 import 'package:siklero/user/home-screens/chat_screen.dart';
+import 'package:siklero/user/home-screens/route_screen.dart';
 import 'package:siklero/user/utils/utils.dart';
 
 class SOSRespondDetailsScreen extends StatefulWidget {
@@ -260,12 +261,14 @@ class _SOSRespondDetailsScreenState extends State<SOSRespondDetailsScreen> {
   }
 
   Future addRespondant() async {
+    GeoPoint location = GeoPoint(currentLocation.latitude, currentLocation.longitude);
     //print(widget.details.documentID);
     await FirebaseFirestore.instance
     .collection('sos_call')
     .doc('${sosCall.documentID}')
     .update({
-      'respondant_id' : user.uid
+      'respondant_id' : user.uid,
+      'helper_coordinates' : location
     });
 
   }
@@ -352,6 +355,33 @@ class _SOSRespondDetailsScreenState extends State<SOSRespondDetailsScreen> {
 
       child: Column(
         children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10.0),
+
+            child: SizedBox(
+              width: double.infinity,
+
+              child: ElevatedButton.icon(
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder:(context) => RouteScreen(destination: sosCall.coordinates!, docId: sosCall.documentID!))), 
+                icon: const Icon(Icons.assistant_direction_rounded, color: Colors.white,), 
+                label: const Padding(
+                  padding: EdgeInsets.all(18.0),
+                  child: Text(
+                    "Route",
+
+                    style: TextStyle(
+                      fontSize: 30,
+                      color: Colors.white
+                    ),
+                  ),
+                ),
+
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.orange
+                ),
+              ),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10.0),
 

@@ -36,11 +36,11 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
     zoom: 14,
   );
 
-  List<Marker> markers = <Marker>[];
+  List<Marker> _markers = <Marker>[];
   List<BikeShops> _bikeShops = <BikeShops>[];
 
   loadData ()  async {
-    markers = <Marker>[];
+    _markers = <Marker>[];
     goToCurrentLocation();
     //setMarkers();
   }
@@ -76,17 +76,21 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
           GoogleMap(
             mapType: MapType.normal,
             initialCameraPosition: _kGooglePlex,
-            markers: Set<Marker>.of(markers),
+            markers: Set<Marker>.of(_markers),
             onMapCreated: (GoogleMapController controller) {
               _controller.complete(controller);
+            },
+            onLongPress: (latlng) {
+              addMarkerLongPress(latlng);
             },
           ),
 
           Column(
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.1),
-                child: Container(
+                child: SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -95,14 +99,14 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
                     ),
 
                     onPressed: _handleButtonPress, 
-                    child: const Text("Set Location", style: TextStyle(color: Colors.grey),)
+                    child: const Text("Set Location", style: TextStyle(color: Colors.grey))
                   ),
                 ),
               ),
 
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * 0.1),
-                child: ElevatedButton(
+                child: ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
                     shape: const StadiumBorder(),
                     foregroundColor: Colors.white,
@@ -113,10 +117,9 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
                     goToCurrentLocation();
                   },
 
-                  child: const ListTile(
-                    leading: Icon(Icons.my_location_rounded, color: Colors.white,),
-                    title: Text("Use Current Location", style: TextStyle(color: Colors.white),),
-                  ),
+                  icon: Icon(Icons.my_location_rounded, color: Colors.white,),
+                  label: Text("Use Current Location", style: TextStyle(color: Colors.white),),
+
                 ),
               ),
             ],
@@ -138,10 +141,10 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
   Future<void> goToCurrentLocation() async {
     getUserCurrentLocation().then((value) async {
       //print(value.longitude.toString() + " " + value.latitude.toString());
-      markers.clear();
+      _markers.clear();
       
       currentLocation = LatLng(value.latitude, value.longitude);
-      markers.add(
+      _markers.add(
         Marker(
           markerId: const MarkerId("currentLocation"),
           icon: currentLocationIcon,
@@ -198,8 +201,8 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
     final lat = detail.result.geometry!.location.lat;
     final lng = detail.result.geometry!.location.lng;
 
-    markers.clear();
-    markers.add(
+    _markers.clear();
+    _markers.add(
       Marker(
           markerId: const MarkerId("currentLocation"),
           icon: currentLocationIcon,
@@ -239,9 +242,34 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
     
   }
 
+  Future addMarkerLongPress(LatLng latlng) async {
+    _markers.clear();
+
+    _markers.add(
+      Marker(
+        markerId: MarkerId("currentLocation"),
+        icon: currentLocationIcon,
+        position: LatLng(latlng.latitude, latlng.longitude)
+        )
+    );
+
+    CameraPosition cameraPosition = 
+        CameraPosition(
+          zoom: 14,
+          target: LatLng(latlng.latitude, latlng.longitude,
+        ));
+
+      final GoogleMapController controller = await _controller.future;
+      controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+
+    setState(() {
+      
+    });
+  }
+
   Future<void> setMarkers() async {
     
-    if (markers.isEmpty) {
+    if (_markers.isEmpty) {
       return showDialog(
         context: context,
         builder: (context) {
@@ -254,7 +282,7 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
         }
       );
     } else {
-      var locationMarker = markers.first;
+      var locationMarker = _markers.first;
       _bikeShops.clear();
       getBikeShops(locationMarker.position.latitude, locationMarker.position.longitude).then((value) async {
         _bikeShops.addAll(value);
@@ -264,7 +292,7 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
         for (var bikeShop in _bikeShops) {
           //BikeShop details = await getBikeShop(bikeShop.placeId);
           //print(bikeShop);
-          markers.add(
+          _markers.add(
             Marker(
               markerId: MarkerId(bikeShop.placeId!),
               icon: bikeShopIcon,

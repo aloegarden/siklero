@@ -11,6 +11,7 @@ class SOSCall {
   late bool? isActive;
   late bool? isCompleted;
   late GeoPoint? coordinates;
+  late GeoPoint? helperCoordinates;
   late Timestamp? createdAt;
 
   SOSCall({
@@ -24,6 +25,7 @@ class SOSCall {
       this.isActive,
       this.isCompleted,
       this.coordinates,
+      this.helperCoordinates,
       this.createdAt
     });
 
@@ -38,6 +40,7 @@ class SOSCall {
       'is_active': isActive,
       'is_completed': isCompleted,
       'coordinates': coordinates,
+      'helper_coordinates': helperCoordinates,
       'created_at' : createdAt
   };
 
@@ -52,6 +55,7 @@ class SOSCall {
       isActive: json['is_active'],
       isCompleted: json['is_completed'],
       coordinates: json['coordinates'],
+      helperCoordinates: json['helper_coordinates'],
       createdAt: json['created_at']
     );
 

@@ -127,7 +127,7 @@ class _RouteScreenState extends State<RouteScreen> {
           Marker(
             markerId: MarkerId("source"),
             icon: startingLocationIcon,
-            position: LatLng(startingPoint.latitude, startingPoint.longitude),
+            position: LatLng(widget.location.latitude, widget.location.longitude),
         ),
           Marker(
           markerId: MarkerId("destination"),

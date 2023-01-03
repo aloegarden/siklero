@@ -24,7 +24,7 @@
     </queries>
 
    <application
-        android:label="siklero"
+        android:label="Siklero"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 

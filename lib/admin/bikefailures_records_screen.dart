@@ -623,6 +623,7 @@ class _RecordsStreamState extends State<RecordsStream> {
 
     //print(callerName! + time + date);
 
+
     return RecordsCard(
       details: snapshot.get('sos_details'),
       caller: callerName.toString(),

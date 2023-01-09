@@ -41,7 +41,7 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
 
   loadData () {
     getCurrentPosition().then((value) async {
-            print(value.latitude.toString() + " " + value.longitude.toString());
+            //print(value.latitude.toString() + " " + value.longitude.toString());
             sosCall.coordinates = GeoPoint(value.latitude, value.longitude);
 
             getAddressFromPosition(sosCall.coordinates!.latitude, sosCall.coordinates!.longitude);
@@ -57,8 +57,8 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
       setState(() {
         sosCall.locationAddress = '${place.street}, ${place.subLocality}, ${place.locality}, ${place.administrativeArea}';
         sosCall.city = place.locality;
-        print(sosCall.locationAddress);
-        print(sosCall.city);
+        //print(sosCall.locationAddress);
+        //print(sosCall.city);
         /*if(cities.contains(sosCall.city)) {
           isDisabled = false;
         } else {
@@ -75,7 +75,7 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
       await Geolocator.requestPermission().then((value) {
 
       }).onError((error, stackTrace) {
-        print("Error: " + error.toString());
+        //print("Error: " + error.toString());
       });
 
       return await Geolocator.getCurrentPosition();
@@ -97,12 +97,12 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
     try {
       await referenceImageToUpload.putFile(chosenImage!);
       await referenceImageToUpload.getDownloadURL().then((value) {
-        print("this is the image url : $value");
+        //print("this is the image url : $value");
         //sosCall.imageUrl = value;
         return value;
       });
     } catch (e) {
-      print('An error occured $e');
+      //print('An error occured $e');
     }
 
     //return null;
@@ -122,14 +122,7 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
       return;
     }
 
-    var number = '+63${widget.userInfo!.emergencycontactNumber}';
-    List<String> recipients = [number];
-    String message = '${widget.userInfo!.fName} ${widget.userInfo!.lName} has made an SOS call in this approximate location. '
-              'You are receiving this because ${widget.userInfo!.fName} has listed you as an emergency contact. Sent via Siklero App. '
-              'LOCATION: https://www.google.com/maps/search/?api=1&query=${sosCall.coordinates!.latitude},${sosCall.coordinates!.longitude}';
-    _sendSMS(message, recipients);
-
-
+    buildShowDialog(context);
 
     DateTime date = DateTime.now();
 
@@ -150,15 +143,22 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
 
       await referenceImageToUpload.putFile(chosenImage!);
       await referenceImageToUpload.getDownloadURL().then((value) {
-        print("this is the image url : $value");
+        //print("this is the image url : $value");
         sosCall.imageUrl = value;
-        print(sosCall.imageUrl);
+        //print(sosCall.imageUrl);
       });
 
       final docSOS = FirebaseFirestore.instance.collection('sos_call').doc();
       final json = sosCall.toJSON();
       await docSOS.set(json);
       await docSOS.update({'document_id' : docSOS.id});
+
+      var number = '+63${widget.userInfo!.emergencycontactNumber}';
+      List<String> recipients = [number];
+      String message = '${widget.userInfo!.fName} ${widget.userInfo!.lName} has made an SOS call in this approximate location. '
+                'You are receiving this because ${widget.userInfo!.fName} has listed you as an emergency contact. Sent via Siklero App. '
+                'LOCATION: https://www.google.com/maps/search/?api=1&query=${sosCall.coordinates!.latitude},${sosCall.coordinates!.longitude}';
+      _sendSMS(message, recipients);
       
       Navigator.of(context).pushAndRemoveUntil(
           MaterialPageRoute(
@@ -169,7 +169,7 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
   } on FirebaseException catch (e) {
     Utils.showSnackBar(e.message);
   } on Exception catch (e) {
-    print('An error occuerd $e');
+    print('An error occured $e');
   }
 
   navigatorKey.currentState!.popUntil((route) => route.isFirst);
@@ -177,12 +177,23 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
   }
 
   void _sendSMS(String message, List<String> recipents) async {
- String _result = await sendSMS(message: message, recipients: recipents, sendDirect: true)
-        .catchError((onError) {
-      print(onError);
+  String result = await sendSMS(message: message, recipients: recipents, sendDirect: false)
+          .catchError((onError) {
+        //print(onError);
+      });
+  //print(result);
+  }
+
+  buildShowDialog(BuildContext context) {
+  return showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (BuildContext context) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
     });
-print(_result);
-}
+  }
 
   @override
   void initState() {
@@ -301,7 +312,7 @@ print(_result);
       if (image == null) return;
 
       final imageTemporary = File(image.path);
-      print(imageTemporary);
+      //print(imageTemporary);
       
       setState(() {
         chosenImage = imageTemporary;

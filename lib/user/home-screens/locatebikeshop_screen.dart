@@ -117,8 +117,8 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
                     goToCurrentLocation();
                   },
 
-                  icon: Icon(Icons.my_location_rounded, color: Colors.white,),
-                  label: Text("Use Current Location", style: TextStyle(color: Colors.white),),
+                  icon: const Icon(Icons.my_location_rounded, color: Colors.white,),
+                  label: const Text("Use Current Location", style: TextStyle(color: Colors.white),),
 
                 ),
               ),
@@ -179,7 +179,7 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
         types: [""],
         decoration: InputDecoration(
             hintText: 'Search',
-            focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(20), borderSide: BorderSide(color: Colors.white))),
+            focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(20), borderSide: const BorderSide(color: Colors.white))),
         components: [Component(Component.country,"ph")]);
 
     displayPrediction(p!, homeScaffoldKey.currentState);
@@ -231,7 +231,7 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
       await Geolocator.requestPermission().then((value) {
 
       }).onError((error, stackTrace) {
-        print("Error: $error");
+        //print("Error: $error");
       });
 
       return await Geolocator.getCurrentPosition();
@@ -247,7 +247,7 @@ class _LocateBikeShopScreenState extends State<LocateBikeShopScreen> {
 
     _markers.add(
       Marker(
-        markerId: MarkerId("currentLocation"),
+        markerId: const MarkerId("currentLocation"),
         icon: currentLocationIcon,
         position: LatLng(latlng.latitude, latlng.longitude)
         )

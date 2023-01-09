@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:siklero/model/sos.dart';
 
@@ -67,7 +65,7 @@ class _TrackHelperScreenState extends State<TrackHelperScreen> {
 
             _markers.add(
               Marker(
-                markerId: MarkerId("helperLocation"),
+                markerId: const MarkerId("helperLocation"),
                 icon: helperLocationIcon,
                 position: helperLatLng
               )
@@ -75,7 +73,7 @@ class _TrackHelperScreenState extends State<TrackHelperScreen> {
 
             _markers.add(
               Marker(
-                markerId: MarkerId("sosLocation"),
+                markerId: const MarkerId("sosLocation"),
                 icon: currentLocationIcon,
                 position: sosLatLng
               )
@@ -93,7 +91,7 @@ class _TrackHelperScreenState extends State<TrackHelperScreen> {
               },
             );
           }
-          return Center(child:  CircularProgressIndicator(),);
+          return const Center(child:  CircularProgressIndicator(),);
         },
       ),
     );

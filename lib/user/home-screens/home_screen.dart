@@ -1,12 +1,10 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:siklero/model/home.dart';
-import 'package:siklero/model/sos.dart';
 import 'package:siklero/user/home-screens/soscall_screen.dart';
 import 'package:siklero/user/home-screens/sosdetails_screen.dart';
 import 'package:siklero/user/home-screens/sosrespond-details_screen.dart';
@@ -248,7 +246,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: InkWell(
         onTap: () async {
 
-          print(hasInternet);
+          //print(hasInternet);
           if (homeitems.text == "Send SOS") {
             if(!hasInternet) {
               Utils.showSnackBar("No Internet connection. Please connect to the internet and try again");

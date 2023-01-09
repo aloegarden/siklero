@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:siklero/model/repair_guide/repair.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -36,17 +34,30 @@ class _RoadsideRepairScreenState extends State<RoadsideRepairScreen> {
       clipBehavior: Clip.antiAlias,
       child: Column(
         children: <Widget>[
-          SizedBox(
-            height: 150,
-            width: MediaQuery.of(context).size.width,
-            child: Image.asset(
-              repair.imagePath,
-              fit: BoxFit.fitWidth,
-            )
+          Stack(
+            children: [
+              SizedBox(
+                height: 150,
+                width: MediaQuery.of(context).size.width,
+                child: Image.asset(
+                  repair.imagePath,
+                  fit: BoxFit.fitWidth,
+                )
+              ),
+              Positioned.fill(
+                child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Text(
+                    "Image: ${repair.imagecredit}",
+                    style: TextStyle(fontFamily: "OpenSans", color: Colors.black.withOpacity(0.5), fontSize: 12),
+                  ),
+                )
+              )
+            ],
           ),
           ExpansionTile(
             title: Text(repair.title),
-            subtitle: Text("Courtesy: " + repair.courtesy),
+            subtitle: Text("Courtesy: ${repair.courtesy}"),
             children: [ListTile(title: Text(repair.description),), buildYoutubeVideo(repair.videoLink)],
           )
         ],

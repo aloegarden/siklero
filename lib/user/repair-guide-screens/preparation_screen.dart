@@ -34,17 +34,30 @@ class _PreparationScreenState extends State<PreparationScreen> {
       clipBehavior: Clip.antiAlias,
       child: Column(
         children: <Widget>[
-          SizedBox(
-            height: 150,
-            width: MediaQuery.of(context).size.width,
-            child: Image.asset(
-              preparation.imagePath,
-              fit: BoxFit.fitWidth,
-            )
+          Stack(
+            children: [
+              SizedBox(
+                height: 150,
+                width: MediaQuery.of(context).size.width,
+                child: Image.asset(
+                  preparation.imagePath,
+                  fit: BoxFit.fitWidth,
+                )
+              ),
+              Positioned.fill(
+                child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Text(
+                    "Image: ${preparation.imagecredit}",
+                    style: TextStyle(fontFamily: "OpenSans", color: Colors.black.withOpacity(0.5), fontSize: 12),
+                  ),
+                )
+              )
+            ],
           ),
           ExpansionTile(
             title: Text(preparation.title),
-            subtitle: Text("Courtesy: " + preparation.courtesy),
+            subtitle: Text("Courtesy: ${preparation.courtesy}"),
             children: [ListTile(title: Text(preparation.description),)],
           )
         ],

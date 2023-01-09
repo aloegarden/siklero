@@ -46,13 +46,13 @@ class _ChatScreenState extends State<ChatScreen> {
             child: Scaffold(
               appBar: AppBar(
                 backgroundColor: const Color(0xffed8f5b),
-                title: Text('${userInfo!.fName} ${userInfo!.lName}', style: TextStyle(fontFamily: 'OpenSans', fontSize: 24),),
+                title: Text('${userInfo!.fName} ${userInfo!.lName}', style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24),),
                 centerTitle: true,
           
                 actions: [
                   IconButton(onPressed:() {
                     Utils.openCall(userInfo!.contact!);
-                  }, icon: Icon(Icons.call))
+                  }, icon: const Icon(Icons.call))
                 ],
               ),
           
@@ -163,7 +163,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
       final json = message.toJSON();
 
-      print(json);
+      //print(json);
 
       await docMessage.add(json);
       messageController.clear();
@@ -232,7 +232,7 @@ class _ChatScreenState extends State<ChatScreen> {
     
           color: isMe 
           ? const Color(0xffed8f5b)
-          : Color.fromARGB(255, 214, 214, 214) 
+          : const Color.fromARGB(255, 214, 214, 214) 
         ),
     
         child: Column(

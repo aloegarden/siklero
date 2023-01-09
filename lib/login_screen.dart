@@ -212,7 +212,7 @@ Widget _buildLoginButton(TextEditingController emailController, TextEditingContr
         email: emailController.text.trim(), 
         password: passwordController.text.trim(),
       ).then((userCredential) => {
-        print(userCredential.user?.uid)
+        //print(userCredential.user?.uid)
       });
 
 
@@ -223,7 +223,7 @@ Widget _buildLoginButton(TextEditingController emailController, TextEditingContr
         (route) => false
       );
     } on FirebaseAuthException catch (e) {
-      print(e.code);
+      //print(e.code);
 
       Utils.showSnackBar(e.message);
     }

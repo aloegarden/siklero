@@ -7,7 +7,6 @@ import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:siklero/model/sos.dart';
-import 'package:siklero/model/user_info.dart';
 import 'package:siklero/user/home-screens/chat_screen.dart';
 import 'package:siklero/user/home-screens/route_screen.dart';
 import 'package:siklero/user/utils/utils.dart';
@@ -44,7 +43,7 @@ class _SOSRespondDetailsScreenState extends State<SOSRespondDetailsScreen> {
       await Geolocator.requestPermission().then((value) {
 
       }).onError((error, stackTrace) {
-        print("Error: " + error.toString());
+        print("Error: $error");
       });
 
       return await Geolocator.getCurrentPosition();
@@ -239,12 +238,12 @@ class _SOSRespondDetailsScreenState extends State<SOSRespondDetailsScreen> {
   }
 
   Future<double> goToLocation() async {
-    print("went to go to location");
+    //print("went to go to location");
 
     currentLocation = await getUserCurrentLocation();
 
     distance = Geolocator.distanceBetween(currentLocation.latitude, currentLocation.longitude, sosCall.coordinates!.latitude, sosCall.coordinates!.longitude);
-    print(distance);
+    //print(distance);
 
     return distance;
   }

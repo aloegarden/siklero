@@ -6,7 +6,6 @@ import 'package:siklero/model/user_info.dart';
 import 'package:siklero/user/home-screens/chat_screen.dart';
 import 'package:siklero/user/home-screens/reminder_screen.dart';
 import 'package:siklero/user/home-screens/track-helper_screen.dart';
-import 'package:siklero/user/utils/utils.dart';
 
 class SOSCallScreen extends StatefulWidget {
   final String sosID;
@@ -59,7 +58,7 @@ class _SOSCallScreenState extends State<SOSCallScreen> {
         if (snapshot.hasError) {
           return Text('Something went wrong! ${snapshot.error}');
         } else if (snapshot.hasData) {
-          print("first streambuilder");
+          //print("first streambuilder");
           sosCall = SOSCall.fromJSON(snapshot.data!.data()!);
 
           //bool isCompleted = sosCall!.isCompleted!;
@@ -184,7 +183,7 @@ class _RespondingHelperState extends State<RespondingHelper> {
 
   @override
   Widget build(BuildContext context) {
-    print("second streambuilder");
+    //print("second streambuilder");
     return FutureBuilder(
       future: readUser(),
       builder: (context, snapshot) {

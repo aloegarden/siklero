@@ -45,7 +45,7 @@ class _SOSRespondScreenState extends State<SOSRespondScreen> {
                   return Center(child: Text('Something went wrong! ${snapshot.error}'));
                 } else if (snapshot.hasData) {
                   final sosCalls = snapshot.data!;
-                  print("streambuilder");
+                  //print("streambuilder");
 
                   return sosCalls.isEmpty 
                   ? const Center(child: Text("There are no SOS Request at the moment."),) 
@@ -221,8 +221,8 @@ class _SOSRespondScreenState extends State<SOSRespondScreen> {
       .doc() */
 
   Stream<List<SOSCall>> readSOSCalls() {
-    var today = new DateTime.now();
-    today = new DateTime(today.year, today.month, today.day);
+    var today = DateTime.now();
+    today = DateTime(today.year, today.month, today.day);
     
     return FirebaseFirestore.instance
       .collection('sos_call')

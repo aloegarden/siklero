@@ -2,10 +2,8 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class RouteScreen extends StatefulWidget {
   final GeoPoint destination;
@@ -39,7 +37,7 @@ class _RouteScreenState extends State<RouteScreen> {
 
   LocationData? currentLocation;
 
-  static const  LatLng startingPoint = LatLng(14.585324535215058, 121.11490272878397);
+  //static const  LatLng startingPoint = LatLng(14.585324535215058, 121.11490272878397);
 
   @override
   void initState() {    
@@ -87,9 +85,9 @@ class _RouteScreenState extends State<RouteScreen> {
     if (result.points.isNotEmpty) {
         result.points.forEach(
           (PointLatLng point) { 
-            print("pumasok sa loop");
-            print("latitude: " + point.longitude.toString());
-            print("longitude:" + point.latitude.toString());
+            //print("pumasok sa loop");
+            //print("latitude: " + point.longitude.toString());
+            //print("longitude:" + point.latitude.toString());
             polylineCoordinates.add(
             LatLng(point.latitude, point.longitude),
           );}
@@ -125,17 +123,17 @@ class _RouteScreenState extends State<RouteScreen> {
         },
         markers: {
           Marker(
-            markerId: MarkerId("source"),
+            markerId: const MarkerId("source"),
             icon: startingLocationIcon,
             position: LatLng(widget.location.latitude, widget.location.longitude),
         ),
           Marker(
-          markerId: MarkerId("destination"),
+          markerId: const MarkerId("destination"),
           icon: destinationLocationIcon,
           position: LatLng(widget.destination.latitude, widget.destination.longitude)
         ),
           Marker(
-            markerId: MarkerId("currentLocation"),
+            markerId: const MarkerId("currentLocation"),
             icon: currentLocationIcon,
             position: LatLng(currentLocation!.latitude!, currentLocation!.longitude!)
           )
@@ -148,14 +146,14 @@ class _RouteScreenState extends State<RouteScreen> {
   }
 
   void getCurrentLocation() async {
-    print("pumasok sa getcurrentlocation");
+    //print("pumasok sa getcurrentlocation");
     Location location = Location();
 
     location.changeSettings(interval: 5);
 
     location.getLocation().then((location) {
       currentLocation = location;
-      print(currentLocation);
+      //print(currentLocation);
 
       setState(() {
         

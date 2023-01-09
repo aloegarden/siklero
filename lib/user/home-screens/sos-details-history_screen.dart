@@ -2,14 +2,11 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:siklero/model/sos.dart';
 import 'package:siklero/model/user_info.dart';
 import 'package:siklero/user/home-screens/chat-history_screen.dart';
-import 'package:siklero/user/home-screens/chat_screen.dart';
 import 'package:siklero/user/utils/utils.dart';
 
 class SOSDetailsHistoryScreen extends StatefulWidget {

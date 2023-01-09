@@ -1,11 +1,13 @@
 class FirstAid {
   final String title;
+  final String imagecredit;
   final String courtesy;
   final String description;
   final String imagePath;
 
   FirstAid({
     required this.title,
+    required this.imagecredit,
     required this.courtesy,
     required this.description,
     required this.imagePath
@@ -15,6 +17,7 @@ class FirstAid {
 final List<FirstAid> firstaids = [
   FirstAid(
     title: "Cuts and grazing", 
+    imagecredit: "stop-diabetes.eu",
     courtesy: "totalwomenscycling.com", 
     description: "If a small cut is dirty, clean it by either rinsing with cold water or using alcohol free wipes and use a gauze swab to pat the wound dry. Then cover it with sterile gauze\n\n"
     + "With soapy water, clean the area around the injury.\n\n"
@@ -28,6 +31,7 @@ final List<FirstAid> firstaids = [
   ),
   FirstAid(
     title: "Dislocation", 
+    imagecredit: "emergeortho.co",
     courtesy: "totalwomenscycling.com", 
     description: "If the injured person has a dislocated shoulder, try to keep them still, while supporting their arm in a comfortable position.\n\n"
     + "You can immobilise the injured arm with a sling if they will let you. For extra support, secure the arm to the chest by tying a broad fold bandage right around the chest and the sling.\n\n"
@@ -36,6 +40,7 @@ final List<FirstAid> firstaids = [
   ),
   FirstAid(
     title: "Bruising", 
+    imagecredit: "queenphoto.ru",
     courtesy: "totalwomenscycling.com", 
     description: "Raise and support the affected area into a comfortable position\n"
     + "Using a cold compress, such as an icepack wrapped in a cloth, apply firm pressure to the bruise for up to ten minutes.", 
@@ -43,6 +48,7 @@ final List<FirstAid> firstaids = [
   ),
   FirstAid(
     title: "Strains/sprains", 
+    imagecredit: "upmc.com",
     courtesy: "totalwomenscycling.com", 
     description: "Help the injured person to sit or lie down comfortably, with some padding underneath their injury to support it.\n\n"
     + "Cool the area with a cold compress/ice pack to help reduce the swelling and pain\n"
@@ -53,6 +59,7 @@ final List<FirstAid> firstaids = [
   ),
   FirstAid(
     title: "Fractures", 
+    imagecredit: "stoneclinic.com",
     courtesy: "totalwomenscycling.com", 
     description: "Advise the injured person to keep still, while supporting the joints above and below the injury with your hands until it is immobilised.\n\n"
     + "For arm injuries, you can secure the injured arm with a sling. For leg injuries, secure the uninjured leg to the injured one with bandages. You can also place padding around the injury for extra support.\n\n"
@@ -61,6 +68,7 @@ final List<FirstAid> firstaids = [
   ),
   FirstAid(
     title: "Concussion", 
+    imagecredit: "tony10speed.com",
     courtesy: "totalwomenscycling.com", 
     description: "Head injuries can be potentially serious and should be treated with care.\n\n"
     + "If someone has experienced a head injury, and they are fully conscious, help them to sit down in a comfortable position.\n\n"
@@ -71,6 +79,7 @@ final List<FirstAid> firstaids = [
   ),
   FirstAid(
     title: "Dehydration", 
+    imagecredit: "veloforte.com",
     courtesy: "totalwomenscycling.com", 
     description: "If someone you know becomes dehydrated, help them to sit down comfortably.\n\n"
     + "Give them plenty of water to drink. You can also give them oral rehydration solutions if you have them.\n\n"

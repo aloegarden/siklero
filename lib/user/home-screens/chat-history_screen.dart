@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:siklero/model/message.dart';
 import 'package:siklero/model/user_info.dart';
-import 'package:siklero/user/utils/utils.dart';
 
 class ChatHistoryScreen extends StatefulWidget {
   
@@ -46,10 +45,10 @@ class _ChatHistoryScreenState extends State<ChatHistoryScreen> {
             child: Scaffold(
               appBar: AppBar(
                 backgroundColor: const Color(0xffed8f5b),
-                title: Text('${userInfo!.fName} ${userInfo!.lName}', style: TextStyle(fontFamily: 'OpenSans', fontSize: 24),),
+                title: Text('${userInfo!.fName} ${userInfo!.lName}', style: const TextStyle(fontFamily: 'OpenSans', fontSize: 24),),
                 centerTitle: true,
           
-                actions: [
+                actions: const [
                   IconButton(onPressed: null , icon: Icon(Icons.call))
                 ],
               ),
@@ -109,7 +108,6 @@ class _ChatHistoryScreenState extends State<ChatHistoryScreen> {
 
       final json = message.toJSON();
 
-      print(json);
 
       await docMessage.add(json);
       messageController.clear();
@@ -177,7 +175,7 @@ class _ChatHistoryScreenState extends State<ChatHistoryScreen> {
     
           color: isMe 
           ? const Color(0xffed8f5b)
-          : Color.fromARGB(255, 214, 214, 214) 
+          : const Color.fromARGB(255, 214, 214, 214) 
         ),
     
         child: Column(

@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:intl/intl.dart';
 import 'package:siklero/model/sos.dart';
 import 'package:siklero/model/user_info.dart';
@@ -45,7 +43,7 @@ class _SOSHistoryScreenState extends State<SOSHistoryScreen> {
                   return Center(child: Text('Something went wrong! ${snapshot.error}'));
                 } else if (snapshot.hasData) {
                   final sosCalls = snapshot.data!;
-                  print("streambuilder");
+                  //print("streambuilder");
 
                   return sosCalls.isEmpty 
                   ? const Center(child: Text("There are no SOS Request at the moment."),) 

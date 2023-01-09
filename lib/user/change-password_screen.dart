@@ -244,7 +244,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       }
 
       try {
-        UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: userEmail, 
           password: currentPasswordController.text.trim()
         );

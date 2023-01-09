@@ -1,7 +1,5 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:siklero/model/repair_guide/tool.dart';
 
 class ToolsScreen extends StatefulWidget {
@@ -66,13 +64,26 @@ class _ToolsScreenState extends State<ToolsScreen> {
       clipBehavior: Clip.antiAlias,
       child: Column(
         children: <Widget>[
-          SizedBox(
-            height: 150,
-            width: MediaQuery.of(context).size.width,
-            child: Image.asset(
-              tool.imagePath,
-              fit: BoxFit.fitWidth,
-            )
+          Stack(
+            children: [
+              SizedBox(
+                height: 150,
+                width: MediaQuery.of(context).size.width,
+                child: Image.asset(
+                  tool.imagePath,
+                  fit: BoxFit.fitWidth,
+                )
+              ),
+              Positioned.fill(
+                child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Text(
+                    "Image: ${tool.imagecredit}",
+                    style: TextStyle(fontFamily: "OpenSans", color: Colors.black.withOpacity(0.5), fontSize: 12),
+                  ),
+                )
+              )
+            ],
           ),
           ExpansionTile(
             backgroundColor: const Color(0xFfFFD4BC),
@@ -81,7 +92,7 @@ class _ToolsScreenState extends State<ToolsScreen> {
               style: titleStyle
             ),
             subtitle: Text(
-              "Courtesy: " + tool.courtesy,
+              "Courtesy: ${tool.courtesy}",
               style: courtesyStyle,
             ),
             children: [

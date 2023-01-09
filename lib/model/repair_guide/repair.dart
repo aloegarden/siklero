@@ -1,5 +1,6 @@
 class Repair {
   final String title;
+  final String imagecredit;
   final String courtesy;
   final String description;
   final String imagePath;
@@ -7,6 +8,7 @@ class Repair {
 
   Repair({
     required this.title,
+    required this.imagecredit,
     required this.courtesy,
     required this.description,
     required this.imagePath,
@@ -17,6 +19,7 @@ class Repair {
 final List<Repair> repairs = [
   Repair(
     title: "Inner Tube Replacement", 
+    imagecredit: "sigmasports.com",
     courtesy: "ridefar.info", 
     description: "When you have a puncture, simply removing the tire and inserting a new inner tube is not enough, you also need to diagnose the cause of the puncture to help avoid re-occurrences. Possible causes include a sharp object in the tire, a pinch flat, a valve problem, a rim tape problem, and poorly-adjusted brake pads rubbing away the tire’s sidewall. After removing one side of the tire, remove the tube but leave the valve in the rim and pump up the old tube to locate the hole and determine the cause.\n\n"
     + "If you find the hole and it appears to have been made by a sharp object then investigate the corresponding part of the tire to see if the object (glass, metal, thorn, etc.) is still there and use a pointy tool to prise it out, or push it out from the back. If the hole in the tire is large enough for a new tube to protrude through then you’ll need to install a tire boot between the tire and the tube (which could be a proper tire boot or could be some paper money or a food wrapper).\n\n"
@@ -28,6 +31,7 @@ final List<Repair> repairs = [
   ),
   Repair(
     title: "Inner Tube Repair", 
+    imagecredit: "rei.com",
     courtesy: "ridefar.info", 
     description: "After finding the hole in the tube, use sandpaper to clean off the area to make the glue work better. After applying a small amount of glue and spreading it around an area larger than the patch, wait a few minutes for the glue to mostly dry before pressing the patch down firmly. Glue that was opened more than about a month ago won’t work properly anymore, so bring a new, unopened tube.", 
     imagePath: "asset/img/repair_image/patch-bike-tube.jpg",
@@ -35,6 +39,7 @@ final List<Repair> repairs = [
   ),
   Repair(
     title: "Tubeless Tire Repair", 
+    imagecredit: "bikeradar.com",
     courtesy: "ridefar.info", 
     description: "If you are running tubeless tires and a small hole isn’t automatically sealed by the sealant then stop and move the hole to the bottom of the tire and put weight on it to slow the air flow and let the sealant work, or press on the hole with your thumb.\n\n"
     + "Slow leaks that develop in tubeless setups can be caused by leaky valves, so check that the valve core is well tightened. Hopefully you can then simply pump the tire back up to your preferred pressure, but if the tire has disconnected from the rim and you cannot get it to re-seal using only your pump, then you may be able to use an air compressor at a petrol/gas station if you bring a Presta-Schrader valve adapter or you could find a bike shop with a compressor.\n\n"
@@ -44,6 +49,7 @@ final List<Repair> repairs = [
   ),
   Repair(
     title: "Chain Repair", 
+    imagecredit: "singletracks.com",
     courtesy: "singletracks.com", 
     description: "The first step is to remove the broken link. This is where the chain tool is needed. The tool will have a recess shaped for laying the chain link in, holding the chain firmly while the screw plunger presses the pin out. This step can be performed with the chain still on the bike, or it can be pulled off and laid flat.\n\n"
     + "Remove the broken link such that you are left with the ‘inner’ link of the chain on both ends.\n\n"
@@ -54,6 +60,7 @@ final List<Repair> repairs = [
   ),
   Repair(
     title: "Rear Derailleur Hanger Replacement", 
+    imagecredit: "parktool.com",
     courtesy: "ridefar.info", 
     description: "Derailleur hangers are designed to bend relatively easily to protect the frame and the rear derailleur during a crash or if the bike simply falls over. Minor damage and slight misalignment might not be immediately apparent, but when you shift into the larger cogs on the cassette after a crash then the rear derailleur may move into the wheel’s spokes and cause serious damage to the derailleur, wheel, hanger, and possibly the frame.\n\n"
     + "You should therefore check the hanger and derailleur alignment after any bike fall and replace the hanger if it might be bent. Because each hanger is specific to a certain bike model (or small set of models), the correct one is normally difficult to obtain at short notice, so order one ahead of time and take it with you.", 
@@ -62,6 +69,7 @@ final List<Repair> repairs = [
   ),
   Repair(
     title: "Brake Pad Adjustment & Replacement", 
+    imagecredit: "road.cc",
     courtesy: "ridefar.info", 
     description: "Rim brakes normally have an adjustment knob where the cable housing enters the brake which can be unscrewed to compensate for wear, but make sure that the pads still contact the rim at the correct height and replace the pads when the wear line is reached.\n\n"
     + "Cable-actuated disc brakes should have a pad adjustment screw on each side of the caliper; hydraulic disc brakes should automatically move the pistons in to adjust for pad wear.\n\n"
@@ -71,6 +79,7 @@ final List<Repair> repairs = [
   ),
   Repair(
     title: "Nut & Bolt Tightening & Replacement", 
+    imagecredit: "bicyling.com",
     courtesy: "ridefar.info", 
     description: "Carrying a few spares of common bolt sizes is a good idea, as well as a few bike-specific bolts that are difficult to obtain in regular stores. If a bolt is broken or lost and you don’t have a spare, then see if there is somewhere else on the bike that is less essential from which you can borrow a bolt temporarily. For instance, water bottle cage bolts are M5 and may work as a replacement seatpost-clamp bolt, stem bolt, etc. As a last resort, some bolts can be temporarily replaced with zip ties.", 
     imagePath: "asset/img/repair_image/nuts-bolts.jpg",
@@ -78,6 +87,7 @@ final List<Repair> repairs = [
   ),
   Repair(
     title: "Headset Adjustment", 
+    imagecredit: "roadbikeaction.com",
     courtesy: "ridefar.info", 
     description: "If you choose to change the height of your handlebars at some point then you’ll need to re-adjust your headset, and you may also need to do so if you turn your stem to transport your bike.", 
     imagePath: "asset/img/repair_image/headset.jpg",

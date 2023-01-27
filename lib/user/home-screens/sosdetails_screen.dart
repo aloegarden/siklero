@@ -36,7 +36,7 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
   String? value;
   String address = "";
   bool isDisabled = true;
-  final List<String> cities = ["Caloocan", "Las Piñas", "Makati", "Malabon", "Mandaluyong", "Manila", "Marikina", "Muntinlupa", "Navotas", "Parañaque", "Pasay", "Pasig", "Pateros", "Quezon City", "San Juan", "Taguig", "Valenzuela"];
+  final List<String> cities = ["Caloocan", "Las Piñas", "Makati", "Malabon", "Mandaluyong", "Manila", "Maynila", "Marikina", "Muntinlupa", "Navotas", "Parañaque", "Pasay", "Pasig", "Pateros", "Quezon City", "San Juan", "Taguig", "Valenzuela"];
   TextEditingController detailsController = TextEditingController();
 
   loadData () {
@@ -59,11 +59,11 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
         sosCall.city = place.locality;
         //print(sosCall.locationAddress);
         //print(sosCall.city);
-        /*if(cities.contains(sosCall.city)) {
+        if(cities.contains(sosCall.city)) {
           isDisabled = false;
         } else {
           Utils.showSnackBar("Your current location is not supported. Sorry for the inconvenience");
-        }*/
+        }
       });
     });
   }
@@ -276,7 +276,7 @@ class _SOSDetailsScreenState extends State<SOSDetailsScreen> {
                       inputImage(),
                       const SizedBox(height: 50,),
                       ElevatedButton(
-                        onPressed: /*isDisabled ? null : */() => writeSOS(), 
+                        onPressed: isDisabled ? null : () => writeSOS(), 
                         style: ElevatedButton.styleFrom(
                         shape: const StadiumBorder(),
                         foregroundColor: Colors.white,

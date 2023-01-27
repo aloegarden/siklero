@@ -231,15 +231,33 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         builder: (context) => const Center(child: CircularProgressIndicator(),)
       );
 
-      final isValid = formKey.currentState!.validate();
-      String userEmail = user.email!;
-      if (!isValid) {
+      if(currentPasswordController.text.trim() == "") {
+        Utils.showSnackBar("No current password provided. Please try again");
+        Navigator.of(context).pop();
+        return;
+      }
+
+      if(newPasswordController.text.trim() == "") {
+        Utils.showSnackBar("No new password provided. Please try again");
+        Navigator.of(context).pop();
+        return;
+      }
+
+      if(repeatPasswordController.text.trim() == "") {
+        Utils.showSnackBar("No repeat password provided. Please try again");
+        Navigator.of(context).pop();
         return;
       }
 
       if (newPasswordController.text.trim() != repeatPasswordController.text.trim()) {
         Utils.showSnackBar("New passwords does not match. Please try again");
         Navigator.of(context).pop();
+        return;
+      }
+
+      final isValid = formKey.currentState!.validate();
+      String userEmail = user.email!;
+      if (!isValid) {
         return;
       }
 

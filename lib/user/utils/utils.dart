@@ -42,5 +42,15 @@ class Utils {
     }
   }
 
+  static Future<void> openHotlineCall(
+    String number
+  ) async {
+    Uri numberUrl = Uri.parse("tel:$number");
+
+    if (await canLaunchUrl(numberUrl)) {
+      await launchUrl(numberUrl, mode: LaunchMode.externalApplication);
+    }
+  }
+
   
 }

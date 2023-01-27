@@ -30,7 +30,7 @@ class HotlineScreen extends StatelessWidget {
         ),
         trailing: IconButton(
           icon: const Icon(Icons.local_phone_outlined),
-          onPressed: () => Utils.openCall(tile.title),
+          onPressed: () => Utils.openHotlineCall(tile.title),
         ),
       );
     } else {

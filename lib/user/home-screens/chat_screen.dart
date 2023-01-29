@@ -131,6 +131,7 @@ class _ChatScreenState extends State<ChatScreen> {
           return messages.isEmpty 
           ? const Center(child : Text('Send a message to start the conversation')) 
           : ListView(
+            scrollDirection: Axis.vertical,
             shrinkWrap: true,
             reverse: true,
             physics: const ScrollPhysics(),

@@ -356,11 +356,16 @@ class UsersCard extends StatelessWidget {
                   'Address: ',
                   style: kUserLabelTextStyle,
                 ),
-                Text(
-                  address,
-                  style: kUserDetailsTextStyle,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+                Expanded(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Text(
+                      address,
+                      style: kUserDetailsTextStyle,
+                      //maxLines: 1,
+                      //overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                 ),
               ],
             ),

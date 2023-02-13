@@ -621,8 +621,7 @@ class _RecordsStreamState extends State<RecordsStream> {
     String date =
         DateFormat('MMMM dd, yyyy').format(snapshot.get('created_at').toDate());
 
-    //print(callerName! + time + date);
-
+    //print(callerName! + responderName! + time + date);
 
     return RecordsCard(
       details: snapshot.get('sos_details'),
@@ -644,9 +643,7 @@ class _RecordsStreamState extends State<RecordsStream> {
         .snapshots()
         .asyncMap((records) => Future.wait(
             [for (var record in records.docs) generateRecords(record)]));
-    // firestoreStream =
-    //     FirebaseFirestore.instance.collection('sos_call').snapshots();
-    setState(() {});
+    //setState(() {});
     super.initState();
   }
 
@@ -771,25 +768,27 @@ class RecordsCard extends StatelessWidget {
                 const SizedBox(
                   width: 40,
                 ),
-                Column(
-                  children: [
-                    const Text(
-                      'Bicycle Failure Details:',
-                      style: TextStyle(
-                          fontFamily: 'OpenSansCondensed',
-                          fontWeight: FontWeight.w300,
-                          fontSize: 15,
-                          color: Color(0xFF581D00)),
-                    ),
-                    Text(
-                      details,
-                      style: (const TextStyle(
-                          fontFamily: 'OpenSansCondensed',
-                          fontWeight: FontWeight.w700,
-                          fontSize: 17,
-                          color: Color(0xFF581D00))),
-                    ),
-                  ],
+                Expanded(
+                  child: Column(
+                    children: [
+                      const Text(
+                        'Bicycle Failure Details:',
+                        style: TextStyle(
+                            fontFamily: 'OpenSansCondensed',
+                            fontWeight: FontWeight.w300,
+                            fontSize: 15,
+                            color: Color(0xFF581D00)),
+                      ),
+                      Text(
+                        details,
+                        style: (const TextStyle(
+                            fontFamily: 'OpenSansCondensed',
+                            fontWeight: FontWeight.w700,
+                            fontSize: 17,
+                            color: Color(0xFF581D00))),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

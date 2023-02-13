@@ -35,7 +35,7 @@ class Utils {
   static Future<void> openCall(
     String number
   ) async {
-    Uri numberUrl = Uri.parse("tel:+63$number");
+    Uri numberUrl = Uri.parse("tel:$number");
 
     if (await canLaunchUrl(numberUrl)) {
       await launchUrl(numberUrl, mode: LaunchMode.externalApplication);
